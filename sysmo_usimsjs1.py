@@ -138,7 +138,7 @@ def sysmo_usim_init(sim):
 
 # Authenticate as administrator
 def sysmo_usim_admin_auth(sim, adm1):
-	print " * Authenticating at card as adminstrator..."
+	print " * Authenticating at card as administrator..."
 	sim.verify_chv(adm1, SYSMO_USIMSJS1_ADM1)
 
 

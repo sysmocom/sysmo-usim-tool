@@ -115,7 +115,7 @@ def main(argv):
 
 
 	# Claim terminal
-	print "Initalizing smartcard terminal..."
+	print "Initializing smartcard terminal..."
 	c = Card(getopt_verbose)
 	sim = Simcard(c)
 	print("")
