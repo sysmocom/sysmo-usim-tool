@@ -178,12 +178,6 @@ def sysmo_usim_show_milenage_params(sim, adm1):
 	sysmo_usim_init(sim)
 	sysmo_usim_admin_auth(sim, adm1)
 
-
-# Show current milenage parameters
-def sysmo_usim_show_milenage_params(sim, adm1):
-	sysmo_usim_init(sim)
-	sysmo_usim_admin_auth(sim, adm1)
-
 	sim.select(SYSMO_USIMSJS1_DF_AUTH)
 	sim.select(SYSMO_USIMSJS1_EF_MLNGC)
 
