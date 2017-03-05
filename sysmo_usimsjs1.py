@@ -269,6 +269,35 @@ def sysmo_usim_write_opc_params(sim, adm1, select, op):
 	sim.update_binary([select] + op)
 
 
+# Show current KI value
+def sysmo_usim_show_ki_params(sim, adm1):
+	sysmo_usim_init(sim)
+	sysmo_usim_admin_auth(sim, adm1)
+
+	print " * Reading..."
+	sim.select(GSM_SIM_DF_GSM)
+	sim.select(SYSMO_USIMSJS1_EF_KI)
+	res = sim.read_binary(16)
+
+	print " * Current KI setting:"
+	print "   KI: " + hexdump(res.apdu)
+
+
+# Program new KI value
+def sysmo_usim_write_ki_params(sim, adm1, ki):
+	print " * New KI setting:"
+	print "   KI: " + hexdump(ki)
+
+	sysmo_usim_init(sim)
+	sysmo_usim_admin_auth(sim, adm1)
+
+	sim.select(GSM_SIM_DF_GSM)
+	sim.select(SYSMO_USIMSJS1_EF_KI)
+
+	print " * Programming..."
+	sim.update_binary(ki)
+
+
 # Show the enable status of the USIM application (app is enabled or disabled?)
 def sysmo_usim_show_usim_status(sim, adm1):
 	sysmo_usim_init(sim)
