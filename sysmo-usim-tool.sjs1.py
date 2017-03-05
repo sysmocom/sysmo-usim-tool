@@ -172,13 +172,13 @@ def main(argv):
 		print("")
 
 	if getopt_write_opc:
-		print "Writing OPCC value..."
+		print "Writing OPC value..."
 		sysmo_usim_write_opc_params(sim,
 			getopt_adm1, 1, getopt_write_opc)
 		print("")
 
 	if getopt_show_opc:
-		print "Reading OPC value..."
+		print "Reading OP/C value..."
 		sysmo_usim_show_opc_params(sim, getopt_adm1)
 		print("")
 
