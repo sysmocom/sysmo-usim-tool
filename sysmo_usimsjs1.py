@@ -137,16 +137,39 @@ def sysmo_usim_init(sim):
 
 
 # Authenticate as administrator
-def sysmo_usim_admin_auth(sim, adm1):
-	print " * Authenticating at card as administrator..."
-	sim.verify_chv(adm1, SYSMO_USIMSJS1_ADM1)
+def sysmo_usim_admin_auth(sim, adm1, force = False):
+	rc = True
+	rem_attemts = sim.chv_retrys(SYSMO_USIMSJS1_ADM1)
+
+	print " * Remaining attempts: " + str(rem_attemts)
+
+	# Stop if a decreased ADM1 retry counter is detected
+	if(rem_attemts < 3) and force == False:
+		print " * Error: Only two authentication attemts remaining, we don't"
+		print "          want to risk another failed authentication attempt!"
+		print "          (double check ADM1 and use option -f to override)"
+		return False
+
+	# Try to authenticate
+	try:
+		print " * Authenticating..."
+		sim.verify_chv(adm1, SYSMO_USIMSJS1_ADM1)
+		print " * Authentication successful"
+	except:
+		print " * Error: Authentication failed!"
+		rc = False
+
+	# Read back and display remaining attemts
+	rem_attemts = sim.chv_retrys(SYSMO_USIMSJS1_ADM1)
+	print " * Remaining attempts: " + str(rem_attemts)
+
+	return rc
 
 
 # Show current athentication parameters
 # (Which algorithim is used for which rat?)
 def sysmo_usim_show_auth_params(sim, adm1):
 	sysmo_usim_init(sim)
-	sysmo_usim_admin_auth(sim, adm1)
 
 	print " * Reading..."
 	sim.select(SYSMO_USIMSJS1_DF_AUTH)
@@ -165,7 +188,6 @@ def sysmo_usim_write_auth_params(sim, adm1, algo_2g, algo_3g):
 	print "   3G: " + str(hex(algo_3g))
 
 	sysmo_usim_init(sim)
-	sysmo_usim_admin_auth(sim, adm1)
 
 	print " * Programming..."
 	sim.select(SYSMO_USIMSJS1_DF_AUTH)
@@ -176,7 +198,6 @@ def sysmo_usim_write_auth_params(sim, adm1, algo_2g, algo_3g):
 # Show current milenage parameters
 def sysmo_usim_show_milenage_params(sim, adm1):
 	sysmo_usim_init(sim)
-	sysmo_usim_admin_auth(sim, adm1)
 
 	sim.select(SYSMO_USIMSJS1_DF_AUTH)
 	sim.select(SYSMO_USIMSJS1_EF_MLNGC)
@@ -211,7 +232,6 @@ def sysmo_usim_show_milenage_params(sim, adm1):
 # Write new milenage parameters
 def sysmo_usim_write_milenage_params(sim, adm1, ef_mlngc):
 	sysmo_usim_init(sim)
-	sysmo_usim_admin_auth(sim, adm1)
 
 	print " * New Milenage Parameters for (EF.MLNGC):"
 	print str(ef_mlngc)
@@ -235,7 +255,6 @@ def sysmo_usim_write_milenage_params(sim, adm1, ef_mlngc):
 # Show current OPc value
 def sysmo_usim_show_opc_params(sim, adm1):
 	sysmo_usim_init(sim)
-	sysmo_usim_admin_auth(sim, adm1)
 
 	print " * Reading..."
 	sim.select(GSM_SIM_DF_GSM)
@@ -254,7 +273,6 @@ def sysmo_usim_write_opc_params(sim, adm1, select, op):
 	print "   OP/OPc: " + hexdump(op)
 
 	sysmo_usim_init(sim)
-	sysmo_usim_admin_auth(sim, adm1)
 
 	sim.select(GSM_SIM_DF_GSM)
 	sim.select(SYSMO_USIMSJS1_EF_OPC)
@@ -266,7 +284,6 @@ def sysmo_usim_write_opc_params(sim, adm1, select, op):
 # Show current KI value
 def sysmo_usim_show_ki_params(sim, adm1):
 	sysmo_usim_init(sim)
-	sysmo_usim_admin_auth(sim, adm1)
 
 	print " * Reading..."
 	sim.select(GSM_SIM_DF_GSM)
@@ -283,7 +300,6 @@ def sysmo_usim_write_ki_params(sim, adm1, ki):
 	print "   KI: " + hexdump(ki)
 
 	sysmo_usim_init(sim)
-	sysmo_usim_admin_auth(sim, adm1)
 
 	sim.select(GSM_SIM_DF_GSM)
 	sim.select(SYSMO_USIMSJS1_EF_KI)
@@ -295,7 +311,6 @@ def sysmo_usim_write_ki_params(sim, adm1, ki):
 # Show the enable status of the USIM application (app is enabled or disabled?)
 def sysmo_usim_show_usim_status(sim, adm1):
 	sysmo_usim_init(sim)
-	sysmo_usim_admin_auth(sim, adm1)
 
 	print " * Reading..."
 	sim.select(GSM_USIM_EF_DIR)
@@ -308,7 +323,6 @@ def sysmo_usim_show_usim_status(sim, adm1):
 # Show the enable status of the USIM application (app is enabled or disabled?)
 def sysmo_usim_show_sim_mode(sim, adm1):
 	sysmo_usim_init(sim)
-	sysmo_usim_admin_auth(sim, adm1)
 
 	print " * Reading..."
 	sim.select(GSM_USIM_EF_DIR)
@@ -338,7 +352,6 @@ def sysmo_usim_write_sim_mode(sim, adm1, usim_enabled = True):
 		print "   ==> USIM application disabled"
 
 	sysmo_usim_init(sim)
-	sysmo_usim_admin_auth(sim, adm1)
 
 	print " * Programming..."
 	sim.select(GSM_USIM_EF_DIR)

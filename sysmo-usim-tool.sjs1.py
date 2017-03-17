@@ -70,15 +70,16 @@ def main(argv):
 	getopt_write_opc = None
 	getopt_show_ki = None
 	getopt_write_ki = None
+	getopt_force = False
 
 	# Analyze commandline options
 	try:
 		opts, args = getopt.getopt(argv,
-			"hva:ucmtT:lL:oO:C:kK:",
+			"hva:ucmtT:lL:oO:C:kK:f",
 				["help","verbose","adm1=","usim","classic",
 				 "mode","auth","set-auth=","milenage",
 				 "set-milenage","opc","set-op=","set-opc=",
-				 "ki","set-ki="])
+				 "ki","set-ki=","force"])
 	except getopt.GetoptError:
 		print " * Error: Invalid commandline options"
 		sys.exit(2)
@@ -115,6 +116,8 @@ def main(argv):
 			getopt_show_ki = True
 		elif opt in ("-K", "--set-ki"):
 			getopt_write_ki = asciihex_to_list(arg)
+		elif opt in ("-f", "--force"):
+			getopt_force = True
 
 
 	if not getopt_adm1:
@@ -129,6 +132,15 @@ def main(argv):
 	sim = Simcard(c)
 	print("")
 
+	# Authenticate
+	print "Authenticating..."
+	if sysmo_usim_admin_auth(sim, getopt_adm1, getopt_force) == False:
+		print ""
+		print "   ===  Authentication problem! The Card will permanently   ==="
+		print "   === lock down after 3 failed attemts! Double check ADM1! ==="
+		print ""
+		exit(1)
+	print("")
 
 	# Execute tasks
 	if getopt_write_sim_mode != None:

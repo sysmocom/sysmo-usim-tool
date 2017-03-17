@@ -146,11 +146,22 @@ class Simcard():
 
 		cla = self.__get_cla(self.usim)
 		ins = GSM_SIM_INS_VERIFY_CHV
-		length = 0x08
-
+		length = len(chv)
 		apdu = self.card.apdu(cla, ins, p2 = chv_no,
 			p3 = length, data = chv)
 		return self.card.transact(apdu, dry, strict)
+
+
+	# Read CHV retry counter
+	def chv_retrys(self, chv_no, dry = False, strict = True):
+
+		cla = self.__get_cla(self.usim)
+		ins = GSM_SIM_INS_VERIFY_CHV
+		length = 0
+		apdu = self.card.apdu(cla, ins, p2 = chv_no,
+			p3 = length, sw=[0x63, None])
+		res = self.card.transact(apdu, dry, strict)
+		return res.sw[1] & 0x0F
 
 
 	# Perform file operation (Write)
