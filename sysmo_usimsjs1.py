@@ -358,3 +358,26 @@ def sysmo_usim_write_sim_mode(sim, adm1, usim_enabled = True):
 	sim.update_record(new_record, rec_no = 1)
 
 
+# Show current ICCID value
+def sysmo_usim_show_iccid(sim, adm1):
+	sysmo_usim_init(sim)
+
+	print " * Reading..."
+	sim.select(GSM_SIM_EF_ICCID)
+	res = sim.read_binary(10)
+
+	print " * Current ICCID setting:"
+	print "   ICCID: " + hexdump(swap_nibbles(res.apdu))
+
+
+# Program new ICCID value
+def sysmo_usim_write_iccid(sim, adm1, iccid):
+	print " * New ICCID setting:"
+	print "   ICCID: " + hexdump(iccid)
+
+	sysmo_usim_init(sim)
+
+	sim.select(GSM_SIM_EF_ICCID)
+
+	print " * Programming..."
+	sim.update_binary(swap_nibbles(iccid))

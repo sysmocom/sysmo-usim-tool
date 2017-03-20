@@ -51,6 +51,7 @@ def helptext():
 	print "   -C, --set-opc HEXSTRING ........ Set OPc value"
 	print "   -k, --ki ....................... Show KI value"
 	print "   -K, --set-ki ................... Set KI value"
+	print "   -i, --iccid .................... Show ICCID value"
 	print ""
 
 
@@ -71,15 +72,17 @@ def main(argv):
 	getopt_show_ki = None
 	getopt_write_ki = None
 	getopt_force = False
+	getopt_show_iccid = False
+	getopt_write_iccid = None
 
 	# Analyze commandline options
 	try:
 		opts, args = getopt.getopt(argv,
-			"hva:ucmtT:lL:oO:C:kK:f",
+			"hva:ucmtT:lL:oO:C:kK:fiI:",
 				["help","verbose","adm1=","usim","classic",
 				 "mode","auth","set-auth=","milenage",
 				 "set-milenage","opc","set-op=","set-opc=",
-				 "ki","set-ki=","force"])
+				 "ki","set-ki=","force","iccid","set-iccid="])
 	except getopt.GetoptError:
 		print " * Error: Invalid commandline options"
 		sys.exit(2)
@@ -118,6 +121,10 @@ def main(argv):
 			getopt_write_ki = asciihex_to_list(arg)
 		elif opt in ("-f", "--force"):
 			getopt_force = True
+		elif opt in ("-i", "--iccid"):
+			getopt_show_iccid = True
+		elif opt in ("-I", "--set-iccid"):
+			getopt_write_iccid = asciihex_to_list(pad_asciihex(arg))
 
 
 	if not getopt_adm1:
@@ -203,6 +210,16 @@ def main(argv):
 	if getopt_show_ki:
 		print "Reading KI value..."
 		sysmo_usim_show_ki_params(sim, getopt_adm1)
+		print("")
+
+	if getopt_show_iccid:
+		print "Reading ICCID value..."
+		sysmo_usim_show_iccid(sim, getopt_adm1)
+		print("")
+
+	if getopt_write_iccid:
+		print "Writing ICCID value..."
+		sysmo_usim_write_iccid(sim, getopt_adm1, getopt_write_iccid)
 		print("")
 
 	print "Done!"

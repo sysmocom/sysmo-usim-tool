@@ -48,3 +48,20 @@ def asciihex_to_list(string):
 	except:
 		print "Warning: Invalid hex string -- ignored!"
 		return []
+
+
+# Pad an ascihex string with a nibble in case it is "incomplete"
+def pad_asciihex(string, padding='f'):
+
+	if len(string) % 2 != 0:
+		return string + padding
+	return string
+
+
+# Swap nibbles of each byte in an array
+def swap_nibbles(array):
+
+	rc = []
+	for a in array:
+		rc.append(((a & 0xf0) >> 4) | ((a & 0x0f) << 4))
+	return rc
