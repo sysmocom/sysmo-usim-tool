@@ -49,8 +49,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #      +--[EF_KI 0x00FF]
 
 
+import sys
 from card import *
 from simcard import *
+from utils import *
 
 # Files (propritary)
 SYSMO_USIMSJS1_EF_KI = [0x00, 0xFF]

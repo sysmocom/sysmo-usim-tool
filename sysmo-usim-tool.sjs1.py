@@ -24,7 +24,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 
 import sys, getopt
-from card import *
+from utils import *
 from simcard import *
 from sysmo_usimsjs1 import *
 
@@ -131,8 +131,7 @@ def main(argv):
 
 	# Claim terminal
 	print "Initializing smartcard terminal..."
-	c = Card(getopt_verbose)
-	sim = Simcard(c)
+	sim = Simcard()
 	print("")
 
 	print "Detected Card ICCID: ", sim.card.get_ICCID()
