@@ -259,7 +259,7 @@ def sysmo_usim_show_opc_params(sim):
 	sysmo_usim_init(sim)
 
 	print " * Reading..."
-	sim.select(GSM_SIM_DF_GSM)
+	sim.card.SELECT_ADF_USIM()
 	sim.select(SYSMO_USIMSJS1_EF_OPC)
 	res = sim.read_binary(17)
 
