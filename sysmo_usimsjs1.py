@@ -60,6 +60,10 @@ SYSMO_USIMSJS1_EF_OPC = [0x00, 0xF7]
 SYSMO_USIMSJS1_DF_AUTH = [0x7F, 0xCC] #FIXME: Manual does not mention name, just called it "DF_AUTH" might be wrong!
 SYSMO_USIMSJS1_EF_AUTH = [0x6F, 0x00]
 SYSMO_USIMSJS1_EF_MLNGC = [0x6F, 0x01]
+SYSMO_USIMSJS1_EF_SQNC = [0x00, 0xFB] # ADF.USIM
+SYSMO_USIMSJS1_EF_SQNA = [0x00, 0xFA] # ADF.USIM
+SYSMO_USIMSJS1_EF_EFMLNG = [0x00, 0xFB] # ADF.USIM
+SYSMO_USIMSJS1_EF_AC = [0x00, 0xFE] # ADF.USIM
 
 # CHV Types
 SYSMO_USIMSJS1_ADM1 = 0x0A
@@ -131,6 +135,62 @@ class SYSMO_USIMSJS1_FILE_EF_MLNGC:
 		dump += "   R5: " + str(hex(self.R5))
 		return dump
 
+class SYSMO_USIMSJS1_FILE_EF_SQNC:
+	# Default parameters
+	ind_size_bits = 5
+	sqn_check_enabled = True
+	sqn_age_limit_enabled = True
+	sqn_max_delta_enabled = True
+	sqnms_offset = 0
+	max_delta = 0;
+	age_limit = 2**28 << ind_size_bits
+
+	def __init__(self, content = None):
+		if content == None:
+			return
+		if len(content) != 15:
+			raise ValueError("unexpected length of %u bytes", len(content))
+		self.ind_size_bits = content[0] >> 4
+		self.sqn_check_enabled = content[0] & 0x08
+		self.sqn_age_limit_enabled = bool(content[0] & 0x04)
+		self.sqn_max_delta_enabled = bool(content[0] & 0x02)
+		self.sqnms_offset = list_to_int(content[1:3])
+		self.max_delta = list_to_int(content[3:9]) >> self.ind_size_bits
+		self.age_limit = list_to_int(content[9:15]) >> self.ind_size_bits
+
+	def __str__(self):
+		pfx = "   "
+		dump = ""
+
+		dump += "%sIND (bits): %u\n" % (pfx, self.ind_size_bits)
+		dump += "%sSQN Check enabled: %u\n" % (pfx, self.sqn_check_enabled)
+		dump += "%sSQN Age Limit enabled: %u\n" % (pfx, self.sqn_age_limit_enabled)
+		dump += "%sSQN Max Delta enabled: %u\n" % (pfx, self.sqn_max_delta_enabled)
+		dump += "%sSQNms Offset: %u\n" % (pfx, self.sqnms_offset)
+		dump += "%sMax Delta: %u\n" % (pfx, self.max_delta)
+		dump += "%sAge Limit: %u\n" % (pfx, self.age_limit)
+		return dump
+
+class SYSMO_USIMSJS1_FILE_EF_SQNA:
+	seq_array = []
+
+	def __init__(self, content, ind = 5):
+		if content == None:
+			return
+		if len(content) != 6*(2**ind):
+			raise ValueError("unexpected length of %u bytes", len(content))
+		# read in the SEQ array
+		for i in range(0, 2**ind):
+			offset = 6*i;
+			self.seq_array.append(list_to_int(content[offset:offset+6]))
+
+	def __str__(self):
+		pfx = "   "
+		dump = ""
+		for i in range(len(self.seq_array)):
+			dump += "%sSEQ[%03d]: %u\n" % (pfx, i, self.seq_array[i])
+		return dump
+
 
 # Initalize card (select master file)
 def sysmo_usim_init(sim):
@@ -196,6 +256,38 @@ def sysmo_usim_write_auth_params(sim, algo_2g, algo_3g):
 	sim.select(SYSMO_USIMSJS1_EF_AUTH)
 	sim.update_binary([algo_2g,algo_3g])
 
+def sysmo_usim_get_auth_counter(sim):
+	sim.select(SYSMO_USIMSJS1_EF_AC)
+	res = sim.read_binary(4, offset=0)
+	ctr = list_to_int(res.apdu[0:4])
+	if ctr == 0:
+		return "LOCKED"
+	elif ctr == 0xFFFFFFFF:
+		return "DISABLED"
+        else:
+		return ctr
+
+def sysmo_usim_read_milenage_sqn_params(sim):
+	sysmo_usim_init(sim)
+
+	sim.card.SELECT_ADF_USIM()
+	sim.select(SYSMO_USIMSJS1_EF_SQNC)
+
+	res = sim.read_binary(15, offset = 0)
+	ef_sqnc = SYSMO_USIMSJS1_FILE_EF_SQNC(res.apdu)
+	print "* Current SQN Configuration: "
+	print str(ef_sqnc)
+
+	# SQN Array
+	ind_pow = 2**ef_sqnc.ind_size_bits
+	sim.select(SYSMO_USIMSJS1_EF_SQNA)
+	res = sim.read_binary(ind_pow*6, offset=0)
+	ef_sqna = SYSMO_USIMSJS1_FILE_EF_SQNA(res.apdu)
+	print "* Current SQN Array: "
+	print str(ef_sqna)
+
+	auth_ctr = sysmo_usim_get_auth_counter(sim)
+	print "* Authentication Counter: %s\n" % auth_ctr
 
 # Show current milenage parameters
 def sysmo_usim_show_milenage_params(sim):

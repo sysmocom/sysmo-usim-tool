@@ -51,6 +51,7 @@ def helptext():
 	print "   -C, --set-opc HEXSTRING ........ Set OPc value"
 	print "   -k, --ki ....................... Show KI value"
 	print "   -K, --set-ki ................... Set KI value"
+	print "   -s  --seq-parameters ........... Show MILENAGE SEQ/SQN parameters"
 	print ""
 
 
@@ -72,15 +73,17 @@ def main(argv):
 	getopt_write_ki = None
 	getopt_force = False
 	getopt_write_iccid = None
+	getopt_seq_par = False
 
 	# Analyze commandline options
 	try:
 		opts, args = getopt.getopt(argv,
-			"hva:ucmtT:lL:oO:C:kK:fiI:",
+			"hva:ucmtT:lL:oO:C:kK:fiI:s",
 				["help","verbose","adm1=","usim","classic",
 				 "mode","auth","set-auth=","milenage",
 				 "set-milenage","opc","set-op=","set-opc=",
-				 "ki","set-ki=","force","iccid","set-iccid="])
+				 "ki","set-ki=","force","iccid","set-iccid=",
+				 "seq-parameters"])
 	except getopt.GetoptError:
 		print " * Error: Invalid commandline options"
 		sys.exit(2)
@@ -121,6 +124,8 @@ def main(argv):
 			getopt_force = True
 		elif opt in ("-I", "--set-iccid"):
 			getopt_write_iccid = asciihex_to_list(pad_asciihex(arg))
+		elif opt in ("-s", "--sqe-parameters"):
+			getopt_seq_par = True
 
 
 	if not getopt_adm1:
@@ -184,6 +189,10 @@ def main(argv):
 		print "Reading Milenage parameters..."
 		sysmo_usim_show_milenage_params(sim)
 		print("")
+
+	if getopt_seq_par:
+		print "Reading Milenage Sequence parameters..."
+		sysmo_usim_read_milenage_sqn_params(sim)
 
 	if getopt_write_op:
 		print "Writing OP value..."
