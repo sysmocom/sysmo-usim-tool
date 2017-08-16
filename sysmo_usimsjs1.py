@@ -168,7 +168,7 @@ def sysmo_usim_admin_auth(sim, adm1, force = False):
 
 # Show current athentication parameters
 # (Which algorithim is used for which rat?)
-def sysmo_usim_show_auth_params(sim, adm1):
+def sysmo_usim_show_auth_params(sim):
 	sysmo_usim_init(sim)
 
 	print " * Reading..."
@@ -182,7 +182,7 @@ def sysmo_usim_show_auth_params(sim, adm1):
 
 
 # Program new authentication parameters
-def sysmo_usim_write_auth_params(sim, adm1, algo_2g, algo_3g):
+def sysmo_usim_write_auth_params(sim, algo_2g, algo_3g):
 	print " * New algorithm setting:"
 	print "   2G: " + str(hex(algo_2g))
 	print "   3G: " + str(hex(algo_3g))
@@ -196,7 +196,7 @@ def sysmo_usim_write_auth_params(sim, adm1, algo_2g, algo_3g):
 
 
 # Show current milenage parameters
-def sysmo_usim_show_milenage_params(sim, adm1):
+def sysmo_usim_show_milenage_params(sim):
 	sysmo_usim_init(sim)
 
 	sim.select(SYSMO_USIMSJS1_DF_AUTH)
@@ -230,7 +230,7 @@ def sysmo_usim_show_milenage_params(sim, adm1):
 
 
 # Write new milenage parameters
-def sysmo_usim_write_milenage_params(sim, adm1, ef_mlngc):
+def sysmo_usim_write_milenage_params(sim, ef_mlngc):
 	sysmo_usim_init(sim)
 
 	print " * New Milenage Parameters for (EF.MLNGC):"
@@ -253,7 +253,7 @@ def sysmo_usim_write_milenage_params(sim, adm1, ef_mlngc):
 
 
 # Show current OPc value
-def sysmo_usim_show_opc_params(sim, adm1):
+def sysmo_usim_show_opc_params(sim):
 	sysmo_usim_init(sim)
 
 	print " * Reading..."
@@ -267,7 +267,7 @@ def sysmo_usim_show_opc_params(sim, adm1):
 
 
 # Program new OPc value
-def sysmo_usim_write_opc_params(sim, adm1, select, op):
+def sysmo_usim_write_opc_params(sim, select, op):
 	print " * New OPc setting:"
 	print "   OP: " + str(hex(select))
 	print "   OP/OPc: " + hexdump(op)
@@ -282,7 +282,7 @@ def sysmo_usim_write_opc_params(sim, adm1, select, op):
 
 
 # Show current KI value
-def sysmo_usim_show_ki_params(sim, adm1):
+def sysmo_usim_show_ki_params(sim):
 	sysmo_usim_init(sim)
 
 	print " * Reading..."
@@ -295,7 +295,7 @@ def sysmo_usim_show_ki_params(sim, adm1):
 
 
 # Program new KI value
-def sysmo_usim_write_ki_params(sim, adm1, ki):
+def sysmo_usim_write_ki_params(sim, ki):
 	print " * New KI setting:"
 	print "   KI: " + hexdump(ki)
 
@@ -309,7 +309,7 @@ def sysmo_usim_write_ki_params(sim, adm1, ki):
 
 
 # Show the enable status of the USIM application (app is enabled or disabled?)
-def sysmo_usim_show_usim_status(sim, adm1):
+def sysmo_usim_show_usim_status(sim):
 	sysmo_usim_init(sim)
 
 	print " * Reading..."
@@ -321,7 +321,7 @@ def sysmo_usim_show_usim_status(sim, adm1):
 
 
 # Show the enable status of the USIM application (app is enabled or disabled?)
-def sysmo_usim_show_sim_mode(sim, adm1):
+def sysmo_usim_show_sim_mode(sim):
 	sysmo_usim_init(sim)
 
 	print " * Reading..."
@@ -338,7 +338,7 @@ def sysmo_usim_show_sim_mode(sim, adm1):
 
 
 # Show the enable status of the USIM application (app is enabled or disabled?)
-def sysmo_usim_write_sim_mode(sim, adm1, usim_enabled = True):
+def sysmo_usim_write_sim_mode(sim, usim_enabled = True):
 	if usim_enabled:
 		new_record = SYSMO_USIM_EF_DIR_REC_1_CONTENT
 	else:
@@ -359,7 +359,7 @@ def sysmo_usim_write_sim_mode(sim, adm1, usim_enabled = True):
 
 
 # Show current ICCID value
-def sysmo_usim_show_iccid(sim, adm1):
+def sysmo_usim_show_iccid(sim):
 	sysmo_usim_init(sim)
 
 	print " * Reading..."
@@ -371,7 +371,7 @@ def sysmo_usim_show_iccid(sim, adm1):
 
 
 # Program new ICCID value
-def sysmo_usim_write_iccid(sim, adm1, iccid):
+def sysmo_usim_write_iccid(sim, iccid):
 	print " * New ICCID setting:"
 	print "   ICCID: " + hexdump(iccid)
 

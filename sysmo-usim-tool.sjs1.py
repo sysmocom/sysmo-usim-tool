@@ -152,74 +152,70 @@ def main(argv):
 	# Execute tasks
 	if getopt_write_sim_mode != None:
 		print "Programming SIM-Mode..."
-		sysmo_usim_write_sim_mode(sim, getopt_adm1,
-			getopt_write_sim_mode)
+		sysmo_usim_write_sim_mode(sim, getopt_write_sim_mode)
 		print("")
 
 	if getopt_show_sim_mode:
 		print "Reading SIM-Mode..."
-		sysmo_usim_show_sim_mode(sim, getopt_adm1)
+		sysmo_usim_show_sim_mode(sim)
 		print("")
 
 	if getopt_write_auth:
 		print "Programming Authentication parameters..."
-		sysmo_usim_write_auth_params(sim, getopt_adm1,
+		sysmo_usim_write_auth_params(sim,
 			int(getopt_write_auth[0]),
 			int(getopt_write_auth[1]))
 		print("")
 
 	if getopt_show_auth:
 		print "Reading Authentication parameters..."
-		sysmo_usim_show_auth_params(sim, getopt_adm1)
+		sysmo_usim_show_auth_params(sim)
 		print("")
 
 	if getopt_write_milenage:
 		print "Programming Milenage parameters..."
 		ef_mlngc = SYSMO_USIMSJS1_FILE_EF_MLNGC(getopt_write_milenage)
-		sysmo_usim_write_milenage_params(sim, getopt_adm1, ef_mlngc)
+		sysmo_usim_write_milenage_params(sim, ef_mlngc)
 		print("")
 
 	if getopt_show_milenage:
 		print "Reading Milenage parameters..."
-		sysmo_usim_show_milenage_params(sim, getopt_adm1)
+		sysmo_usim_show_milenage_params(sim)
 		print("")
 
 	if getopt_write_op:
 		print "Writing OP value..."
-		sysmo_usim_write_opc_params(sim,
-			getopt_adm1, 0, getopt_write_op)
+		sysmo_usim_write_opc_params(sim, 0, getopt_write_op)
 		print("")
 
 	if getopt_write_opc:
 		print "Writing OPC value..."
-		sysmo_usim_write_opc_params(sim,
-			getopt_adm1, 1, getopt_write_opc)
+		sysmo_usim_write_opc_params(sim, 1, getopt_write_opc)
 		print("")
 
 	if getopt_show_opc:
 		print "Reading OP/C value..."
-		sysmo_usim_show_opc_params(sim, getopt_adm1)
+		sysmo_usim_show_opc_params(sim)
 		print("")
 
 	if getopt_write_ki:
 		print "Writing KI value..."
-		sysmo_usim_write_ki_params(sim,
-			getopt_adm1, getopt_write_ki)
+		sysmo_usim_write_ki_params(sim, getopt_write_ki)
 		print("")
 
 	if getopt_show_ki:
 		print "Reading KI value..."
-		sysmo_usim_show_ki_params(sim, getopt_adm1)
+		sysmo_usim_show_ki_params(sim)
 		print("")
 
 	if getopt_show_iccid:
 		print "Reading ICCID value..."
-		sysmo_usim_show_iccid(sim, getopt_adm1)
+		sysmo_usim_show_iccid(sim)
 		print("")
 
 	if getopt_write_iccid:
 		print "Writing ICCID value..."
-		sysmo_usim_write_iccid(sim, getopt_adm1, getopt_write_iccid)
+		sysmo_usim_write_iccid(sim, getopt_write_iccid)
 		print("")
 
 	print "Done!"
