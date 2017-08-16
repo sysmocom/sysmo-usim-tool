@@ -51,7 +51,6 @@ def helptext():
 	print "   -C, --set-opc HEXSTRING ........ Set OPc value"
 	print "   -k, --ki ....................... Show KI value"
 	print "   -K, --set-ki ................... Set KI value"
-	print "   -i, --iccid .................... Show ICCID value"
 	print ""
 
 
@@ -72,7 +71,6 @@ def main(argv):
 	getopt_show_ki = None
 	getopt_write_ki = None
 	getopt_force = False
-	getopt_show_iccid = False
 	getopt_write_iccid = None
 
 	# Analyze commandline options
@@ -121,8 +119,6 @@ def main(argv):
 			getopt_write_ki = asciihex_to_list(arg)
 		elif opt in ("-f", "--force"):
 			getopt_force = True
-		elif opt in ("-i", "--iccid"):
-			getopt_show_iccid = True
 		elif opt in ("-I", "--set-iccid"):
 			getopt_write_iccid = asciihex_to_list(pad_asciihex(arg))
 
@@ -139,6 +135,9 @@ def main(argv):
 	sim = Simcard(c)
 	print("")
 
+	print "Detected Card ICCID: ", sim.card.get_ICCID()
+	print ""
+
 	# Authenticate
 	print "Authenticating..."
 	if sysmo_usim_admin_auth(sim, getopt_adm1, getopt_force) == False:
@@ -148,6 +147,10 @@ def main(argv):
 		print ""
 		exit(1)
 	print("")
+
+	sim.card.SELECT_ADF_USIM()
+	print "Detected Card IMSI: ", sim.card.get_imsi()
+	print ""
 
 	# Execute tasks
 	if getopt_write_sim_mode != None:
@@ -206,11 +209,6 @@ def main(argv):
 	if getopt_show_ki:
 		print "Reading KI value..."
 		sysmo_usim_show_ki_params(sim)
-		print("")
-
-	if getopt_show_iccid:
-		print "Reading ICCID value..."
-		sysmo_usim_show_iccid(sim)
 		print("")
 
 	if getopt_write_iccid:
