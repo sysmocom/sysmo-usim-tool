@@ -169,9 +169,7 @@ def main(argv):
 
 	if getopt_write_auth:
 		print "Programming Authentication parameters..."
-		sysmo_usim_write_auth_params(sim,
-			int(getopt_write_auth[0]),
-			int(getopt_write_auth[1]))
+		sysmo_usim_write_auth_params(sim, getopt_write_auth[0], getopt_write_auth[1])
 		print("")
 
 	if getopt_show_auth:
