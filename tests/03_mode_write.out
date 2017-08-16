@@ -1,0 +1,92 @@
+sysmoUSIM-SJS1 parameterization tool
+Copyright (c)2017 Sysmocom s.f.m.c. GmbH
+
+Initializing smartcard terminal...
+
+Detected Card ICCID:  8988211320300000028
+
+Authenticating...
+ * Remaining attempts: 3
+ * Authenticating...
+ * Authentication successful
+ * Remaining attempts: 3
+
+Detected Card IMSI:  262423203000002
+
+Programming SIM-Mode...
+ * New status of Record No.1 in EF.DIR:
+   ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+   ==> USIM application disabled
+ * Initalizing...
+ * Programming...
+
+Done!
+sysmoUSIM-SJS1 parameterization tool
+Copyright (c)2017 Sysmocom s.f.m.c. GmbH
+
+Initializing smartcard terminal...
+
+Detected Card ICCID:  8988211320300000028
+
+Authenticating...
+ * Remaining attempts: 3
+ * Authenticating...
+ * Authentication successful
+ * Remaining attempts: 3
+
+Detected Card IMSI:  None
+
+Reading SIM-Mode...
+ * Initalizing...
+ * Reading...
+ * Current status of Record No. 1 in EF.DIR:
+   ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+   ==> USIM application disabled
+
+Done!
+sysmoUSIM-SJS1 parameterization tool
+Copyright (c)2017 Sysmocom s.f.m.c. GmbH
+
+Initializing smartcard terminal...
+
+Detected Card ICCID:  8988211320300000028
+
+Authenticating...
+ * Remaining attempts: 3
+ * Authenticating...
+ * Authentication successful
+ * Remaining attempts: 3
+
+Detected Card IMSI:  None
+
+Programming SIM-Mode...
+ * New status of Record No.1 in EF.DIR:
+   61194f10a0000000871002ffffffff890709000050055553696d31ffffffffffffffffffffff
+   ==> USIM application enabled
+ * Initalizing...
+ * Programming...
+
+Done!
+sysmoUSIM-SJS1 parameterization tool
+Copyright (c)2017 Sysmocom s.f.m.c. GmbH
+
+Initializing smartcard terminal...
+
+Detected Card ICCID:  8988211320300000028
+
+Authenticating...
+ * Remaining attempts: 3
+ * Authenticating...
+ * Authentication successful
+ * Remaining attempts: 3
+
+Detected Card IMSI:  262423203000002
+
+Reading SIM-Mode...
+ * Initalizing...
+ * Reading...
+ * Current status of Record No. 1 in EF.DIR:
+   61194f10a0000000871002ffffffff890709000050055553696d31ffffffffffffffffffffff
+   ==> USIM application enabled
+
+Done!

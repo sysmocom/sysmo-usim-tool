@@ -1,0 +1,31 @@
+sysmoUSIM-SJS1 parameterization tool
+Copyright (c)2017 Sysmocom s.f.m.c. GmbH
+
+Initializing smartcard terminal...
+
+Detected Card ICCID:  8988211320300000028
+
+Authenticating...
+ * Remaining attempts: 3
+ * Authenticating...
+ * Authentication successful
+ * Remaining attempts: 3
+
+Detected Card IMSI:  262423203000002
+
+Reading Milenage parameters...
+ * Initalizing...
+ * Reading...
+ * Current Milenage Parameters in (EF.MLNGC):
+   C1: 00000000000000000000000000000000
+   C2: 00000000000000000000000000000001
+   C3: 00000000000000000000000000000002
+   C4: 00000000000000000000000000000004
+   C5: 00000000000000000000000000000008
+   R1: 0x40
+   R2: 0x0
+   R3: 0x20
+   R4: 0x40
+   R5: 0x60
+
+Done!

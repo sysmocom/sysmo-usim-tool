@@ -1,0 +1,63 @@
+sysmoUSIM-SJS1 parameterization tool
+Copyright (c)2017 Sysmocom s.f.m.c. GmbH
+
+Initializing smartcard terminal...
+
+Detected Card ICCID:  8988211320300000028
+
+Authenticating...
+ * Remaining attempts: 3
+ * Authenticating...
+ * Authentication successful
+ * Remaining attempts: 3
+
+Detected Card IMSI:  262423203000002
+
+Reading Milenage Sequence parameters...
+ * Initalizing...
+* Current SQN Configuration: 
+   IND (bits): 5
+   SQN Check enabled: 0
+   SQN Age Limit enabled: 1
+   SQN Max Delta enabled: 0
+   SQNms Offset: 0
+   Max Delta: 268435456
+   Age Limit: 268435456
+
+* Current SQN Array: 
+   SEQ[000]: 0
+   SEQ[001]: 0
+   SEQ[002]: 0
+   SEQ[003]: 0
+   SEQ[004]: 0
+   SEQ[005]: 0
+   SEQ[006]: 0
+   SEQ[007]: 0
+   SEQ[008]: 0
+   SEQ[009]: 0
+   SEQ[010]: 0
+   SEQ[011]: 0
+   SEQ[012]: 0
+   SEQ[013]: 0
+   SEQ[014]: 0
+   SEQ[015]: 0
+   SEQ[016]: 0
+   SEQ[017]: 0
+   SEQ[018]: 0
+   SEQ[019]: 0
+   SEQ[020]: 0
+   SEQ[021]: 0
+   SEQ[022]: 0
+   SEQ[023]: 0
+   SEQ[024]: 0
+   SEQ[025]: 0
+   SEQ[026]: 0
+   SEQ[027]: 0
+   SEQ[028]: 0
+   SEQ[029]: 0
+   SEQ[030]: 0
+   SEQ[031]: 0
+
+* Authentication Counter: DISABLED
+
+Done!

@@ -1,0 +1,90 @@
+sysmoUSIM-SJS1 parameterization tool
+Copyright (c)2017 Sysmocom s.f.m.c. GmbH
+
+Initializing smartcard terminal...
+
+Detected Card ICCID:  8988211320300000028
+
+Authenticating...
+ * Remaining attempts: 3
+ * Authenticating...
+ * Authentication successful
+ * Remaining attempts: 3
+
+Detected Card IMSI:  262423203000002
+
+Writing OPC value...
+ * New OPc setting:
+   OPc: 000102030405060708090a0b0c0d0e0f
+   OP/OPc: 000102030405060708090a0b0c0d0e0f
+ * Initalizing...
+ * Programming...
+
+Done!
+sysmoUSIM-SJS1 parameterization tool
+Copyright (c)2017 Sysmocom s.f.m.c. GmbH
+
+Initializing smartcard terminal...
+
+Detected Card ICCID:  8988211320300000028
+
+Authenticating...
+ * Remaining attempts: 3
+ * Authenticating...
+ * Authentication successful
+ * Remaining attempts: 3
+
+Detected Card IMSI:  262423203000002
+
+Reading OP/C value...
+ * Initalizing...
+ * Reading...
+ * Current OP/OPc setting:
+   OPc: 000102030405060708090a0b0c0d0e0f
+
+Done!
+sysmoUSIM-SJS1 parameterization tool
+Copyright (c)2017 Sysmocom s.f.m.c. GmbH
+
+Initializing smartcard terminal...
+
+Detected Card ICCID:  8988211320300000028
+
+Authenticating...
+ * Remaining attempts: 3
+ * Authenticating...
+ * Authentication successful
+ * Remaining attempts: 3
+
+Detected Card IMSI:  262423203000002
+
+Writing OP value...
+ * New OPc setting:
+   OP: 840337c3d45397ce8ea8609ffdc47224
+   OP/OPc: 840337c3d45397ce8ea8609ffdc47224
+ * Initalizing...
+ * Programming...
+
+Done!
+sysmoUSIM-SJS1 parameterization tool
+Copyright (c)2017 Sysmocom s.f.m.c. GmbH
+
+Initializing smartcard terminal...
+
+Detected Card ICCID:  8988211320300000028
+
+Authenticating...
+ * Remaining attempts: 3
+ * Authenticating...
+ * Authentication successful
+ * Remaining attempts: 3
+
+Detected Card IMSI:  262423203000002
+
+Reading OP/C value...
+ * Initalizing...
+ * Reading...
+ * Current OP/OPc setting:
+   OP: 840337c3d45397ce8ea8609ffdc47224
+
+Done!
