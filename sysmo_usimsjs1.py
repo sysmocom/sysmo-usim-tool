@@ -388,6 +388,15 @@ def sysmo_usim_write_milenage_params(sim, ef_mlngc):
 	sim.update_binary([ef_mlngc.R5], offset = 84)
 
 
+def sysmo_usim_opcmode2str(mode):
+	if mode == 1:
+		return 'OPc'
+	elif mode == 0:
+		return 'OP'
+	else:
+		raise ValueError('Unknown Mode ', mode)
+
+
 # Show current OPc value
 def sysmo_usim_show_opc_params(sim):
 	sysmo_usim_init(sim)
@@ -397,15 +406,16 @@ def sysmo_usim_show_opc_params(sim):
 	sim.select(SYSMO_USIMSJS1_EF_OPC)
 	res = sim.read_binary(17)
 
-	print " * Current OPc setting:"
-	print "   OP: " + str(hex(res.apdu[0]))
-	print "   OP/OPc: " + hexdump(res.apdu[1:])
+	mode_str = sysmo_usim_opcmode2str(res.apdu[0])
+
+	print " * Current OP/OPc setting:"
+	print "   %s: %s" % (mode_str, hexdump(res.apdu[1:]))
 
 
 # Program new OPc value
 def sysmo_usim_write_opc_params(sim, select, op):
 	print " * New OPc setting:"
-	print "   OP: " + str(hex(select))
+	print "   %s: %s" % (sysmo_usim_opcmode2str(select), hexdump(op))
 	print "   OP/OPc: " + hexdump(op)
 
 	sysmo_usim_init(sim)
