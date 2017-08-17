@@ -150,10 +150,10 @@ class SYSMO_USIMSJS1_FILE_EF_SQNC:
 			return
 		if len(content) != 15:
 			raise ValueError("unexpected length of %u bytes", len(content))
-		self.ind_size_bits = content[0] >> 4
-		self.sqn_check_enabled = content[0] & 0x08
-		self.sqn_age_limit_enabled = bool(content[0] & 0x04)
-		self.sqn_max_delta_enabled = bool(content[0] & 0x02)
+		self.ind_size_bits = content[0] & 0xf
+		self.sqn_check_enabled = bool(content[0] & 0x10)
+		self.sqn_age_limit_enabled = bool(content[0] & 0x20)
+		self.sqn_max_delta_enabled = bool(content[0] & 0x40)
 		self.sqnms_offset = list_to_int(content[1:3])
 		self.max_delta = list_to_int(content[3:9]) >> self.ind_size_bits
 		self.age_limit = list_to_int(content[9:15]) >> self.ind_size_bits

@@ -17,9 +17,9 @@ Reading Milenage Sequence parameters...
  * Initalizing...
 * Current SQN Configuration: 
    IND (bits): 5
-   SQN Check enabled: 0
-   SQN Age Limit enabled: 1
-   SQN Max Delta enabled: 0
+   SQN Check enabled: 1
+   SQN Age Limit enabled: 0
+   SQN Max Delta enabled: 1
    SQNms Offset: 0
    Max Delta: 268435456
    Age Limit: 268435456
