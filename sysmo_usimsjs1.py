@@ -154,7 +154,7 @@ class SYSMO_USIMSJS1_FILE_EF_SQNC:
 		self.sqn_check_enabled = bool(content[0] & 0x10)
 		self.sqn_age_limit_enabled = bool(content[0] & 0x20)
 		self.sqn_max_delta_enabled = bool(content[0] & 0x40)
-		self.sqnms_offset = list_to_int(content[1:3])
+		self.sqnms_offset = list_to_int(content[1:3])/6
 		self.max_delta = list_to_int(content[3:9]) >> self.ind_size_bits
 		self.age_limit = list_to_int(content[9:15]) >> self.ind_size_bits
 
@@ -166,7 +166,7 @@ class SYSMO_USIMSJS1_FILE_EF_SQNC:
 		dump += "%sSQN Check enabled: %u\n" % (pfx, self.sqn_check_enabled)
 		dump += "%sSQN Age Limit enabled: %u\n" % (pfx, self.sqn_age_limit_enabled)
 		dump += "%sSQN Max Delta enabled: %u\n" % (pfx, self.sqn_max_delta_enabled)
-		dump += "%sSQNms Offset: %u\n" % (pfx, self.sqnms_offset)
+		dump += "%sSQNms Offset (into SQN array): %u\n" % (pfx, self.sqnms_offset)
 		dump += "%sMax Delta: %u\n" % (pfx, self.max_delta)
 		dump += "%sAge Limit: %u\n" % (pfx, self.age_limit)
 		return dump

@@ -20,7 +20,7 @@ Reading Milenage Sequence parameters...
    SQN Check enabled: 1
    SQN Age Limit enabled: 0
    SQN Max Delta enabled: 1
-   SQNms Offset: 0
+   SQNms Offset (into SQN array): 0
    Max Delta: 268435456
    Age Limit: 268435456
 
