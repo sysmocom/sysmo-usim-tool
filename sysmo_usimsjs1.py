@@ -139,10 +139,10 @@ class SYSMO_USIMSJS1_FILE_EF_SQNC:
 	# Default parameters
 	ind_size_bits = 5
 	sqn_check_enabled = True
-	sqn_age_limit_enabled = True
+	sqn_age_limit_enabled = False
 	sqn_max_delta_enabled = True
 	sqnms_offset = 0
-	max_delta = 0;
+	max_delta = 2**28 << ind_size_bits
 	age_limit = 2**28 << ind_size_bits
 
 	def __init__(self, content = None):
@@ -171,11 +171,28 @@ class SYSMO_USIMSJS1_FILE_EF_SQNC:
 		dump += "%sAge Limit: %u\n" % (pfx, self.age_limit)
 		return dump
 
+	def encode(self):
+		out = list(range(0, 3))
+		out[0] = self.ind_size_bits & 0x0f
+		if self.sqn_check_enabled:
+			out[0] |= 0x10
+		if self.sqn_age_limit_enabled:
+			out[0] |= 0x20
+		if self.sqn_max_delta_enabled:
+			out[0] |= 0x40
+		out[1] = (self.sqnms_offset*6) & 0xff
+		out[2] = (self.sqnms_offset*6) >> 8
+		out += int_to_list(self.max_delta, 6)
+		out += int_to_list(self.age_limit, 6)
+		return out
+
 class SYSMO_USIMSJS1_FILE_EF_SQNA:
 	seq_array = []
 
 	def __init__(self, content, ind = 5):
 		if content == None:
+			for i in range(0, 2**ind):
+				self.seq_array.append(0)
 			return
 		if len(content) != 6*(2**ind):
 			raise ValueError("unexpected length of %u bytes", len(content))
@@ -190,6 +207,12 @@ class SYSMO_USIMSJS1_FILE_EF_SQNA:
 		for i in range(len(self.seq_array)):
 			dump += "%sSEQ[%03d]: %u\n" % (pfx, i, self.seq_array[i])
 		return dump
+
+	def encode(self):
+		out = []
+		for i in self.seq_array:
+			out += int_to_list(i, 6)
+		return out
 
 
 # Initalize card (select master file)
@@ -309,6 +332,21 @@ def sysmo_usim_get_auth_counter(sim):
         else:
 		return ctr
 
+def sysmo_usim_set_auth_counter(sim, ctr):
+	if ctr == "LOCKED":
+		ctr = 0
+	elif ctr == "DISABLED":
+		ctr = 0xFFFFFFFF
+	data = int_to_list(ctr, 4)
+	sim.select(SYSMO_USIMSJS1_EF_AC)
+	res = sim.update_binary(data, offset=0)
+	if ctr == 0:
+		return "LOCKED"
+	elif ctr == 0xFFFFFFFF:
+		return "DISABLED"
+        else:
+		return ctr
+
 def sysmo_usim_read_milenage_sqn_params(sim):
 	sysmo_usim_init(sim)
 
@@ -330,6 +368,22 @@ def sysmo_usim_read_milenage_sqn_params(sim):
 
 	auth_ctr = sysmo_usim_get_auth_counter(sim)
 	print "* Authentication Counter: %s\n" % auth_ctr
+
+def sysmo_usim_reset_milenage_sqn_params(sim):
+	sysmo_usim_init(sim)
+
+	print "* Resetting SQN Configuration to defaults..."
+
+	sim.card.SELECT_ADF_USIM()
+	ef_sqnc = SYSMO_USIMSJS1_FILE_EF_SQNC(None)
+	sim.select(SYSMO_USIMSJS1_EF_SQNC)
+	res = sim.update_binary(ef_sqnc.encode())
+
+	ef_sqna = SYSMO_USIMSJS1_FILE_EF_SQNA(None, ef_sqnc.ind_size_bits)
+	sim.select(SYSMO_USIMSJS1_EF_SQNA)
+	res = sim.update_binary(ef_sqna.encode())
+
+	sysmo_usim_set_auth_counter(sim, "DISABLED")
 
 # Show current milenage parameters
 def sysmo_usim_show_milenage_params(sim):
