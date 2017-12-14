@@ -19,3 +19,10 @@ installing applets to have more quick development cycles).
 https://osmocom.org/projects/cellular-infrastructure/wiki/SysmoUSIM-SJS1
 
 The cards are available from the [sysmocom webshop](http://shop.sysmocom.de/t/sim-card-related/sim-cards)
+
+Dependencies
+------------
+
+To run, http://pyscard.sourceforge.net needs to be installed; on Debian:
+
+  apt-get install python-pyscard
