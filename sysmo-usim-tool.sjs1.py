@@ -43,6 +43,7 @@ def helptext():
 	print "   -c, --classic .................. Disable USIM mode (make classic-sim)"
 	print "   -m, --mode ..................... Display mode (classic-sim or USIM?)"
 	print "   -t, --auth ..................... Show Authentication algorithms"
+	print "   -T, --set-auth list ............ List available algorithms"
 	print "   -T, --set-auth 2G:3G ........... Set 2G/3G Auth algo (e.g. 3:3)"
 	print "   -l, --milenage ................. Show milenage parameters"
 	print "   -L, --set-milenage HEXSTRING ... Set milenage parameters"
@@ -107,6 +108,11 @@ def main(argv):
 		elif opt in ("-t", "--auth"):
 			getopt_show_auth = True
 		elif opt in ("-T", "--set-auth"):
+			if arg.upper() == 'LIST':
+				print 'Valid -T arguments are algorithm number or string.'
+				print 'Available:'
+				print '\n'.join([' %d %s' % entry for entry in sysmo_usim_algorithms])
+				sys.exit()
 			getopt_write_auth = arg.split(':',1)
 		elif opt in ("-l", "--milenage"):
 			getopt_show_milenage = True
