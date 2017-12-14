@@ -250,45 +250,28 @@ def sysmo_usim_admin_auth(sim, adm1, force = False):
 
 	return rc
 
-def sysmo_usim_algo_to_str(alg):
-	if alg == 1:
-	    return 'MILENAGE'
-	elif alg == 3:
-	    return 'COMP128v1'
-	elif alg == 4:
-	    return 'XOR-2G'
-	elif alg == 5:
-	    return 'GBA'
-	elif alg == 6:
-	    return 'COMP128v2'
-	elif alg == 7:
-	    return 'COMP128v3'
-	elif alg == 8:
-	    return 'XOR-3G'
-	elif alg == 9:
-	    return 'CIS-B'
-	else:
-	    return 'INVALID'
+sysmo_usim_algorithms = (
+		(1, 'MILENAGE'),
+		(3, 'COMP128v1'),
+		(4, 'XOR-2G'),
+		(5, 'GBA'),
+		(6, 'COMP128v2'),
+		(7, 'COMP128v3'),
+		(8, 'XOR-3G'),
+		(9, 'CIS-B'),
+	)
 
-def sysmo_usim_str_to_algo(alg):
-	if alg == 'MILENAGE' or alg == '1':
-	    return 1
-	elif alg == 'COMP128v1' or alg == '3':
-	    return 3
-	elif alg == 'XOR-2G' or alg == '4':
-	    return 4
-	elif alg == 'GBA' or alg == '5':
-	    return 5
-	elif alg == 'COMP128v2' or alg == '6':
-	    return 6
-	elif alg == 'COMP128v3' or alg == '7':
-	    return 7
-	elif alg == 'XOR-3G' or alg == '8':
-	    return 8
-	elif alg == 'CIS-B' or alg == '9':
-	    return 9
-	else:
-	    raise ValueError('Unknown Algorithm %s', alg)
+sysmo_usim_algorithms_dict_by_nr = dict(sysmo_usim_algorithms)
+sysmo_usim_algorithms_dict_by_name = dict([(name.upper(), nr) for nr, name in sysmo_usim_algorithms])
+
+def sysmo_usim_algo_to_str(alg_nr):
+	return sysmo_usim_algorithms_dict_by_nr.get(alg_nr) or 'INVALID'
+
+def sysmo_usim_str_to_algo(alg_str):
+	alg_nr = sysmo_usim_algorithms_dict_by_name.get(alg_str.upper())
+	if alg_nr is None:
+	    raise ValueError('Unknown Algorithm %s' % alg_str)
+	return alg_nr
 
 # Show current athentication parameters
 # (Which algorithim is used for which rat?)
@@ -300,9 +283,11 @@ def sysmo_usim_show_auth_params(sim):
 	sim.select(SYSMO_USIMSJS1_EF_AUTH)
 	res = sim.read_binary(0x02)
 
+	algo_2g, algo_3g = res.apdu[:2]
+
 	print " * Current algorithm setting:"
-	print "   2G: " + sysmo_usim_algo_to_str(res.apdu[0])
-	print "   3G: " + sysmo_usim_algo_to_str(res.apdu[1])
+	print "   2G: %d=%s" % (algo_2g, sysmo_usim_algo_to_str(algo_2g))
+	print "   3G: %d=%s" % (algo_3g, sysmo_usim_algo_to_str(algo_3g))
 
 
 # Program new authentication parameters
@@ -311,8 +296,8 @@ def sysmo_usim_write_auth_params(sim, algo_2g_str, algo_3g_str):
 	algo_3g = sysmo_usim_str_to_algo(algo_3g_str)
 
 	print " * New algorithm setting:"
-	print "   2G: " + sysmo_usim_algo_to_str(algo_2g)
-	print "   3G: " + sysmo_usim_algo_to_str(algo_3g)
+	print "   2G: %d=%s" % (algo_2g, sysmo_usim_algo_to_str(algo_2g))
+	print "   3G: %d=%s" % (algo_3g, sysmo_usim_algo_to_str(algo_3g))
 
 	sysmo_usim_init(sim)
 
