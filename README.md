@@ -23,6 +23,10 @@ The cards are available from the [sysmocom webshop](http://shop.sysmocom.de/t/si
 Dependencies
 ------------
 
-To run, http://pyscard.sourceforge.net needs to be installed; on Debian:
+- To run, http://pyscard.sourceforge.net needs to be installed;
+- You may also need to install the pcscd service.
 
-  apt-get install python-pyscard
+On Debian:
+
+  apt-get install python-pyscard pcscd
+  systemctl start pcscd
