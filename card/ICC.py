@@ -35,6 +35,7 @@ import re
 
 # smartcard python modules from pyscard
 from smartcard.CardType import AnyCardType
+from smartcard.CardType import ATRCardType
 from smartcard.CardRequest import CardRequest
 from smartcard.CardConnection import CardConnection
 from smartcard.CardConnectionObserver import ConsoleCardConnectionObserver
@@ -142,7 +143,7 @@ class ISO7816(object):
         0xAB : 'Security Attribute expanded',
         }     
                
-    def __init__(self, CLA=0x00):
+    def __init__(self, atr=None, CLA=0x00):
         '''
         connect smartcard and defines class CLA code for communication
         uses "pyscard" library services
@@ -150,7 +151,12 @@ class ISO7816(object):
         creates self.CLA attribute with CLA code
         and self.coms attribute with associated "apdu_stack" instance
         '''
-        cardtype = AnyCardType()
+
+        if (atr):
+            cardtype = ATRCardType(atr)
+        else:
+            cardtype = AnyCardType()
+
         cardrequest = CardRequest(timeout=1, cardType=cardtype)
         self.cardservice = cardrequest.waitforcard()
         self.cardservice.connection.connect()

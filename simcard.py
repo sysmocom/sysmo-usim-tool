@@ -75,12 +75,12 @@ class Simcard():
 	card = None
 
 	# Constructor: Create a new simcard object
-	def __init__(self, cardtype = GSM_USIM):
+	def __init__(self, cardtype = GSM_USIM, atr = None):
 		if cardtype == GSM_USIM:
-			self.card = USIM()
+			self.card = USIM(atr)
 			self.usim = True
 		else:
-			self.card = SIM()
+			self.card = SIM(atr)
 			self.usim = False
 
 	# Find the right class byte, depending on the simcard type

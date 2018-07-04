@@ -142,7 +142,7 @@ def main(argv):
 
 	# Claim terminal
 	print "Initializing smartcard terminal..."
-	sim = Simcard()
+	sim = Simcard(GSM_USIM, toBytes("3B 9F 96 80 1F C7 80 31 A0 73 BE 21 13 67 43 20 07 18 00 00 01 A5"))
 	print("")
 
 	print "Detected Card ICCID: ", sim.card.get_ICCID()
