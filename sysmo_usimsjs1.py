@@ -340,7 +340,7 @@ def sysmo_usim_read_milenage_sqn_params(sim):
 
 	res = sim.read_binary(15, offset = 0)
 	ef_sqnc = SYSMO_USIMSJS1_FILE_EF_SQNC(res.apdu)
-	print "* Current SQN Configuration: "
+	print " * Current SQN Configuration: "
 	print str(ef_sqnc)
 
 	# SQN Array
@@ -348,7 +348,7 @@ def sysmo_usim_read_milenage_sqn_params(sim):
 	sim.select(SYSMO_USIMSJS1_EF_SQNA)
 	res = sim.read_binary(ind_pow*6, offset=0)
 	ef_sqna = SYSMO_USIMSJS1_FILE_EF_SQNA(res.apdu)
-	print "* Current SQN Array: "
+	print " * Current SQN Array: "
 	print str(ef_sqna)
 
 	auth_ctr = sysmo_usim_get_auth_counter(sim)
@@ -357,7 +357,7 @@ def sysmo_usim_read_milenage_sqn_params(sim):
 def sysmo_usim_reset_milenage_sqn_params(sim):
 	sysmo_usim_init(sim)
 
-	print "* Resetting SQN Configuration to defaults..."
+	print " * Resetting SQN Configuration to defaults..."
 
 	sim.card.SELECT_ADF_USIM()
 	ef_sqnc = SYSMO_USIMSJS1_FILE_EF_SQNC(None)
