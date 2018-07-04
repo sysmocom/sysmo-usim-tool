@@ -43,7 +43,7 @@ def helptext():
 	print "   -m, --mode ..................... Display mode (classic-sim or USIM?)"
 	print "   -t, --auth ..................... Show Authentication algorithms"
 	print "   -T, --set-auth list ............ List available algorithms"
-	print "   -T, --set-auth 2G:3G ........... Set 2G/3G Auth algo (e.g. 3:3)"
+	print "   -T, --set-auth 2G:3G ........... Set 2G/3G Auth algo (e.g. COMP128v1:COMP128v1)"
 	print "   -l, --milenage ................. Show milenage parameters"
 	print "   -L, --set-milenage HEXSTRING ... Set milenage parameters"
 	print "   -o, --opc ...................... Show OP/c configuration"
