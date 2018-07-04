@@ -37,7 +37,6 @@ def banner():
 
 def helptext():
 	print " * Commandline options:"
-	print "   -v, --verbose .................. Enable debug output (trace APDUs)"
 	print "   -a, --adm1 CHV ................. Administrator PIN (e.g 55538407)"
 	print "   -u, --usim ..................... Enable USIM mode"
 	print "   -c, --classic .................. Disable USIM mode (make classic-sim)"
@@ -63,7 +62,6 @@ def main(argv):
 	getopt_adm1 = None
 	getopt_write_sim_mode = None # True = USIM, False = classic SIM
 	getopt_show_sim_mode = False
-	getopt_verbose = False
 	getopt_show_auth = False
 	getopt_write_auth = None
 	getopt_show_milenage = False
@@ -81,8 +79,8 @@ def main(argv):
 	# Analyze commandline options
 	try:
 		opts, args = getopt.getopt(argv,
-			"hva:ucmtT:lL:oO:C:kK:fiI:sS",
-				["help","verbose","adm1=","usim","classic",
+			"ha:ucmtT:lL:oO:C:kK:fiI:sS",
+				["help","adm1=","usim","classic",
 				 "mode","auth","set-auth=","milenage",
 				 "set-milenage","opc","set-op=","set-opc=",
 				 "ki","set-ki=","force","iccid","set-iccid=",
@@ -95,8 +93,6 @@ def main(argv):
 		if opt in ("-h", "--help"):
 			helptext()
 			sys.exit()
-		elif opt in ("-v", "--verbose"):
-			getopt_verbose = True
 		elif opt in ("-a", "--adm1"):
 			getopt_adm1 = ascii_to_list(arg)
 		elif opt in ("-u", "--usim"):
