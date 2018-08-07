@@ -53,6 +53,7 @@ def helptext():
 	print "   -K, --set-ki ................... Set KI value"
 	print "   -s  --seq-parameters ........... Show MILENAGE SEQ/SQN parameters"
 	print "   -S  --reset-seq-parameters...... Reset MILENAGE SEQ/SQN parameters to default"
+	print "   -I, --set-iccid ................ Set ICCID value"
 	print ""
 
 
