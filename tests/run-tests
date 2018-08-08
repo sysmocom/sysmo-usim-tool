@@ -11,6 +11,9 @@ fi
 TMP=`tempfile`
 NUM_FAIL=0
 
+# prepare test card
+./prepare
+
 for T in $TESTS; do
 	echo "==> Executing Testcase $T"
 	EXPOUT=${T%%.sh}.out
