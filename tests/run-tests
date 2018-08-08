@@ -17,7 +17,7 @@ for T in $TESTS; do
 	rm $TMP
 	./$T > $TMP
 	diff -u $EXPOUT $TMP
-	if [ $? == 0 ]; then
+	if [ $? -eq 0 ]; then
 		echo "Test $T passed"
 	else
 		echo "Test $T FAILED!"
