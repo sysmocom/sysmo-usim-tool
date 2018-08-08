@@ -61,3 +61,23 @@ Reading Milenage Sequence parameters...
 * Authentication Counter: DISABLED
 
 Done!
+sysmoUSIM-SJS1 parameterization tool
+Copyright (c)2017 Sysmocom s.f.m.c. GmbH
+
+Initializing smartcard terminal...
+
+Detected Card ICCID:  8988211320300000028
+
+Authenticating...
+ * Remaining attempts: 3
+ * Authenticating...
+ * Authentication successful
+ * Remaining attempts: 3
+
+Detected Card IMSI:  262423203000002
+
+Resetting MILENAGE Sequence Parameters...
+ * Initalizing...
+ * Resetting SQN Configuration to defaults...
+
+Done!
