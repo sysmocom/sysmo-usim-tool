@@ -15,7 +15,7 @@ Detected Card IMSI:  262423203000002
 
 Reading Milenage Sequence parameters...
  * Initalizing...
-* Current SQN Configuration: 
+ * Current SQN Configuration:
    IND (bits): 5
    SQN Check enabled: 1
    SQN Age Limit enabled: 0
@@ -24,7 +24,7 @@ Reading Milenage Sequence parameters...
    Max Delta: 268435456
    Age Limit: 268435456
 
-* Current SQN Array: 
+ * Current SQN Array:
    SEQ[000]: 0
    SEQ[001]: 0
    SEQ[002]: 0
