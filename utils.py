@@ -51,10 +51,12 @@ def asciihex_to_list(string):
 
 
 # Pad an ascihex string with a nibble in case it is "incomplete"
-def pad_asciihex(string, padding='f'):
+def pad_asciihex(string, front=False, padding='f'):
 
-	if len(string) % 2 != 0:
-		return string + padding
+	if front and len(string) % 2 != 0:
+		return padding + string
+	elif len(string) % 2 != 0:
+                return string + padding
 	return string
 
 

@@ -47,7 +47,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #      +--[EF_OPC 0x00F7]
 #      |
 #      +--[EF_KI 0x00FF]
-
+#      |
+#      +--[EF_IMSI 0x6F07]
 
 import sys
 from card import *
@@ -574,3 +575,19 @@ def sysmo_usim_write_iccid(sim, iccid):
 
 	print " * Programming..."
 	sim.update_binary(swap_nibbles(iccid))
+
+
+# Program new IMSI value
+def sysmo_usim_write_imsi(sim, imsi):
+	print " * New ISMI setting:"
+	print "   IMSI: " + hexdump(imsi)
+
+	sysmo_usim_init(sim)
+
+        sim.select(GSM_SIM_DF_GSM)
+	sim.select(GSM_SIM_EF_IMSI)
+
+        imsi = [len(imsi)] + swap_nibbles(imsi)
+
+	print " * Programming..."
+	sim.update_binary(imsi)
