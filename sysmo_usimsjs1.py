@@ -231,7 +231,7 @@ def sysmo_usim_admin_auth(sim, adm1, force = False):
 
 	# Stop if a decreased ADM1 retry counter is detected
 	if(rem_attemts < 3) and force == False:
-		print " * Error: Only two authentication attemts remaining, we don't"
+		print " * Error: Only two authentication attempts remaining, we don't"
 		print "          want to risk another failed authentication attempt!"
 		print "          (double check ADM1 and use option -f to override)"
 		return False
