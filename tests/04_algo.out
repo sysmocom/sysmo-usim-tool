@@ -62,7 +62,7 @@ Detected Card IMSI:  262423203000002
 Programming Authentication parameters...
  * New algorithm setting:
    2G: 3=COMP128v1
-   3G: 3=COMP128v1
+   3G: 1=MILENAGE
  * Initalizing...
  * Programming...
 
@@ -87,7 +87,7 @@ Reading Authentication parameters...
  * Reading...
  * Current algorithm setting:
    2G: 3=COMP128v1
-   3G: 3=COMP128v1
+   3G: 1=MILENAGE
 
 Done!
 sysmoUSIM-SJS1 parameterization tool
@@ -108,7 +108,7 @@ Detected Card IMSI:  262423203000002
 Programming Authentication parameters...
  * New algorithm setting:
    2G: 4=XOR-2G
-   3G: 4=XOR-2G
+   3G: 1=MILENAGE
  * Initalizing...
  * Programming...
 
@@ -133,7 +133,7 @@ Reading Authentication parameters...
  * Reading...
  * Current algorithm setting:
    2G: 4=XOR-2G
-   3G: 4=XOR-2G
+   3G: 1=MILENAGE
 
 Done!
 sysmoUSIM-SJS1 parameterization tool
@@ -154,7 +154,7 @@ Detected Card IMSI:  262423203000002
 Programming Authentication parameters...
  * New algorithm setting:
    2G: 5=GBA
-   3G: 5=GBA
+   3G: 1=MILENAGE
  * Initalizing...
  * Programming...
 
@@ -179,7 +179,7 @@ Reading Authentication parameters...
  * Reading...
  * Current algorithm setting:
    2G: 5=GBA
-   3G: 5=GBA
+   3G: 1=MILENAGE
 
 Done!
 sysmoUSIM-SJS1 parameterization tool
@@ -200,7 +200,7 @@ Detected Card IMSI:  262423203000002
 Programming Authentication parameters...
  * New algorithm setting:
    2G: 6=COMP128v2
-   3G: 6=COMP128v2
+   3G: 1=MILENAGE
  * Initalizing...
  * Programming...
 
@@ -225,7 +225,7 @@ Reading Authentication parameters...
  * Reading...
  * Current algorithm setting:
    2G: 6=COMP128v2
-   3G: 6=COMP128v2
+   3G: 1=MILENAGE
 
 Done!
 sysmoUSIM-SJS1 parameterization tool
@@ -246,7 +246,7 @@ Detected Card IMSI:  262423203000002
 Programming Authentication parameters...
  * New algorithm setting:
    2G: 7=COMP128v3
-   3G: 7=COMP128v3
+   3G: 1=MILENAGE
  * Initalizing...
  * Programming...
 
@@ -271,7 +271,7 @@ Reading Authentication parameters...
  * Reading...
  * Current algorithm setting:
    2G: 7=COMP128v3
-   3G: 7=COMP128v3
+   3G: 1=MILENAGE
 
 Done!
 sysmoUSIM-SJS1 parameterization tool
@@ -292,7 +292,7 @@ Detected Card IMSI:  262423203000002
 Programming Authentication parameters...
  * New algorithm setting:
    2G: 9=CIS-B
-   3G: 9=CIS-B
+   3G: 1=MILENAGE
  * Initalizing...
  * Programming...
 
@@ -317,7 +317,7 @@ Reading Authentication parameters...
  * Reading...
  * Current algorithm setting:
    2G: 9=CIS-B
-   3G: 9=CIS-B
+   3G: 1=MILENAGE
 
 Done!
 sysmoUSIM-SJS1 parameterization tool
@@ -338,7 +338,7 @@ Detected Card IMSI:  262423203000002
 Programming Authentication parameters...
  * New algorithm setting:
    2G: 5=GBA
-   3G: 5=GBA
+   3G: 8=XOR-3G
  * Initalizing...
  * Programming...
 
@@ -363,7 +363,7 @@ Reading Authentication parameters...
  * Reading...
  * Current algorithm setting:
    2G: 5=GBA
-   3G: 5=GBA
+   3G: 8=XOR-3G
 
 Done!
 sysmoUSIM-SJS1 parameterization tool
@@ -384,7 +384,7 @@ Detected Card IMSI:  262423203000002
 Programming Authentication parameters...
  * New algorithm setting:
    2G: 3=COMP128v1
-   3G: 3=COMP128v1
+   3G: 8=XOR-3G
  * Initalizing...
  * Programming...
 
@@ -409,7 +409,7 @@ Reading Authentication parameters...
  * Reading...
  * Current algorithm setting:
    2G: 3=COMP128v1
-   3G: 3=COMP128v1
+   3G: 8=XOR-3G
 
 Done!
 sysmoUSIM-SJS1 parameterization tool

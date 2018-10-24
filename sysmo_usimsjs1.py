@@ -300,7 +300,7 @@ def sysmo_usim_write_auth_params(sim, algo_2g_str, algo_3g_str):
 	        algo_2g = sysmo_usim_str_to_algo(algo_2g_str)
 
         if algo_3g_str.isdigit():
-	        algo_3g = int(algo_2g_str)
+	        algo_3g = int(algo_3g_str)
         else:
 	        algo_3g = sysmo_usim_str_to_algo(algo_3g_str)
 
