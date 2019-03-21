@@ -1,0 +1,132 @@
+sysmoUSIM-SJS1 parameterization tool
+Copyright (c)2017 Sysmocom s.f.m.c. GmbH
+
+Initializing smartcard terminal...
+
+Detected Card ICCID:  8988211320300000028
+
+Authenticating...
+ * Remaining attempts: 3
+ * Authenticating...
+ * Authentication successful
+ * Remaining attempts: 3
+
+Detected Card IMSI:  262423203000002
+
+Writing MNCLEN value...
+ * New MNCLEN setting:
+   MNCLEN: 0x02
+ * Initalizing...
+ * Programming...
+
+Done!
+sysmoUSIM-SJS1 parameterization tool
+Copyright (c)2017 Sysmocom s.f.m.c. GmbH
+
+Initializing smartcard terminal...
+
+Detected Card ICCID:  8988211320300000028
+
+Authenticating...
+ * Remaining attempts: 3
+ * Authenticating...
+ * Authentication successful
+ * Remaining attempts: 3
+
+Detected Card IMSI:  262423203000002
+
+Reading MNCLEN value...
+ * Initalizing...
+ * Reading...
+ * Current MNCLEN setting:
+   MNCLEN: 0x02
+
+Done!
+sysmoUSIM-SJS1 parameterization tool
+Copyright (c)2017 Sysmocom s.f.m.c. GmbH
+
+Initializing smartcard terminal...
+
+Detected Card ICCID:  8988211320300000028
+
+Authenticating...
+ * Remaining attempts: 3
+ * Authenticating...
+ * Authentication successful
+ * Remaining attempts: 3
+
+Detected Card IMSI:  262423203000002
+
+Writing MNCLEN value...
+ * New MNCLEN setting:
+   MNCLEN: 0x03
+ * Initalizing...
+ * Programming...
+
+Done!
+sysmoUSIM-SJS1 parameterization tool
+Copyright (c)2017 Sysmocom s.f.m.c. GmbH
+
+Initializing smartcard terminal...
+
+Detected Card ICCID:  8988211320300000028
+
+Authenticating...
+ * Remaining attempts: 3
+ * Authenticating...
+ * Authentication successful
+ * Remaining attempts: 3
+
+Detected Card IMSI:  262423203000002
+
+Reading MNCLEN value...
+ * Initalizing...
+ * Reading...
+ * Current MNCLEN setting:
+   MNCLEN: 0x03
+
+Done!
+sysmoUSIM-SJS1 parameterization tool
+Copyright (c)2017 Sysmocom s.f.m.c. GmbH
+
+Initializing smartcard terminal...
+
+Detected Card ICCID:  8988211320300000028
+
+Authenticating...
+ * Remaining attempts: 3
+ * Authenticating...
+ * Authentication successful
+ * Remaining attempts: 3
+
+Detected Card IMSI:  262423203000002
+
+Writing MNCLEN value...
+ * New MNCLEN setting:
+   MNCLEN: 0x02
+ * Initalizing...
+ * Programming...
+
+Done!
+sysmoUSIM-SJS1 parameterization tool
+Copyright (c)2017 Sysmocom s.f.m.c. GmbH
+
+Initializing smartcard terminal...
+
+Detected Card ICCID:  8988211320300000028
+
+Authenticating...
+ * Remaining attempts: 3
+ * Authenticating...
+ * Authentication successful
+ * Remaining attempts: 3
+
+Detected Card IMSI:  262423203000002
+
+Reading MNCLEN value...
+ * Initalizing...
+ * Reading...
+ * Current MNCLEN setting:
+   MNCLEN: 0x02
+
+Done!

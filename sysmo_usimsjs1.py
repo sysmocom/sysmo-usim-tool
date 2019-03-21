@@ -591,3 +591,36 @@ def sysmo_usim_write_imsi(sim, imsi):
 
 	print " * Programming..."
 	sim.update_binary(imsi)
+
+
+# Show current KI value
+def sysmo_usim_show_mnclen(sim):
+	sysmo_usim_init(sim)
+
+	print " * Reading..."
+	sim.select(GSM_SIM_DF_GSM)
+	sim.select(GSM_SIM_EF_AD)
+	res = sim.read_binary(4)
+
+	print " * Current MNCLEN setting:"
+	print "   MNCLEN: " + "0x%02x" % res.apdu[3]
+
+
+# Program new MNCLEN value
+def sysmo_usim_write_mnclen(sim, mnclen):
+	print " * New MNCLEN setting:"
+	print "   MNCLEN: " + "0x" + hexdump(mnclen)
+
+        if len(mnclen) != 1:
+                print " * Error: mnclen value must consist of a single byte!"
+                return
+
+	sysmo_usim_init(sim)
+	sim.select(GSM_SIM_DF_GSM)
+	sim.select(GSM_SIM_EF_AD)
+
+	res = sim.read_binary(4)
+        new_ad = res.apdu[0:3] + mnclen
+
+	print " * Programming..."
+	sim.update_binary(new_ad)

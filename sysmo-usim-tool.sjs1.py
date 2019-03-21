@@ -55,6 +55,8 @@ def helptext():
 	print "   -S  --reset-seq-parameters...... Reset MILENAGE SEQ/SQN parameters to default"
 	print "   -I, --set-iccid ................ Set ICCID value"
 	print "   -J, --set-imsi ................. Set IMSI value"
+	print "   -n, --mnclen ................... Show MNC length value"
+	print "   -N, --set-mnclen ............... Set MNC length value"
 	print ""
 
 
@@ -78,17 +80,19 @@ def main(argv):
 	getopt_seq_par = False
 	getopt_reset_seq_par = False
 	getopt_write_imsi = None
+	getopt_show_mnclen = None
+	getopt_write_mnclen = None
 
 	# Analyze commandline options
 	try:
 		opts, args = getopt.getopt(argv,
-			"ha:ucmtT:lL:oO:C:kK:fiI:sSJ:",
+			"ha:ucmtT:lL:oO:C:kK:fiI:sSJ:nN:",
 				["help","adm1=","usim","classic",
 				 "mode","auth","set-auth=","milenage",
 				 "set-milenage","opc","set-op=","set-opc=",
 				 "ki","set-ki=","force","iccid","set-iccid=",
 				 "seq-parameters", "reset-seq-parameters",
-                                 "set-imsi"])
+                                 "set-imsi", "set-mnclen", "mnclen"])
 	except getopt.GetoptError:
 		print " * Error: Invalid commandline options"
 		sys.exit(2)
@@ -138,6 +142,10 @@ def main(argv):
 			getopt_reset_seq_par = True
 		elif opt in ("-J", "--set-imsi"):
 			getopt_write_imsi = asciihex_to_list(pad_asciihex(arg, True, '9'))
+		elif opt in ("-n", "--mnclen"):
+			getopt_show_mnclen = True
+		elif opt in ("-N", "--set-mnclen"):
+			getopt_write_mnclen = asciihex_to_list(arg)
 
 
 	if not getopt_adm1:
@@ -242,6 +250,16 @@ def main(argv):
 	if getopt_write_imsi:
 		print "Writing IMSI value..."
 		sysmo_usim_write_imsi(sim, getopt_write_imsi)
+		print("")
+
+	if getopt_show_mnclen:
+		print "Reading MNCLEN value..."
+		sysmo_usim_show_mnclen(sim)
+		print("")
+
+	if getopt_write_mnclen:
+		print "Writing MNCLEN value..."
+		sysmo_usim_write_mnclen(sim, getopt_write_mnclen)
 		print("")
 
 	print "Done!"
