@@ -236,6 +236,10 @@ def sysmo_usim_admin_auth(sim, adm1, force = False):
 		print "          (double check ADM1 and use option -f to override)"
 		return False
 
+        if(len(adm1) != 8):
+                print " * Error: Short ADM1, a valid ADM1 is 8 digits long!"
+                return False
+
 	# Try to authenticate
 	try:
 		print " * Authenticating..."
