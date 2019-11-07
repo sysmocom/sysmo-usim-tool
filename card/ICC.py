@@ -904,8 +904,8 @@ class ISO7816(object):
             Data = Data[L+2:]
         return fil
     
-    @staticmethod
-    def parse_compact_security_attribute(Data, fil):
+
+    def parse_compact_security_attribute(self, Data, fil):
         '''
         parses a list of bytes provided in Data
         interprets the content as the compact form for security parameters

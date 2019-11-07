@@ -36,7 +36,7 @@ def hexdump(array, multilne = False, width = 30, prefix = "   "):
 			result += prefix
 			result += ''.join('{:02x}'.format(x) for x in buf)
 			result += "\n"
-		return result
+		return result.rstrip()
 	else:
 		return ''.join('{:02x}'.format(x) for x in array)
 

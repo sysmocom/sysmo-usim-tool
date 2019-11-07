@@ -1,8 +1,7 @@
 sysmoUSIM-SJS1 parameterization tool
-Copyright (c)2017 Sysmocom s.f.m.c. GmbH
+Copyright (c)2017-2019 Sysmocom s.f.m.c. GmbH
 
 Initializing smartcard terminal...
- * Detected Card ICCID: 8988211320300000028
  * Detected Card IMSI:  262423203000002
 
 Authenticating...
@@ -11,7 +10,7 @@ Authenticating...
  * Authentication successful
  * Remaining attempts: 3
 
-Writing OP value...
+Writing OPc value...
  * Initalizing...
  * New OPc setting:
    OPc: 000102030405060708090a0b0c0d0e0f
@@ -19,10 +18,9 @@ Writing OP value...
 
 Done!
 sysmoUSIM-SJS1 parameterization tool
-Copyright (c)2017 Sysmocom s.f.m.c. GmbH
+Copyright (c)2017-2019 Sysmocom s.f.m.c. GmbH
 
 Initializing smartcard terminal...
- * Detected Card ICCID: 8988211320300000028
  * Detected Card IMSI:  262423203000002
 
 Authenticating...
@@ -39,10 +37,9 @@ Reading OP/c value...
 
 Done!
 sysmoUSIM-SJS1 parameterization tool
-Copyright (c)2017 Sysmocom s.f.m.c. GmbH
+Copyright (c)2017-2019 Sysmocom s.f.m.c. GmbH
 
 Initializing smartcard terminal...
- * Detected Card ICCID: 8988211320300000028
  * Detected Card IMSI:  262423203000002
 
 Authenticating...
@@ -59,10 +56,9 @@ Writing OP value...
 
 Done!
 sysmoUSIM-SJS1 parameterization tool
-Copyright (c)2017 Sysmocom s.f.m.c. GmbH
+Copyright (c)2017-2019 Sysmocom s.f.m.c. GmbH
 
 Initializing smartcard terminal...
- * Detected Card ICCID: 8988211320300000028
  * Detected Card IMSI:  262423203000002
 
 Authenticating...

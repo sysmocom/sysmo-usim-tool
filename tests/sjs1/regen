@@ -1,7 +1,7 @@
 #!/bin/sh
 
 echo "Regenerating test output..."
-
+./prepare
 ./01_auth.sh > ./01_auth.out
 ./02_mode_read.sh > ./02_mode_read.out
 ./03_mode_write.sh > ./03_mode_write.out

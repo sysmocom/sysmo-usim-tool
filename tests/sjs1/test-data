@@ -1,0 +1,6 @@
+TOOL=../../sysmo-usim-tool.sjs1.py
+# data for the test scripts.  The values have to match the SIM card inserted while executing the test
+ICCID=8988211320300000028
+IMSI=262423203000002
+ADMPIN=55538407 # <==== CHANGE THIS TO THE ADM1 KEY OF YOUR TEST CARD!
+KI=94c7f52c8c7337fad1af3a73b17b56ac

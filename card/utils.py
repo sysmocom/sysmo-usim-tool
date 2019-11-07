@@ -216,7 +216,10 @@ def decode_BCD(data=[]):
         if (B&0x0F) < 10: string += str(B&0x0F)
         # 2nd digit (4 MSB), can be padding (e.g. 0xF)
         if (B>>4) < 10: string += str(B>>4)
-    return string
+    if len(string) <= 0:
+	return None
+    else:
+	return string
 
 def compute_luhn(digit_str=''):
     '''

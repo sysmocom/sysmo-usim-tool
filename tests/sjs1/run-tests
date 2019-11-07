@@ -1,0 +1,39 @@
+#!/bin/sh
+
+# default: execute all tests
+TESTS="01_auth.sh  02_mode_read.sh  03_mode_write.sh  04_algo.sh  05_milenage_par.sh  06_op_opc.sh  07_ki.sh 08_seq.sh 09_mnclen.sh"
+
+# if command line specifies some specific tests, execute only those
+if [ $# -ge 1 ]; then
+	TESTS=$*
+fi
+
+TMP=`tempfile`
+NUM_FAIL=0
+
+# prepare test card
+./prepare
+
+for T in $TESTS; do
+	echo "==> Executing Testcase $T"
+	EXPOUT=${T%%.sh}.out
+	rm $TMP
+	./$T > $TMP
+	diff -u $EXPOUT $TMP
+	if [ $? -eq 0 ]; then
+		echo "Test $T passed"
+	else
+		echo "Test $T FAILED!"
+		NUM_FAIL=$((NUM_FAIL+1))
+	fi
+done
+
+echo
+echo
+echo "Summary: $NUM_FAIL Tests failed"
+
+if [ $NUM_FAIL -gt 0 ]; then
+	exit 1
+else
+	exit 0
+fi

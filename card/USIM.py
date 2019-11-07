@@ -175,7 +175,23 @@ class USIM(UICC):
                     self.USIM_AID = aid
                     if self.dbg:
                         log(3, '(USIM.__init__) USIM AID selection succeeded\n')
-    
+
+    def SELECT_ADF_ISIM(self):
+        # USIM selection from AID
+        if self.dbg:
+            log(3, '(ISIM.__init__) UICC AID found:')
+        self.get_AID()
+        for aid in self.AID:
+            if  tuple(aid[0:5]) == (0xA0, 0x00, 0x00, 0x00, 0x87) \
+            and tuple(aid[5:7]) == (0x10, 0x04) :
+                usim = self.select(addr=aid, type='aid')
+                if usim is None and self.dbg:
+                    log(2, '(ISIM.__init__) ISIM AID selection failed')
+                if usim is not None:
+                    self.USIM_AID = aid
+                    if self.dbg:
+                        log(3, '(ISIM.__init__) ISIM AID selection succeeded\n')
+
     @staticmethod
     def sw_status(sw1, sw2):
         status = SIM.sw_status(sw1, sw2)

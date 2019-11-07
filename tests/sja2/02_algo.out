@@ -1,0 +1,720 @@
+sysmoISIM-SJA2 parameterization tool
+Copyright (c)2019 Sysmocom s.f.m.c. GmbH
+
+Trying to find card with ATR: 3B 9F 96 80 1F 87 80 31 E0 73 FE 21 1B 67 4A 4C 75 30 34 05 4B A9
+Initializing smartcard terminal...
+ * Card not detected!
+Trying to find card with ATR: 3B 9F 96 80 1F 87 80 31 E0 73 FE 21 1B 67 4A 4C 75 31 33 02 51 B2
+Initializing smartcard terminal...
+ * Detected Card IMSI:  262423203000002
+
+Authenticating...
+ * Remaining attempts: 3
+ * Authenticating...
+ * Authentication successful
+ * Remaining attempts: 3
+
+Programming Authentication parameters...
+ * Initalizing...
+ * New algorithm setting:
+   2G: 1=COMP128v1
+   3G: 1=COMP128v1
+ * Programming...
+
+Done!
+sysmoISIM-SJA2 parameterization tool
+Copyright (c)2019 Sysmocom s.f.m.c. GmbH
+
+Trying to find card with ATR: 3B 9F 96 80 1F 87 80 31 E0 73 FE 21 1B 67 4A 4C 75 30 34 05 4B A9
+Initializing smartcard terminal...
+ * Card not detected!
+Trying to find card with ATR: 3B 9F 96 80 1F 87 80 31 E0 73 FE 21 1B 67 4A 4C 75 31 33 02 51 B2
+Initializing smartcard terminal...
+ * Detected Card IMSI:  262423203000002
+
+Authenticating...
+ * Remaining attempts: 3
+ * Authenticating...
+ * Authentication successful
+ * Remaining attempts: 3
+
+Reading Authentication parameters...
+ * Initalizing...
+ * Reading...
+ * Current algorithm setting:
+   2G: 1=COMP128v1
+   3G: 1=COMP128v1
+
+Done!
+sysmoISIM-SJA2 parameterization tool
+Copyright (c)2019 Sysmocom s.f.m.c. GmbH
+
+Trying to find card with ATR: 3B 9F 96 80 1F 87 80 31 E0 73 FE 21 1B 67 4A 4C 75 30 34 05 4B A9
+Initializing smartcard terminal...
+ * Card not detected!
+Trying to find card with ATR: 3B 9F 96 80 1F 87 80 31 E0 73 FE 21 1B 67 4A 4C 75 31 33 02 51 B2
+Initializing smartcard terminal...
+ * Detected Card IMSI:  262423203000002
+
+Authenticating...
+ * Remaining attempts: 3
+ * Authenticating...
+ * Authentication successful
+ * Remaining attempts: 3
+
+Programming Authentication parameters...
+ * Initalizing...
+ * New algorithm setting:
+   2G: 3=XOR-2G
+   3G: 1=COMP128v1
+ * Programming...
+
+Done!
+sysmoISIM-SJA2 parameterization tool
+Copyright (c)2019 Sysmocom s.f.m.c. GmbH
+
+Trying to find card with ATR: 3B 9F 96 80 1F 87 80 31 E0 73 FE 21 1B 67 4A 4C 75 30 34 05 4B A9
+Initializing smartcard terminal...
+ * Card not detected!
+Trying to find card with ATR: 3B 9F 96 80 1F 87 80 31 E0 73 FE 21 1B 67 4A 4C 75 31 33 02 51 B2
+Initializing smartcard terminal...
+ * Detected Card IMSI:  262423203000002
+
+Authenticating...
+ * Remaining attempts: 3
+ * Authenticating...
+ * Authentication successful
+ * Remaining attempts: 3
+
+Reading Authentication parameters...
+ * Initalizing...
+ * Reading...
+ * Current algorithm setting:
+   2G: 3=XOR-2G
+   3G: 1=COMP128v1
+
+Done!
+sysmoISIM-SJA2 parameterization tool
+Copyright (c)2019 Sysmocom s.f.m.c. GmbH
+
+Trying to find card with ATR: 3B 9F 96 80 1F 87 80 31 E0 73 FE 21 1B 67 4A 4C 75 30 34 05 4B A9
+Initializing smartcard terminal...
+ * Card not detected!
+Trying to find card with ATR: 3B 9F 96 80 1F 87 80 31 E0 73 FE 21 1B 67 4A 4C 75 31 33 02 51 B2
+Initializing smartcard terminal...
+ * Detected Card IMSI:  262423203000002
+
+Authenticating...
+ * Remaining attempts: 3
+ * Authenticating...
+ * Authentication successful
+ * Remaining attempts: 3
+
+Programming Authentication parameters...
+ * Initalizing...
+ * New algorithm setting:
+   2G: 4=MILENAGE
+   3G: 1=COMP128v1
+ * Programming...
+
+Done!
+sysmoISIM-SJA2 parameterization tool
+Copyright (c)2019 Sysmocom s.f.m.c. GmbH
+
+Trying to find card with ATR: 3B 9F 96 80 1F 87 80 31 E0 73 FE 21 1B 67 4A 4C 75 30 34 05 4B A9
+Initializing smartcard terminal...
+ * Card not detected!
+Trying to find card with ATR: 3B 9F 96 80 1F 87 80 31 E0 73 FE 21 1B 67 4A 4C 75 31 33 02 51 B2
+Initializing smartcard terminal...
+ * Detected Card IMSI:  262423203000002
+
+Authenticating...
+ * Remaining attempts: 3
+ * Authenticating...
+ * Authentication successful
+ * Remaining attempts: 3
+
+Reading Authentication parameters...
+ * Initalizing...
+ * Reading...
+ * Current algorithm setting:
+   2G: 4=MILENAGE
+   3G: 1=COMP128v1
+
+Done!
+sysmoISIM-SJA2 parameterization tool
+Copyright (c)2019 Sysmocom s.f.m.c. GmbH
+
+Trying to find card with ATR: 3B 9F 96 80 1F 87 80 31 E0 73 FE 21 1B 67 4A 4C 75 30 34 05 4B A9
+Initializing smartcard terminal...
+ * Card not detected!
+Trying to find card with ATR: 3B 9F 96 80 1F 87 80 31 E0 73 FE 21 1B 67 4A 4C 75 31 33 02 51 B2
+Initializing smartcard terminal...
+ * Detected Card IMSI:  262423203000002
+
+Authenticating...
+ * Remaining attempts: 3
+ * Authenticating...
+ * Authentication successful
+ * Remaining attempts: 3
+
+Programming Authentication parameters...
+ * Initalizing...
+ * New algorithm setting:
+   2G: 5=SHA1-AKA
+   3G: 1=COMP128v1
+ * Programming...
+
+Done!
+sysmoISIM-SJA2 parameterization tool
+Copyright (c)2019 Sysmocom s.f.m.c. GmbH
+
+Trying to find card with ATR: 3B 9F 96 80 1F 87 80 31 E0 73 FE 21 1B 67 4A 4C 75 30 34 05 4B A9
+Initializing smartcard terminal...
+ * Card not detected!
+Trying to find card with ATR: 3B 9F 96 80 1F 87 80 31 E0 73 FE 21 1B 67 4A 4C 75 31 33 02 51 B2
+Initializing smartcard terminal...
+ * Detected Card IMSI:  262423203000002
+
+Authenticating...
+ * Remaining attempts: 3
+ * Authenticating...
+ * Authentication successful
+ * Remaining attempts: 3
+
+Reading Authentication parameters...
+ * Initalizing...
+ * Reading...
+ * Current algorithm setting:
+   2G: 5=SHA1-AKA
+   3G: 1=COMP128v1
+
+Done!
+sysmoISIM-SJA2 parameterization tool
+Copyright (c)2019 Sysmocom s.f.m.c. GmbH
+
+Trying to find card with ATR: 3B 9F 96 80 1F 87 80 31 E0 73 FE 21 1B 67 4A 4C 75 30 34 05 4B A9
+Initializing smartcard terminal...
+ * Card not detected!
+Trying to find card with ATR: 3B 9F 96 80 1F 87 80 31 E0 73 FE 21 1B 67 4A 4C 75 31 33 02 51 B2
+Initializing smartcard terminal...
+ * Detected Card IMSI:  262423203000002
+
+Authenticating...
+ * Remaining attempts: 3
+ * Authenticating...
+ * Authentication successful
+ * Remaining attempts: 3
+
+Programming Authentication parameters...
+ * Initalizing...
+ * New algorithm setting:
+   2G: 15=XOR
+   3G: 1=COMP128v1
+ * Programming...
+
+Done!
+sysmoISIM-SJA2 parameterization tool
+Copyright (c)2019 Sysmocom s.f.m.c. GmbH
+
+Trying to find card with ATR: 3B 9F 96 80 1F 87 80 31 E0 73 FE 21 1B 67 4A 4C 75 30 34 05 4B A9
+Initializing smartcard terminal...
+ * Card not detected!
+Trying to find card with ATR: 3B 9F 96 80 1F 87 80 31 E0 73 FE 21 1B 67 4A 4C 75 31 33 02 51 B2
+Initializing smartcard terminal...
+ * Detected Card IMSI:  262423203000002
+
+Authenticating...
+ * Remaining attempts: 3
+ * Authenticating...
+ * Authentication successful
+ * Remaining attempts: 3
+
+Reading Authentication parameters...
+ * Initalizing...
+ * Reading...
+ * Current algorithm setting:
+   2G: 15=XOR
+   3G: 1=COMP128v1
+
+Done!
+sysmoISIM-SJA2 parameterization tool
+Copyright (c)2019 Sysmocom s.f.m.c. GmbH
+
+Trying to find card with ATR: 3B 9F 96 80 1F 87 80 31 E0 73 FE 21 1B 67 4A 4C 75 30 34 05 4B A9
+Initializing smartcard terminal...
+ * Card not detected!
+Trying to find card with ATR: 3B 9F 96 80 1F 87 80 31 E0 73 FE 21 1B 67 4A 4C 75 31 33 02 51 B2
+Initializing smartcard terminal...
+ * Detected Card IMSI:  262423203000002
+
+Authenticating...
+ * Remaining attempts: 3
+ * Authenticating...
+ * Authentication successful
+ * Remaining attempts: 3
+
+Programming Authentication parameters...
+ * Initalizing...
+ * New algorithm setting:
+   2G: 1=COMP128v1
+   3G: 4=MILENAGE
+ * Programming...
+
+Done!
+sysmoISIM-SJA2 parameterization tool
+Copyright (c)2019 Sysmocom s.f.m.c. GmbH
+
+Trying to find card with ATR: 3B 9F 96 80 1F 87 80 31 E0 73 FE 21 1B 67 4A 4C 75 30 34 05 4B A9
+Initializing smartcard terminal...
+ * Card not detected!
+Trying to find card with ATR: 3B 9F 96 80 1F 87 80 31 E0 73 FE 21 1B 67 4A 4C 75 31 33 02 51 B2
+Initializing smartcard terminal...
+ * Detected Card IMSI:  262423203000002
+
+Authenticating...
+ * Remaining attempts: 3
+ * Authenticating...
+ * Authentication successful
+ * Remaining attempts: 3
+
+Reading Authentication parameters...
+ * Initalizing...
+ * Reading...
+ * Current algorithm setting:
+   2G: 1=COMP128v1
+   3G: 4=MILENAGE
+
+Done!
+sysmoISIM-SJA2 parameterization tool
+Copyright (c)2019 Sysmocom s.f.m.c. GmbH
+
+Trying to find card with ATR: 3B 9F 96 80 1F 87 80 31 E0 73 FE 21 1B 67 4A 4C 75 30 34 05 4B A9
+Initializing smartcard terminal...
+ * Card not detected!
+Trying to find card with ATR: 3B 9F 96 80 1F 87 80 31 E0 73 FE 21 1B 67 4A 4C 75 31 33 02 51 B2
+Initializing smartcard terminal...
+ * Detected Card IMSI:  262423203000002
+
+Authenticating...
+ * Remaining attempts: 3
+ * Authenticating...
+ * Authentication successful
+ * Remaining attempts: 3
+
+Programming Authentication parameters...
+ * Initalizing...
+ * New algorithm setting:
+   2G: 3=XOR-2G
+   3G: 15=XOR
+ * Programming...
+
+Done!
+sysmoISIM-SJA2 parameterization tool
+Copyright (c)2019 Sysmocom s.f.m.c. GmbH
+
+Trying to find card with ATR: 3B 9F 96 80 1F 87 80 31 E0 73 FE 21 1B 67 4A 4C 75 30 34 05 4B A9
+Initializing smartcard terminal...
+ * Card not detected!
+Trying to find card with ATR: 3B 9F 96 80 1F 87 80 31 E0 73 FE 21 1B 67 4A 4C 75 31 33 02 51 B2
+Initializing smartcard terminal...
+ * Detected Card IMSI:  262423203000002
+
+Authenticating...
+ * Remaining attempts: 3
+ * Authenticating...
+ * Authentication successful
+ * Remaining attempts: 3
+
+Reading Authentication parameters...
+ * Initalizing...
+ * Reading...
+ * Current algorithm setting:
+   2G: 3=XOR-2G
+   3G: 15=XOR
+
+Done!
+sysmoISIM-SJA2 parameterization tool
+Copyright (c)2019 Sysmocom s.f.m.c. GmbH
+
+Trying to find card with ATR: 3B 9F 96 80 1F 87 80 31 E0 73 FE 21 1B 67 4A 4C 75 30 34 05 4B A9
+Initializing smartcard terminal...
+ * Card not detected!
+Trying to find card with ATR: 3B 9F 96 80 1F 87 80 31 E0 73 FE 21 1B 67 4A 4C 75 31 33 02 51 B2
+Initializing smartcard terminal...
+ * Detected Card IMSI:  262423203000002
+
+Authenticating...
+ * Remaining attempts: 3
+ * Authenticating...
+ * Authentication successful
+ * Remaining attempts: 3
+
+Programming Authentication parameters...
+ * Initalizing...
+ * New algorithm setting:
+   2G: 2=COMP128v2
+   3G: 2=COMP128v2
+ * Programming...
+
+Done!
+sysmoISIM-SJA2 parameterization tool
+Copyright (c)2019 Sysmocom s.f.m.c. GmbH
+
+Trying to find card with ATR: 3B 9F 96 80 1F 87 80 31 E0 73 FE 21 1B 67 4A 4C 75 30 34 05 4B A9
+Initializing smartcard terminal...
+ * Card not detected!
+Trying to find card with ATR: 3B 9F 96 80 1F 87 80 31 E0 73 FE 21 1B 67 4A 4C 75 31 33 02 51 B2
+Initializing smartcard terminal...
+ * Detected Card IMSI:  262423203000002
+
+Authenticating...
+ * Remaining attempts: 3
+ * Authenticating...
+ * Authentication successful
+ * Remaining attempts: 3
+
+Reading Authentication parameters...
+ * Initalizing...
+ * Reading...
+ * Current algorithm setting:
+   2G: 2=COMP128v2
+   3G: 2=COMP128v2
+
+Done!
+sysmoISIM-SJA2 parameterization tool
+Copyright (c)2019 Sysmocom s.f.m.c. GmbH
+
+Trying to find card with ATR: 3B 9F 96 80 1F 87 80 31 E0 73 FE 21 1B 67 4A 4C 75 30 34 05 4B A9
+Initializing smartcard terminal...
+ * Card not detected!
+Trying to find card with ATR: 3B 9F 96 80 1F 87 80 31 E0 73 FE 21 1B 67 4A 4C 75 31 33 02 51 B2
+Initializing smartcard terminal...
+ * Detected Card IMSI:  262423203000002
+
+Authenticating...
+ * Remaining attempts: 3
+ * Authenticating...
+ * Authentication successful
+ * Remaining attempts: 3
+
+Programming Authentication parameters...
+ * Initalizing...
+ * New algorithm setting:
+   2G: 1=COMP128v1
+   3G: 3=XOR-2G
+ * Programming...
+
+Done!
+sysmoISIM-SJA2 parameterization tool
+Copyright (c)2019 Sysmocom s.f.m.c. GmbH
+
+Trying to find card with ATR: 3B 9F 96 80 1F 87 80 31 E0 73 FE 21 1B 67 4A 4C 75 30 34 05 4B A9
+Initializing smartcard terminal...
+ * Card not detected!
+Trying to find card with ATR: 3B 9F 96 80 1F 87 80 31 E0 73 FE 21 1B 67 4A 4C 75 31 33 02 51 B2
+Initializing smartcard terminal...
+ * Detected Card IMSI:  262423203000002
+
+Authenticating...
+ * Remaining attempts: 3
+ * Authenticating...
+ * Authentication successful
+ * Remaining attempts: 3
+
+Reading Authentication parameters...
+ * Initalizing...
+ * Reading...
+ * Current algorithm setting:
+   2G: 1=COMP128v1
+   3G: 3=XOR-2G
+
+Done!
+sysmoISIM-SJA2 parameterization tool
+Copyright (c)2019 Sysmocom s.f.m.c. GmbH
+
+Trying to find card with ATR: 3B 9F 96 80 1F 87 80 31 E0 73 FE 21 1B 67 4A 4C 75 30 34 05 4B A9
+Initializing smartcard terminal...
+ * Card not detected!
+Trying to find card with ATR: 3B 9F 96 80 1F 87 80 31 E0 73 FE 21 1B 67 4A 4C 75 31 33 02 51 B2
+Initializing smartcard terminal...
+ * Detected Card IMSI:  262423203000002
+
+Authenticating...
+ * Remaining attempts: 3
+ * Authenticating...
+ * Authentication successful
+ * Remaining attempts: 3
+
+Programming Authentication parameters...
+ * Initalizing...
+ * New algorithm setting:
+   2G: 4=MILENAGE
+   3G: 4=MILENAGE
+ * Programming...
+
+Done!
+sysmoISIM-SJA2 parameterization tool
+Copyright (c)2019 Sysmocom s.f.m.c. GmbH
+
+Trying to find card with ATR: 3B 9F 96 80 1F 87 80 31 E0 73 FE 21 1B 67 4A 4C 75 30 34 05 4B A9
+Initializing smartcard terminal...
+ * Card not detected!
+Trying to find card with ATR: 3B 9F 96 80 1F 87 80 31 E0 73 FE 21 1B 67 4A 4C 75 31 33 02 51 B2
+Initializing smartcard terminal...
+ * Detected Card IMSI:  262423203000002
+
+Authenticating...
+ * Remaining attempts: 3
+ * Authenticating...
+ * Authentication successful
+ * Remaining attempts: 3
+
+Reading Authentication parameters...
+ * Initalizing...
+ * Reading...
+ * Current algorithm setting:
+   2G: 4=MILENAGE
+   3G: 4=MILENAGE
+
+Done!
+sysmoISIM-SJA2 parameterization tool
+Copyright (c)2019 Sysmocom s.f.m.c. GmbH
+
+Trying to find card with ATR: 3B 9F 96 80 1F 87 80 31 E0 73 FE 21 1B 67 4A 4C 75 30 34 05 4B A9
+Initializing smartcard terminal...
+ * Card not detected!
+Trying to find card with ATR: 3B 9F 96 80 1F 87 80 31 E0 73 FE 21 1B 67 4A 4C 75 31 33 02 51 B2
+Initializing smartcard terminal...
+ * Detected Card IMSI:  262423203000002
+
+Authenticating...
+ * Remaining attempts: 3
+ * Authenticating...
+ * Authentication successful
+ * Remaining attempts: 3
+
+Programming Authentication parameters...
+ * Initalizing...
+ * New algorithm setting:
+   2G: 1=COMP128v1
+   3G: 4=MILENAGE
+ * Programming...
+
+Done!
+sysmoISIM-SJA2 parameterization tool
+Copyright (c)2019 Sysmocom s.f.m.c. GmbH
+
+Trying to find card with ATR: 3B 9F 96 80 1F 87 80 31 E0 73 FE 21 1B 67 4A 4C 75 30 34 05 4B A9
+Initializing smartcard terminal...
+ * Card not detected!
+Trying to find card with ATR: 3B 9F 96 80 1F 87 80 31 E0 73 FE 21 1B 67 4A 4C 75 31 33 02 51 B2
+Initializing smartcard terminal...
+ * Detected Card IMSI:  262423203000002
+
+Authenticating...
+ * Remaining attempts: 3
+ * Authenticating...
+ * Authentication successful
+ * Remaining attempts: 3
+
+Reading Authentication parameters...
+ * Initalizing...
+ * Reading...
+ * Current algorithm setting:
+   2G: 1=COMP128v1
+   3G: 4=MILENAGE
+
+Done!
+sysmoISIM-SJA2 parameterization tool
+Copyright (c)2019 Sysmocom s.f.m.c. GmbH
+
+Trying to find card with ATR: 3B 9F 96 80 1F 87 80 31 E0 73 FE 21 1B 67 4A 4C 75 30 34 05 4B A9
+Initializing smartcard terminal...
+ * Card not detected!
+Trying to find card with ATR: 3B 9F 96 80 1F 87 80 31 E0 73 FE 21 1B 67 4A 4C 75 31 33 02 51 B2
+Initializing smartcard terminal...
+ * Detected Card IMSI:  262423203000002
+
+Authenticating...
+ * Remaining attempts: 3
+ * Authenticating...
+ * Authentication successful
+ * Remaining attempts: 3
+
+Programming Authentication parameters...
+ * Initalizing...
+ * New algorithm setting:
+   2G: 3=XOR-2G
+   3G: 4=MILENAGE
+ * Programming...
+
+Done!
+sysmoISIM-SJA2 parameterization tool
+Copyright (c)2019 Sysmocom s.f.m.c. GmbH
+
+Trying to find card with ATR: 3B 9F 96 80 1F 87 80 31 E0 73 FE 21 1B 67 4A 4C 75 30 34 05 4B A9
+Initializing smartcard terminal...
+ * Card not detected!
+Trying to find card with ATR: 3B 9F 96 80 1F 87 80 31 E0 73 FE 21 1B 67 4A 4C 75 31 33 02 51 B2
+Initializing smartcard terminal...
+ * Detected Card IMSI:  262423203000002
+
+Authenticating...
+ * Remaining attempts: 3
+ * Authenticating...
+ * Authentication successful
+ * Remaining attempts: 3
+
+Reading Authentication parameters...
+ * Initalizing...
+ * Reading...
+ * Current algorithm setting:
+   2G: 3=XOR-2G
+   3G: 4=MILENAGE
+
+Done!
+sysmoISIM-SJA2 parameterization tool
+Copyright (c)2019 Sysmocom s.f.m.c. GmbH
+
+Trying to find card with ATR: 3B 9F 96 80 1F 87 80 31 E0 73 FE 21 1B 67 4A 4C 75 30 34 05 4B A9
+Initializing smartcard terminal...
+ * Card not detected!
+Trying to find card with ATR: 3B 9F 96 80 1F 87 80 31 E0 73 FE 21 1B 67 4A 4C 75 31 33 02 51 B2
+Initializing smartcard terminal...
+ * Detected Card IMSI:  262423203000002
+
+Authenticating...
+ * Remaining attempts: 3
+ * Authenticating...
+ * Authentication successful
+ * Remaining attempts: 3
+
+Programming Authentication parameters...
+ * Initalizing...
+ * New algorithm setting:
+   2G: 2=COMP128v2
+   3G: 4=MILENAGE
+ * Programming...
+
+Done!
+sysmoISIM-SJA2 parameterization tool
+Copyright (c)2019 Sysmocom s.f.m.c. GmbH
+
+Trying to find card with ATR: 3B 9F 96 80 1F 87 80 31 E0 73 FE 21 1B 67 4A 4C 75 30 34 05 4B A9
+Initializing smartcard terminal...
+ * Card not detected!
+Trying to find card with ATR: 3B 9F 96 80 1F 87 80 31 E0 73 FE 21 1B 67 4A 4C 75 31 33 02 51 B2
+Initializing smartcard terminal...
+ * Detected Card IMSI:  262423203000002
+
+Authenticating...
+ * Remaining attempts: 3
+ * Authenticating...
+ * Authentication successful
+ * Remaining attempts: 3
+
+Reading Authentication parameters...
+ * Initalizing...
+ * Reading...
+ * Current algorithm setting:
+   2G: 2=COMP128v2
+   3G: 4=MILENAGE
+
+Done!
+sysmoISIM-SJA2 parameterization tool
+Copyright (c)2019 Sysmocom s.f.m.c. GmbH
+
+Trying to find card with ATR: 3B 9F 96 80 1F 87 80 31 E0 73 FE 21 1B 67 4A 4C 75 30 34 05 4B A9
+Initializing smartcard terminal...
+ * Card not detected!
+Trying to find card with ATR: 3B 9F 96 80 1F 87 80 31 E0 73 FE 21 1B 67 4A 4C 75 31 33 02 51 B2
+Initializing smartcard terminal...
+ * Detected Card IMSI:  262423203000002
+
+Authenticating...
+ * Remaining attempts: 3
+ * Authenticating...
+ * Authentication successful
+ * Remaining attempts: 3
+
+Programming Authentication parameters...
+ * Initalizing...
+ * New algorithm setting:
+   2G: 5=SHA1-AKA
+   3G: 15=XOR
+ * Programming...
+
+Done!
+sysmoISIM-SJA2 parameterization tool
+Copyright (c)2019 Sysmocom s.f.m.c. GmbH
+
+Trying to find card with ATR: 3B 9F 96 80 1F 87 80 31 E0 73 FE 21 1B 67 4A 4C 75 30 34 05 4B A9
+Initializing smartcard terminal...
+ * Card not detected!
+Trying to find card with ATR: 3B 9F 96 80 1F 87 80 31 E0 73 FE 21 1B 67 4A 4C 75 31 33 02 51 B2
+Initializing smartcard terminal...
+ * Detected Card IMSI:  262423203000002
+
+Authenticating...
+ * Remaining attempts: 3
+ * Authenticating...
+ * Authentication successful
+ * Remaining attempts: 3
+
+Reading Authentication parameters...
+ * Initalizing...
+ * Reading...
+ * Current algorithm setting:
+   2G: 5=SHA1-AKA
+   3G: 15=XOR
+
+Done!
+sysmoISIM-SJA2 parameterization tool
+Copyright (c)2019 Sysmocom s.f.m.c. GmbH
+
+Trying to find card with ATR: 3B 9F 96 80 1F 87 80 31 E0 73 FE 21 1B 67 4A 4C 75 30 34 05 4B A9
+Initializing smartcard terminal...
+ * Card not detected!
+Trying to find card with ATR: 3B 9F 96 80 1F 87 80 31 E0 73 FE 21 1B 67 4A 4C 75 31 33 02 51 B2
+Initializing smartcard terminal...
+ * Detected Card IMSI:  262423203000002
+
+Authenticating...
+ * Remaining attempts: 3
+ * Authenticating...
+ * Authentication successful
+ * Remaining attempts: 3
+
+Programming Authentication parameters...
+ * Initalizing...
+ * New algorithm setting:
+   2G: 1=COMP128v1
+   3G: 4=MILENAGE
+ * Programming...
+
+Done!
+sysmoISIM-SJA2 parameterization tool
+Copyright (c)2019 Sysmocom s.f.m.c. GmbH
+
+Trying to find card with ATR: 3B 9F 96 80 1F 87 80 31 E0 73 FE 21 1B 67 4A 4C 75 30 34 05 4B A9
+Initializing smartcard terminal...
+ * Card not detected!
+Trying to find card with ATR: 3B 9F 96 80 1F 87 80 31 E0 73 FE 21 1B 67 4A 4C 75 31 33 02 51 B2
+Initializing smartcard terminal...
+ * Detected Card IMSI:  262423203000002
+
+Authenticating...
+ * Remaining attempts: 3
+ * Authenticating...
+ * Authentication successful
+ * Remaining attempts: 3
+
+Reading Authentication parameters...
+ * Initalizing...
+ * Reading...
+ * Current algorithm setting:
+   2G: 1=COMP128v1
+   3G: 4=MILENAGE
+
+Done!
