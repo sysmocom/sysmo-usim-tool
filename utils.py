@@ -72,6 +72,8 @@ def swap_nibbles(array):
 def list_to_int(arr):
 	return int(hexdump(arr), 16)
 
+
+# Encode an integer number into list of bytes (e.g. 1025 becomes [4, 1])
 def int_to_list(inp, num_bytes):
 	out = []
 	for i in range(0, num_bytes):
