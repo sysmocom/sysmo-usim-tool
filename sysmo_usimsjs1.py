@@ -136,6 +136,12 @@ class SYSMO_USIMSJS1_FILE_EF_MLNGC:
 		dump += "   R5: " + str(hex(self.R5))
 		return dump
 
+	def encode(self):
+		out = self.C1 + self.C2 + self.C3 + self.C4 + self.C5
+		out += [self.R1, self.R2, self.R3, self.R4, self.R5]
+		return out
+
+
 class SYSMO_USIMSJS1_FILE_EF_SQNC:
 	# Default parameters
 	ind_size_bits = 5
@@ -390,28 +396,9 @@ def sysmo_usim_show_milenage_params(sim):
 	sim.select(SYSMO_USIMSJS1_DF_AUTH)
 	sim.select(SYSMO_USIMSJS1_EF_MLNGC)
 
-	print " * Reading..."
-	ef_mlngc = SYSMO_USIMSJS1_FILE_EF_MLNGC()
-	res = sim.read_binary(16, offset = 0)
-	ef_mlngc.C1 = res.apdu
-	res = sim.read_binary(16, offset = 16)
-	ef_mlngc.C2 = res.apdu
-	res = sim.read_binary(16, offset = 32)
-	ef_mlngc.C3 = res.apdu
-	res = sim.read_binary(16, offset = 48)
-	ef_mlngc.C4 = res.apdu
-	res = sim.read_binary(16, offset = 64)
-	ef_mlngc.C5 = res.apdu
-	res = sim.read_binary(1, offset = 80)
-	ef_mlngc.R1 = res.apdu[0]
-	res = sim.read_binary(1, offset = 81)
-	ef_mlngc.R2 = res.apdu[0]
-	res = sim.read_binary(1, offset = 82)
-	ef_mlngc.R3 = res.apdu[0]
-	res = sim.read_binary(1, offset = 83)
-	ef_mlngc.R4 = res.apdu[0]
-	res = sim.read_binary(1, offset = 84)
-	ef_mlngc.R5 = res.apdu[0]
+	print(" * Reading...")
+	res = sim.read_binary(85)
+	ef_mlngc = SYSMO_USIMSJS1_FILE_EF_MLNGC(res.apdu)
 
 	print " * Current Milenage Parameters in (EF.MLNGC):"
 	print str(ef_mlngc)
@@ -428,16 +415,7 @@ def sysmo_usim_write_milenage_params(sim, ef_mlngc):
 	sim.select(SYSMO_USIMSJS1_EF_MLNGC)
 
 	print " * Programming..."
-	sim.update_binary(ef_mlngc.C1, offset = 0)
-	sim.update_binary(ef_mlngc.C2, offset = 16)
-	sim.update_binary(ef_mlngc.C3, offset = 32)
-	sim.update_binary(ef_mlngc.C4, offset = 48)
-	sim.update_binary(ef_mlngc.C5, offset = 64)
-	sim.update_binary([ef_mlngc.R1], offset = 80)
-	sim.update_binary([ef_mlngc.R2], offset = 81)
-	sim.update_binary([ef_mlngc.R3], offset = 82)
-	sim.update_binary([ef_mlngc.R4], offset = 83)
-	sim.update_binary([ef_mlngc.R5], offset = 84)
+	sim.update_binary(ef_mlngc.encode())
 
 
 def sysmo_usim_opcmode2str(mode):
