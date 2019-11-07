@@ -2,8 +2,8 @@ sysmoUSIM-SJS1 parameterization tool
 Copyright (c)2017 Sysmocom s.f.m.c. GmbH
 
 Initializing smartcard terminal...
-
-Detected Card ICCID:  8988211320300000028
+ * Detected Card ICCID: 8988211320300000028
+ * Detected Card IMSI:  262423203000002
 
 Authenticating...
  * Remaining attempts: 3
@@ -11,12 +11,10 @@ Authenticating...
  * Authentication successful
  * Remaining attempts: 3
 
-Detected Card IMSI:  262423203000002
-
 Writing KI value...
+ * Initalizing...
  * New KI setting:
    KI: a0b1c2d3e4f5061728394a5b6c7d8e9f
- * Initalizing...
  * Programming...
 
 Done!
@@ -24,8 +22,8 @@ sysmoUSIM-SJS1 parameterization tool
 Copyright (c)2017 Sysmocom s.f.m.c. GmbH
 
 Initializing smartcard terminal...
-
-Detected Card ICCID:  8988211320300000028
+ * Detected Card ICCID: 8988211320300000028
+ * Detected Card IMSI:  262423203000002
 
 Authenticating...
  * Remaining attempts: 3
@@ -33,10 +31,7 @@ Authenticating...
  * Authentication successful
  * Remaining attempts: 3
 
-Detected Card IMSI:  262423203000002
-
 Reading KI value...
- * Initalizing...
  * Reading...
  * Current KI setting:
    KI: a0b1c2d3e4f5061728394a5b6c7d8e9f
@@ -46,8 +41,8 @@ sysmoUSIM-SJS1 parameterization tool
 Copyright (c)2017 Sysmocom s.f.m.c. GmbH
 
 Initializing smartcard terminal...
-
-Detected Card ICCID:  8988211320300000028
+ * Detected Card ICCID: 8988211320300000028
+ * Detected Card IMSI:  262423203000002
 
 Authenticating...
  * Remaining attempts: 3
@@ -55,12 +50,10 @@ Authenticating...
  * Authentication successful
  * Remaining attempts: 3
 
-Detected Card IMSI:  262423203000002
-
 Writing KI value...
+ * Initalizing...
  * New KI setting:
    KI: 94c7f52c8c7337fad1af3a73b17b56ac
- * Initalizing...
  * Programming...
 
 Done!
@@ -68,8 +61,8 @@ sysmoUSIM-SJS1 parameterization tool
 Copyright (c)2017 Sysmocom s.f.m.c. GmbH
 
 Initializing smartcard terminal...
-
-Detected Card ICCID:  8988211320300000028
+ * Detected Card ICCID: 8988211320300000028
+ * Detected Card IMSI:  262423203000002
 
 Authenticating...
  * Remaining attempts: 3
@@ -77,10 +70,7 @@ Authenticating...
  * Authentication successful
  * Remaining attempts: 3
 
-Detected Card IMSI:  262423203000002
-
 Reading KI value...
- * Initalizing...
  * Reading...
  * Current KI setting:
    KI: 94c7f52c8c7337fad1af3a73b17b56ac

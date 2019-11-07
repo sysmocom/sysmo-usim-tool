@@ -155,112 +155,64 @@ def main(argv):
 
 
 	# Claim terminal
-	print "Initializing smartcard terminal..."
-	sim = Simcard(GSM_USIM, toBytes("3B 9F 96 80 1F C7 80 31 A0 73 BE 21 13 67 43 20 07 18 00 00 01 A5"))
-	print("")
-
-	print "Detected Card ICCID: ", sim.card.get_ICCID()
-	print ""
+	sim = Sysmo_usimsjs1()
 
 	# Authenticate
-	print "Authenticating..."
-	if sysmo_usim_admin_auth(sim, getopt_adm1, getopt_force) == False:
-		print ""
-		print "   ===  Authentication problem! The Card will permanently   ==="
-		print "   === lock down after 3 failed attemts! Double check ADM1! ==="
-		print ""
+	if sim.admin_auth(getopt_adm1, getopt_force) == False:
 		exit(1)
-	print("")
-
-	sim.card.SELECT_ADF_USIM()
-	print "Detected Card IMSI: ", sim.card.get_imsi()
-	print ""
 
 	# Execute tasks
 	if getopt_write_sim_mode != None:
-		print "Programming SIM-Mode..."
-		sysmo_usim_write_sim_mode(sim, getopt_write_sim_mode)
-		print("")
+		sim.write_sim_mode(getopt_write_sim_mode)
 
 	if getopt_show_sim_mode:
-		print "Reading SIM-Mode..."
-		sysmo_usim_show_sim_mode(sim)
-		print("")
+		sim.show_sim_mode()
 
 	if getopt_write_auth:
-		print "Programming Authentication parameters..."
-		sysmo_usim_write_auth_params(sim, getopt_write_auth[0], getopt_write_auth[1])
-		print("")
+		sim.write_auth_params(getopt_write_auth[0], getopt_write_auth[1])
 
 	if getopt_show_auth:
-		print "Reading Authentication parameters..."
-		sysmo_usim_show_auth_params(sim)
-		print("")
+		sim.show_auth_params()
 
 	if getopt_write_milenage:
-		print "Programming Milenage parameters..."
 		ef_mlngc = SYSMO_USIMSJS1_FILE_EF_MLNGC(getopt_write_milenage)
-		sysmo_usim_write_milenage_params(sim, ef_mlngc)
-		print("")
+		sim.write_milenage_params(ef_mlngc)
 
 	if getopt_show_milenage:
-		print "Reading Milenage parameters..."
-		sysmo_usim_show_milenage_params(sim)
-		print("")
+		sim.show_milenage_params()
 
 	if getopt_seq_par:
-		print "Reading Milenage Sequence parameters..."
-		sysmo_usim_read_milenage_sqn_params(sim)
+		sim.show_milenage_sqn_params()
 
 	if getopt_write_op:
-		print "Writing OP value..."
-		sysmo_usim_write_opc_params(sim, 0, getopt_write_op)
-		print("")
+		sim.write_opc_params(0, getopt_write_op)
 
 	if getopt_write_opc:
-		print "Writing OPC value..."
-		sysmo_usim_write_opc_params(sim, 1, getopt_write_opc)
-		print("")
+		sim.write_opc_params(1, getopt_write_opc)
 
 	if getopt_show_opc:
-		print "Reading OP/C value..."
-		sysmo_usim_show_opc_params(sim)
-		print("")
+		sim.show_opc_params()
 
 	if getopt_write_ki:
-		print "Writing KI value..."
-		sysmo_usim_write_ki_params(sim, getopt_write_ki)
-		print("")
+		sim.write_ki_params(getopt_write_ki)
 
 	if getopt_show_ki:
-		print "Reading KI value..."
-		sysmo_usim_show_ki_params(sim)
-		print("")
+		sim.show_ki_params()
 
 	if getopt_write_iccid:
-		print "Writing ICCID value..."
-		sysmo_usim_write_iccid(sim, getopt_write_iccid)
-		print("")
+		sim.write_iccid(getopt_write_iccid)
 
 	if getopt_reset_seq_par:
-		print "Resetting MILENAGE Sequence Parameters..."
-		sysmo_usim_reset_milenage_sqn_params(sim)
-		print("")
+		sim.reset_milenage_sqn_params()
 
 	if getopt_write_imsi:
-		print "Writing IMSI value..."
-		sysmo_usim_write_imsi(sim, getopt_write_imsi)
-		print("")
+		sim.write_imsi(getopt_write_imsi)
 
 	if getopt_show_mnclen:
-		print "Reading MNCLEN value..."
-		sysmo_usim_show_mnclen(sim)
-		print("")
+		sim.show_mnclen()
 
 	if getopt_write_mnclen:
-		print "Writing MNCLEN value..."
-		sysmo_usim_write_mnclen(sim, getopt_write_mnclen)
-		print("")
+		sim.write_mnclen(getopt_write_mnclen)
 
 	print "Done!"
 

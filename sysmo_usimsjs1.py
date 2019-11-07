@@ -221,46 +221,6 @@ class SYSMO_USIMSJS1_FILE_EF_SQNA:
 			out += int_to_list(i, 6)
 		return out
 
-
-# Initalize card (select master file)
-def sysmo_usim_init(sim):
-	print " * Initalizing..."
-	sim.select(GSM_SIM_MF)
-
-
-# Authenticate as administrator
-def sysmo_usim_admin_auth(sim, adm1, force = False):
-	rc = True
-	rem_attemts = sim.chv_retrys(SYSMO_USIMSJS1_ADM1)
-
-	print " * Remaining attempts: " + str(rem_attemts)
-
-	# Stop if a decreased ADM1 retry counter is detected
-	if(rem_attemts < 3) and force == False:
-		print " * Error: Only two authentication attempts remaining, we don't"
-		print "          want to risk another failed authentication attempt!"
-		print "          (double check ADM1 and use option -f to override)"
-		return False
-
-        if(len(adm1) != 8):
-                print " * Error: Short ADM1, a valid ADM1 is 8 digits long!"
-                return False
-
-	# Try to authenticate
-	try:
-		print " * Authenticating..."
-		sim.verify_chv(adm1, SYSMO_USIMSJS1_ADM1)
-		print " * Authentication successful"
-	except:
-		print " * Error: Authentication failed!"
-		rc = False
-
-	# Read back and display remaining attemts
-	rem_attemts = sim.chv_retrys(SYSMO_USIMSJS1_ADM1)
-	print " * Remaining attempts: " + str(rem_attemts)
-
-	return rc
-
 sysmo_usim_algorithms = (
 		(1, 'MILENAGE'),
 		(3, 'COMP128v1'),
@@ -277,316 +237,399 @@ sysmo_usim_opcmodes = (
 		(1, 'OPc'),
 	)
 
-# Show current athentication parameters
-# (Which algorithim is used for which rat?)
-def sysmo_usim_show_auth_params(sim):
-	sysmo_usim_init(sim)
-
-	print " * Reading..."
-	sim.select(SYSMO_USIMSJS1_DF_AUTH)
-	sim.select(SYSMO_USIMSJS1_EF_AUTH)
-	res = sim.read_binary(0x02)
-
-	algo_2g, algo_3g = res.apdu[:2]
-
-	print " * Current algorithm setting:"
-	print "   2G: %d=%s" % (algo_2g, id_to_str(sysmo_usim_algorithms, algo_2g))
-	print "   3G: %d=%s" % (algo_3g, id_to_str(sysmo_usim_algorithms, algo_3g))
-
-
-# Program new authentication parameters
-def sysmo_usim_write_auth_params(sim, algo_2g_str, algo_3g_str):
-
-        if algo_2g_str.isdigit():
-                algo_2g = int(algo_2g_str)
-        else:
-	        algo_2g = str_to_id(sysmo_usim_algorithms, algo_2g_str)
-
-        if algo_3g_str.isdigit():
-	        algo_3g = int(algo_3g_str)
-        else:
-	        algo_3g = str_to_id(sysmo_usim_algorithms, algo_3g_str)
-
-	print " * New algorithm setting:"
-	print "   2G: %d=%s" % (algo_2g, id_to_str(sysmo_usim_algorithms, algo_2g))
-	print "   3G: %d=%s" % (algo_3g, id_to_str(sysmo_usim_algorithms, algo_3g))
-
-	sysmo_usim_init(sim)
-
-	print " * Programming..."
-	sim.select(SYSMO_USIMSJS1_DF_AUTH)
-	sim.select(SYSMO_USIMSJS1_EF_AUTH)
-	sim.update_binary([algo_2g,algo_3g])
-
-def sysmo_usim_get_auth_counter(sim):
-	sim.select(SYSMO_USIMSJS1_EF_AC)
-	res = sim.read_binary(4, offset=0)
-	ctr = list_to_int(res.apdu[0:4])
-	if ctr == 0:
-		return "LOCKED"
-	elif ctr == 0xFFFFFFFF:
-		return "DISABLED"
-        else:
-		return ctr
+class Sysmo_usimsjs1:
+
+	sim = None
+
+	def __init__(self):
+		print("Initializing smartcard terminal...")
+		self.sim = Simcard(GSM_USIM, toBytes("3B 9F 96 80 1F C7 80 31 A0 73 BE 21 13 67 43 20 07 18 00 00 01 A5"))
+		print(" * Detected Card ICCID: %s" % self.sim.card.get_ICCID())
+		self.sim.card.SELECT_ADF_USIM()
+		print(" * Detected Card IMSI:  %s" % self.sim.card.get_imsi())
+		print("")
+
+
+	def __warn_failed_auth(self, attempts = 3, keytype = "ADM1"):
+		print("   ===  Authentication problem! The Card will permanently   ===")
+		print("   === lock down after %d failed attemts! Double check %s! ===" % (attempts, keytype))
+		print("")
+
+
+	# Authenticate as administrator
+	def admin_auth(self, adm1, force = False):
+		print("Authenticating...")
+		rc = True
+		rem_attemts = self.sim.chv_retrys(SYSMO_USIMSJS1_ADM1)
+
+		print(" * Remaining attempts: " + str(rem_attemts))
+
+		# Stop if a decreased ADM1 retry counter is detected
+		if(rem_attemts < 3) and force == False:
+			print(" * Error: Only two authentication attempts remaining, we don't")
+			print("          want to risk another failed authentication attempt!")
+			print("          (double check ADM1 and use option -f to override)")
+			print("")
+			self.__warn_failed_auth()
+			return False
+
+		if(len(adm1) != 8):
+			print(" * Error: Short ADM1, a valid ADM1 is 8 digits long!")
+			print("")
+			self.__warn_failed_auth()
+			return False
+
+		# Try to authenticate
+		try:
+			print(" * Authenticating...")
+			self.sim.verify_chv(adm1, SYSMO_USIMSJS1_ADM1)
+			print(" * Authentication successful")
+		except:
+			print(" * Error: Authentication failed!")
+			self.__warn_failed_auth()
+			rc = False
+
+		# Read back and display remaining attemts
+		rem_attemts = self.sim.chv_retrys(SYSMO_USIMSJS1_ADM1)
+		print(" * Remaining attempts: " + str(rem_attemts))
+		print("")
+
+		if rc == False:
+			self.__warn_failed_auth()
+		return rc
+
+
+	# Initalize card (select master file)
+	def __init(self):
+		print " * Initalizing..."
+		self.sim.select(GSM_SIM_MF)
+
+
+	# Show the enable status of the USIM application (app is enabled or disabled?)
+	def show_sim_mode(self):
+		print("Reading SIM-Mode...")
+		self.__init()
+
+		print(" * Reading...")
+		self.sim.select(GSM_USIM_EF_DIR)
+		res = self.sim.read_record(0x26, rec_no = 1)
+
+		print(" * Current status of Record No. 1 in EF.DIR:")
+		print("   " + hexdump(res.apdu))
+
+		if hexdump(SYSMO_USIM_AID) in hexdump(res.apdu):
+			print("   ==> USIM application enabled")
+		else:
+			print("   ==> USIM application disabled")
+		print("")
+
+
+	# Show the enable status of the USIM application (app is enabled or disabled?)
+	def write_sim_mode(self, usim_enabled = True):
+		print("Programming SIM-Mode...")
+		self.__init()
+
+		if usim_enabled:
+			new_record = SYSMO_USIM_EF_DIR_REC_1_CONTENT
+		else:
+			new_record = [0xFF] * len(SYSMO_USIM_EF_DIR_REC_1_CONTENT)
+
+		print(" * New status of Record No.1 in EF.DIR:")
+		print("   " + hexdump(new_record))
+		if hexdump(SYSMO_USIM_AID) in hexdump(new_record):
+			print("   ==> USIM application enabled")
+		else:
+			print("   ==> USIM application disabled")
 
-def sysmo_usim_set_auth_counter(sim, ctr):
-	if ctr == "LOCKED":
-		ctr = 0
-	elif ctr == "DISABLED":
-		ctr = 0xFFFFFFFF
-	data = int_to_list(ctr, 4)
-	sim.select(SYSMO_USIMSJS1_EF_AC)
-	res = sim.update_binary(data, offset=0)
-	if ctr == 0:
-		return "LOCKED"
-	elif ctr == 0xFFFFFFFF:
-		return "DISABLED"
-        else:
-		return ctr
+		print(" * Programming...")
+		self.sim.select(GSM_USIM_EF_DIR)
+		self.sim.update_record(new_record, rec_no = 1)
+		print("")
+
+
+	# Show current athentication parameters
+	# (Which algorithim is used for which rat?)
+	def show_auth_params(self):
+		print("Programming Authentication parameters...")
+		self.__init()
+
+		print(" * Reading...")
+		self.sim.select(SYSMO_USIMSJS1_DF_AUTH)
+		self.sim.select(SYSMO_USIMSJS1_EF_AUTH)
+		res = self.sim.read_binary(0x02)
+
+		algo_2g, algo_3g = res.apdu[:2]
+
+		print(" * Current algorithm setting:")
+		print("   2G: %d=%s" % (algo_2g, id_to_str(sysmo_usim_algorithms, algo_2g)))
+		print("   3G: %d=%s" % (algo_3g, id_to_str(sysmo_usim_algorithms, algo_3g)))
+		print("")
+
+
+	# Program new authentication parameters
+	def write_auth_params(self, algo_2g_str, algo_3g_str):
+		print("Reading Authentication parameters...")
+		self.__init()
+
+		if algo_2g_str.isdigit():
+			algo_2g = int(algo_2g_str)
+		else:
+			algo_2g = str_to_id(sysmo_usim_algorithms, algo_2g_str)
+
+		if algo_3g_str.isdigit():
+			algo_3g = int(algo_3g_str)
+		else:
+			algo_3g = str_to_id(sysmo_usim_algorithms, algo_3g_str)
+
+		print(" * New algorithm setting:")
+		print("   2G: %d=%s" % (algo_2g, id_to_str(sysmo_usim_algorithms, algo_2g)))
+		print("   3G: %d=%s" % (algo_3g, id_to_str(sysmo_usim_algorithms, algo_3g)))
+
+		print(" * Programming...")
+		self.sim.select(SYSMO_USIMSJS1_DF_AUTH)
+		self.sim.select(SYSMO_USIMSJS1_EF_AUTH)
+		self.sim.update_binary([algo_2g,algo_3g])
+		print("")
+
+
+	# Show current milenage parameters
+	def show_milenage_params(self):
+		print("Reading Milenage parameters...")
+		self.__init()
+
+		self.sim.select(SYSMO_USIMSJS1_DF_AUTH)
+		self.sim.select(SYSMO_USIMSJS1_EF_MLNGC)
+
+		print(" * Reading...")
+		res = self.sim.read_binary(85)
+		ef_mlngc = SYSMO_USIMSJS1_FILE_EF_MLNGC(res.apdu)
+
+		print(" * Current Milenage Parameters in (EF.MLNGC):")
+		print str(ef_mlngc)
+		print("")
+
+
+	# Write new milenage parameters
+	def write_milenage_params(self, ef_mlngc):
+		print("Programming Milenage parameters...")
+		self.__init()
+
+		print(" * New Milenage Parameters for (EF.MLNGC):")
+		print str(ef_mlngc)
+
+		self.sim.select(SYSMO_USIMSJS1_DF_AUTH)
+		self.sim.select(SYSMO_USIMSJS1_EF_MLNGC)
+
+		print(" * Programming...")
+		self.sim.update_binary(ef_mlngc.encode())
+		print("")
+
+
+	def __get_auth_counter(self):
+		self.sim.select(SYSMO_USIMSJS1_EF_AC)
+		res = self.sim.read_binary(4, offset=0)
+		ctr = list_to_int(res.apdu[0:4])
+		if ctr == 0:
+			return "LOCKED"
+		elif ctr == 0xFFFFFFFF:
+			return "DISABLED"
+		else:
+			return ctr
+
+
+	def __set_auth_counter(self, ctr):
+		if ctr == "LOCKED":
+			ctr = 0
+		elif ctr == "DISABLED":
+			ctr = 0xFFFFFFFF
+		data = int_to_list(ctr, 4)
+		self.sim.select(SYSMO_USIMSJS1_EF_AC)
+		res = self.sim.update_binary(data, offset=0)
+		if ctr == 0:
+			return "LOCKED"
+		elif ctr == 0xFFFFFFFF:
+			return "DISABLED"
+		else:
+			return ctr
+
+
+	# Show current milenage SQN parameters
+	def show_milenage_sqn_params(self):
+		print("Reading Milenage Sequence parameters...")
+		self.__init()
+
+		self.sim.card.SELECT_ADF_USIM()
+		self.sim.select(SYSMO_USIMSJS1_EF_SQNC)
+
+		res = self.sim.read_binary(15, offset = 0)
+		ef_sqnc = SYSMO_USIMSJS1_FILE_EF_SQNC(res.apdu)
+		print(" * Current SQN Configuration:")
+		print str(ef_sqnc)
 
-def sysmo_usim_read_milenage_sqn_params(sim):
-	sysmo_usim_init(sim)
+		# SQN Array
+		ind_pow = 2**ef_sqnc.ind_size_bits
+		self.sim.select(SYSMO_USIMSJS1_EF_SQNA)
+		res = self.sim.read_binary(ind_pow*6, offset=0)
+		ef_sqna = SYSMO_USIMSJS1_FILE_EF_SQNA(res.apdu)
+		print(" * Current SQN Array:")
+		print str(ef_sqna)
 
-	sim.card.SELECT_ADF_USIM()
-	sim.select(SYSMO_USIMSJS1_EF_SQNC)
+		auth_ctr = self.__get_auth_counter()
+		print("* Authentication Counter: %s" % auth_ctr)
+		print("")
 
-	res = sim.read_binary(15, offset = 0)
-	ef_sqnc = SYSMO_USIMSJS1_FILE_EF_SQNC(res.apdu)
-	print " * Current SQN Configuration:"
-	print str(ef_sqnc)
 
-	# SQN Array
-	ind_pow = 2**ef_sqnc.ind_size_bits
-	sim.select(SYSMO_USIMSJS1_EF_SQNA)
-	res = sim.read_binary(ind_pow*6, offset=0)
-	ef_sqna = SYSMO_USIMSJS1_FILE_EF_SQNA(res.apdu)
-	print " * Current SQN Array:"
-	print str(ef_sqna)
+	# Reset milenage SQN configuration
+	def reset_milenage_sqn_params(self):
+		print(" * Resetting SQN Configuration to defaults...")
+		self.__init()
 
-	auth_ctr = sysmo_usim_get_auth_counter(sim)
-	print "* Authentication Counter: %s\n" % auth_ctr
+		print(" * Resetting...")
+		self.sim.card.SELECT_ADF_USIM()
+		ef_sqnc = SYSMO_USIMSJS1_FILE_EF_SQNC(None)
+		self.sim.select(SYSMO_USIMSJS1_EF_SQNC)
+		res = self.sim.update_binary(ef_sqnc.encode())
 
-def sysmo_usim_reset_milenage_sqn_params(sim):
-	sysmo_usim_init(sim)
+		ef_sqna = SYSMO_USIMSJS1_FILE_EF_SQNA(None, ef_sqnc.ind_size_bits)
+		self.sim.select(SYSMO_USIMSJS1_EF_SQNA)
+		res = self.sim.update_binary(ef_sqna.encode())
 
-	print " * Resetting SQN Configuration to defaults..."
+		self.__set_auth_counter("DISABLED")
+		print("")		
 
-	sim.card.SELECT_ADF_USIM()
-	ef_sqnc = SYSMO_USIMSJS1_FILE_EF_SQNC(None)
-	sim.select(SYSMO_USIMSJS1_EF_SQNC)
-	res = sim.update_binary(ef_sqnc.encode())
 
-	ef_sqna = SYSMO_USIMSJS1_FILE_EF_SQNA(None, ef_sqnc.ind_size_bits)
-	sim.select(SYSMO_USIMSJS1_EF_SQNA)
-	res = sim.update_binary(ef_sqna.encode())
+	# Show current OPc value
+	def show_opc_params(self):
+		print("Reading OP/c value...")
+		self.__init()
 
-	sysmo_usim_set_auth_counter(sim, "DISABLED")
+		print(" * Reading...")
+		self.sim.card.SELECT_ADF_USIM()
+		self.sim.select(SYSMO_USIMSJS1_EF_OPC)
+		res = self.sim.read_binary(17)
 
-# Show current milenage parameters
-def sysmo_usim_show_milenage_params(sim):
-	sysmo_usim_init(sim)
+		mode_str = id_to_str(sysmo_usim_opcmodes, res.apdu[0])
 
-	sim.select(SYSMO_USIMSJS1_DF_AUTH)
-	sim.select(SYSMO_USIMSJS1_EF_MLNGC)
+		print(" * Current OP/OPc setting:")
+		print("   %s: %s" % (mode_str, hexdump(res.apdu[1:])))
+		print("")
 
-	print(" * Reading...")
-	res = sim.read_binary(85)
-	ef_mlngc = SYSMO_USIMSJS1_FILE_EF_MLNGC(res.apdu)
 
-	print " * Current Milenage Parameters in (EF.MLNGC):"
-	print str(ef_mlngc)
+	# Program new OPc value
+	def write_opc_params(self, select, op):
+		if op:
+			print("Writing OP value...")
+		else:
+			print("Writing OPc value...")
+		self.__init()
 
+		print(" * New OPc setting:")
+		print("   %s: %s" % (id_to_str(sysmo_usim_opcmodes, select), hexdump(op)))
+		print("   OP/OPc: " + hexdump(op))
 
-# Write new milenage parameters
-def sysmo_usim_write_milenage_params(sim, ef_mlngc):
-	sysmo_usim_init(sim)
+		self.sim.select(GSM_SIM_DF_GSM)
+		self.sim.select(SYSMO_USIMSJS1_EF_OPC)
 
-	print " * New Milenage Parameters for (EF.MLNGC):"
-	print str(ef_mlngc)
+		print(" * Programming...")
+		self.sim.update_binary([select] + op)
+		print("")
 
-	sim.select(SYSMO_USIMSJS1_DF_AUTH)
-	sim.select(SYSMO_USIMSJS1_EF_MLNGC)
 
-	print " * Programming..."
-	sim.update_binary(ef_mlngc.encode())
+	# Show current KI value
+	def show_ki_params(self):
+		print("Reading KI value...")
+		print(" * Reading...")
+		self.sim.select(GSM_SIM_DF_GSM)
+		self.sim.select(SYSMO_USIMSJS1_EF_KI)
+		res = self.sim.read_binary(16)
 
+		print(" * Current KI setting:")
+		print("   KI: " + hexdump(res.apdu))
+		print("")
 
-# Show current OPc value
-def sysmo_usim_show_opc_params(sim):
-	sysmo_usim_init(sim)
 
-	print " * Reading..."
-	sim.card.SELECT_ADF_USIM()
-	sim.select(SYSMO_USIMSJS1_EF_OPC)
-	res = sim.read_binary(17)
+	# Program new KI value
+	def write_ki_params(self, ki):
+		print("Writing KI value...")
+		self.__init()
 
-	mode_str = id_to_str(sysmo_usim_opcmodes, res.apdu[0])
+		print(" * New KI setting:")
+		print("   KI: " + hexdump(ki))
 
-	print " * Current OP/OPc setting:"
-	print "   %s: %s" % (mode_str, hexdump(res.apdu[1:]))
+		self.sim.select(GSM_SIM_DF_GSM)
+		self.sim.select(SYSMO_USIMSJS1_EF_KI)
 
+		print(" * Programming...")
+		self.sim.update_binary(ki)
+		print("")
 
-# Program new OPc value
-def sysmo_usim_write_opc_params(sim, select, op):
-	print " * New OPc setting:"
-	print "   %s: %s" % (id_to_str(sysmo_usim_opcmodes, select), hexdump(op))
-	print "   OP/OPc: " + hexdump(op)
 
-	sysmo_usim_init(sim)
+	# Program new ICCID value
+	def write_iccid(self, iccid):
+		print("Writing ICCID value...")
+		self.__init()
 
-	sim.select(GSM_SIM_DF_GSM)
-	sim.select(SYSMO_USIMSJS1_EF_OPC)
+		print(" * New ICCID setting:")
+		print("   ICCID: " + hexdump(iccid))
 
-	print " * Programming..."
-	sim.update_binary([select] + op)
+		self.sim.select(GSM_SIM_EF_ICCID)
 
+		print(" * Programming...")
+		self.sim.update_binary(swap_nibbles(iccid))
+		print("")
 
-# Show current KI value
-def sysmo_usim_show_ki_params(sim):
-	sysmo_usim_init(sim)
 
-	print " * Reading..."
-	sim.select(GSM_SIM_DF_GSM)
-	sim.select(SYSMO_USIMSJS1_EF_KI)
-	res = sim.read_binary(16)
+	# Program new IMSI value
+	def write_imsi(self, imsi):
+		print("Writing IMSI value...")
+		self.__init()
 
-	print " * Current KI setting:"
-	print "   KI: " + hexdump(res.apdu)
+		print(" * New ISMI setting:")
+		print("   IMSI: " + hexdump(imsi))
 
+		self.sim.select(GSM_SIM_DF_GSM)
+		self.sim.select(GSM_SIM_EF_IMSI)
 
-# Program new KI value
-def sysmo_usim_write_ki_params(sim, ki):
-	print " * New KI setting:"
-	print "   KI: " + hexdump(ki)
+		imsi = [len(imsi)] + swap_nibbles(imsi)
 
-	sysmo_usim_init(sim)
+		print(" * Programming...")
+		self.sim.update_binary(imsi)
+		print("")
 
-	sim.select(GSM_SIM_DF_GSM)
-	sim.select(SYSMO_USIMSJS1_EF_KI)
 
-	print " * Programming..."
-	sim.update_binary(ki)
+	# Show current KI value
+	def show_mnclen(self):
+		print("Reading MNCLEN value...")
+		self.__init()
 
+		print(" * Reading...")
+		self.sim.select(GSM_SIM_DF_GSM)
+		self.sim.select(GSM_SIM_EF_AD)
+		res = self.sim.read_binary(4)
 
-# Show the enable status of the USIM application (app is enabled or disabled?)
-def sysmo_usim_show_usim_status(sim):
-	sysmo_usim_init(sim)
+		print(" * Current MNCLEN setting:")
+		print("   MNCLEN: " + "0x%02x" % res.apdu[3])
+		print("")
 
-	print " * Reading..."
-	sim.select(GSM_USIM_EF_DIR)
-	res = sim.read_record(0x26, rec_no = 1)
 
-	print " * Current status of Record No.1 in EF.DIR:"
-	print "   " + hexdump(res.apdu)
+	# Program new MNCLEN value
+	def write_mnclen(self, mnclen):
+		print("Writing MNCLEN value...")
+		self.__init()
 
+		print(" * New MNCLEN setting:")
+		print("   MNCLEN: " + "0x" + hexdump(mnclen))
 
-# Show the enable status of the USIM application (app is enabled or disabled?)
-def sysmo_usim_show_sim_mode(sim):
-	sysmo_usim_init(sim)
+		if len(mnclen) != 1:
+			print(" * Error: mnclen value must consist of a single byte!")
+			return
 
-	print " * Reading..."
-	sim.select(GSM_USIM_EF_DIR)
-	res = sim.read_record(0x26, rec_no = 1)
+		self.sim.select(GSM_SIM_DF_GSM)
+		self.sim.select(GSM_SIM_EF_AD)
 
-	print " * Current status of Record No. 1 in EF.DIR:"
-	print "   " + hexdump(res.apdu)
+		res = self.sim.read_binary(4)
+		new_ad = res.apdu[0:3] + mnclen
 
-	if hexdump(SYSMO_USIM_AID) in hexdump(res.apdu):
-		print "   ==> USIM application enabled"
-	else:
-		print "   ==> USIM application disabled"
-
-
-# Show the enable status of the USIM application (app is enabled or disabled?)
-def sysmo_usim_write_sim_mode(sim, usim_enabled = True):
-	if usim_enabled:
-		new_record = SYSMO_USIM_EF_DIR_REC_1_CONTENT
-	else:
-		new_record = [0xFF] * len(SYSMO_USIM_EF_DIR_REC_1_CONTENT)
-
-	print " * New status of Record No.1 in EF.DIR:"
-	print "   " + hexdump(new_record)
-	if hexdump(SYSMO_USIM_AID) in hexdump(new_record):
-		print "   ==> USIM application enabled"
-	else:
-		print "   ==> USIM application disabled"
-
-	sysmo_usim_init(sim)
-
-	print " * Programming..."
-	sim.select(GSM_USIM_EF_DIR)
-	sim.update_record(new_record, rec_no = 1)
-
-
-# Show current ICCID value
-def sysmo_usim_show_iccid(sim):
-	sysmo_usim_init(sim)
-
-	print " * Reading..."
-	sim.select(GSM_SIM_EF_ICCID)
-	res = sim.read_binary(10)
-
-	print " * Current ICCID setting:"
-	print "   ICCID: " + hexdump(swap_nibbles(res.apdu))
-
-
-# Program new ICCID value
-def sysmo_usim_write_iccid(sim, iccid):
-	print " * New ICCID setting:"
-	print "   ICCID: " + hexdump(iccid)
-
-	sysmo_usim_init(sim)
-
-	sim.select(GSM_SIM_EF_ICCID)
-
-	print " * Programming..."
-	sim.update_binary(swap_nibbles(iccid))
-
-
-# Program new IMSI value
-def sysmo_usim_write_imsi(sim, imsi):
-	print " * New ISMI setting:"
-	print "   IMSI: " + hexdump(imsi)
-
-	sysmo_usim_init(sim)
-
-        sim.select(GSM_SIM_DF_GSM)
-	sim.select(GSM_SIM_EF_IMSI)
-
-        imsi = [len(imsi)] + swap_nibbles(imsi)
-
-	print " * Programming..."
-	sim.update_binary(imsi)
-
-
-# Show current KI value
-def sysmo_usim_show_mnclen(sim):
-	sysmo_usim_init(sim)
-
-	print " * Reading..."
-	sim.select(GSM_SIM_DF_GSM)
-	sim.select(GSM_SIM_EF_AD)
-	res = sim.read_binary(4)
-
-	print " * Current MNCLEN setting:"
-	print "   MNCLEN: " + "0x%02x" % res.apdu[3]
-
-
-# Program new MNCLEN value
-def sysmo_usim_write_mnclen(sim, mnclen):
-	print " * New MNCLEN setting:"
-	print "   MNCLEN: " + "0x" + hexdump(mnclen)
-
-        if len(mnclen) != 1:
-                print " * Error: mnclen value must consist of a single byte!"
-                return
-
-	sysmo_usim_init(sim)
-	sim.select(GSM_SIM_DF_GSM)
-	sim.select(GSM_SIM_EF_AD)
-
-	res = sim.read_binary(4)
-        new_ad = res.apdu[0:3] + mnclen
-
-	print " * Programming..."
-	sim.update_binary(new_ad)
+		print(" * Programming...")
+		self.sim.update_binary(new_ad)
+		print("")
