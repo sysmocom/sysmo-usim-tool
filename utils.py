@@ -68,6 +68,7 @@ def swap_nibbles(array):
 		rc.append(((a & 0xf0) >> 4) | ((a & 0x0f) << 4))
 	return rc
 
+
 # Convert from list of bytes to big-endian integer
 def list_to_int(arr):
 	return int(hexdump(arr), 16)
