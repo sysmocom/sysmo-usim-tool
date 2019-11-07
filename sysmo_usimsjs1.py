@@ -272,17 +272,10 @@ sysmo_usim_algorithms = (
 		(9, 'CIS-B'),
 	)
 
-sysmo_usim_algorithms_dict_by_nr = dict(sysmo_usim_algorithms)
-sysmo_usim_algorithms_dict_by_name = dict([(name.upper(), nr) for nr, name in sysmo_usim_algorithms])
-
-def sysmo_usim_algo_to_str(alg_nr):
-	return sysmo_usim_algorithms_dict_by_nr.get(alg_nr) or 'INVALID'
-
-def sysmo_usim_str_to_algo(alg_str):
-	alg_nr = sysmo_usim_algorithms_dict_by_name.get(alg_str.upper())
-	if alg_nr is None:
-	    raise ValueError('Unknown Algorithm %s' % alg_str)
-	return alg_nr
+sysmo_usim_opcmodes = (
+		(0, 'OP'),
+		(1, 'OPc'),
+	)
 
 # Show current athentication parameters
 # (Which algorithim is used for which rat?)
@@ -297,8 +290,8 @@ def sysmo_usim_show_auth_params(sim):
 	algo_2g, algo_3g = res.apdu[:2]
 
 	print " * Current algorithm setting:"
-	print "   2G: %d=%s" % (algo_2g, sysmo_usim_algo_to_str(algo_2g))
-	print "   3G: %d=%s" % (algo_3g, sysmo_usim_algo_to_str(algo_3g))
+	print "   2G: %d=%s" % (algo_2g, id_to_str(sysmo_usim_algorithms, algo_2g))
+	print "   3G: %d=%s" % (algo_3g, id_to_str(sysmo_usim_algorithms, algo_3g))
 
 
 # Program new authentication parameters
@@ -307,16 +300,16 @@ def sysmo_usim_write_auth_params(sim, algo_2g_str, algo_3g_str):
         if algo_2g_str.isdigit():
                 algo_2g = int(algo_2g_str)
         else:
-	        algo_2g = sysmo_usim_str_to_algo(algo_2g_str)
+	        algo_2g = str_to_id(sysmo_usim_algorithms, algo_2g_str)
 
         if algo_3g_str.isdigit():
 	        algo_3g = int(algo_3g_str)
         else:
-	        algo_3g = sysmo_usim_str_to_algo(algo_3g_str)
+	        algo_3g = str_to_id(sysmo_usim_algorithms, algo_3g_str)
 
 	print " * New algorithm setting:"
-	print "   2G: %d=%s" % (algo_2g, sysmo_usim_algo_to_str(algo_2g))
-	print "   3G: %d=%s" % (algo_3g, sysmo_usim_algo_to_str(algo_3g))
+	print "   2G: %d=%s" % (algo_2g, id_to_str(sysmo_usim_algorithms, algo_2g))
+	print "   3G: %d=%s" % (algo_3g, id_to_str(sysmo_usim_algorithms, algo_3g))
 
 	sysmo_usim_init(sim)
 
@@ -418,15 +411,6 @@ def sysmo_usim_write_milenage_params(sim, ef_mlngc):
 	sim.update_binary(ef_mlngc.encode())
 
 
-def sysmo_usim_opcmode2str(mode):
-	if mode == 1:
-		return 'OPc'
-	elif mode == 0:
-		return 'OP'
-	else:
-		raise ValueError('Unknown Mode ', mode)
-
-
 # Show current OPc value
 def sysmo_usim_show_opc_params(sim):
 	sysmo_usim_init(sim)
@@ -436,7 +420,7 @@ def sysmo_usim_show_opc_params(sim):
 	sim.select(SYSMO_USIMSJS1_EF_OPC)
 	res = sim.read_binary(17)
 
-	mode_str = sysmo_usim_opcmode2str(res.apdu[0])
+	mode_str = id_to_str(sysmo_usim_opcmodes, res.apdu[0])
 
 	print " * Current OP/OPc setting:"
 	print "   %s: %s" % (mode_str, hexdump(res.apdu[1:]))
@@ -445,7 +429,7 @@ def sysmo_usim_show_opc_params(sim):
 # Program new OPc value
 def sysmo_usim_write_opc_params(sim, select, op):
 	print " * New OPc setting:"
-	print "   %s: %s" % (sysmo_usim_opcmode2str(select), hexdump(op))
+	print "   %s: %s" % (id_to_str(sysmo_usim_opcmodes, select), hexdump(op))
 	print "   OP/OPc: " + hexdump(op)
 
 	sysmo_usim_init(sim)

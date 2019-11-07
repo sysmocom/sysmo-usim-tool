@@ -78,3 +78,19 @@ def int_to_list(inp, num_bytes):
 		shift_bits = ((num_bytes-1-i) * 8)
 		out.append((inp >> shift_bits) & 0xFF)
 	return out
+
+
+# Lookup a string in a given table by its ID
+def id_to_str(table, nr):
+	dict_by_nr = dict(table)
+	return dict_by_nr.get(nr) or '(invalid)'
+
+
+# Convert a string back to its ID by looking it up in a given table
+def str_to_id(table, string):
+	dict_by_name = dict([(name.upper(), nr) for nr, name in table])
+	id = dict_by_name.get(string.upper())
+
+	if id is None:
+		raise ValueError('identifier (\"%s\") not in table %s' % (string, str(table)))
+	return id
