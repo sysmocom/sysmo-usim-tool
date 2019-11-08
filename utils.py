@@ -24,11 +24,21 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 
 # Convert list to an printable ascii hex string
-def hexdump(array):
-	if array:
-		return ''.join('{:02x}'.format(x) for x in array)
-	else:
+def hexdump(array, multilne = False, width = 30, prefix = "   "):
+
+	if array == None:
 		return "(no data)"
+
+	if multilne:
+		result = ""
+		for i in range(0, len(array), width):
+			buf = array[i:i + width]
+			result += prefix
+			result += ''.join('{:02x}'.format(x) for x in buf)
+			result += "\n"
+		return result
+	else:
+		return ''.join('{:02x}'.format(x) for x in array)
 
 
 # Convert ascii string with decimal numbers to numeric ascii-code list
