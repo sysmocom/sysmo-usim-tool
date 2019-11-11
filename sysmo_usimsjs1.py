@@ -525,7 +525,6 @@ class Sysmo_usimsjs1:
 
 		print(" * New OPc setting:")
 		print("   %s: %s" % (id_to_str(sysmo_usim_opcmodes, select), hexdump(op)))
-		print("   OP/OPc: " + hexdump(op))
 
 		self.sim.select(GSM_SIM_DF_GSM)
 		self.sim.select(SYSMO_USIMSJS1_EF_OPC)
