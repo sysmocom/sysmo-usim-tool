@@ -3,7 +3,6 @@
 . ./test-data
 
 echo "================ PREPARING TEST CARD ================"
-$TOOL -a $ADMPIN -I $ICCID
 $TOOL -a $ADMPIN -J $IMSI
 echo "================ TEST CARD PREPARED ================="
 echo ""
