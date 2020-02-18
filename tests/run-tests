@@ -7,6 +7,9 @@ cd ./sjs1
 echo "Location $PWD"
 echo ""
 sh ./run-tests
+if [ ! $? -eq 0 ]; then
+  exit 1
+fi
 cd ..
 echo ""
 echo ""
@@ -21,6 +24,9 @@ cd ./sja2
 echo "Location $PWD"
 echo ""
 sh ./run-tests
+if [ ! $? -eq 0 ]; then
+  exit 1
+fi
 cd ..
 echo ""
 echo ""
