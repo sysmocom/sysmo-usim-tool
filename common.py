@@ -26,12 +26,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 from utils import *
 import sys, getopt
 
-COMMON_GETOPTS = "hfa:J:nN:lL:kK:tT:oO:C:sSi"
+COMMON_GETOPTS = "hfa:J:nN:lL:kK:tT:oO:C:sSip"
 COMMON_GETOPTS_LONG = ["help", "force", "adm1=", "set-imsi", "mnclen",
 		       "set-mnclen", "milenage", "set-milenage", "ki",
 		       "set-ki=", "auth", "set-auth=", "opc", "set-op=",
 		       "set-opc=", "seq-parameters", "reset-seq-parameters"
-		       "iccid"]
+		       "iccid", "aid"]
 
 # Parse common commandline options and keep them as flags
 class Common():
@@ -56,6 +56,7 @@ class Common():
 	show_seq_par = False
 	reset_seq_par = False
 	show_iccid = False
+	show_aid = False
 
 	def __init__(self, argv, getopts, getopts_long):
 
@@ -108,6 +109,8 @@ class Common():
 				self.reset_seq_par = True
 			elif opt in ("-i", "--iccid"):
 				self.show_iccid = True
+			elif opt in ("-p", "--aid"):
+				self.show_aid = True
 
 		# Check for ADM1 key
 		if not self.adm1:
@@ -146,6 +149,7 @@ class Common():
 		print("   -s  --seq-parameters ........... Show MILENAGE SEQ/SQN parameters")
 		print("   -S  --reset-seq-parameters ..... Reset MILENAGE SEQ/SQN parameters to default")
 		print("   -i  --iccid .................... Show ICCID")
+		print("   -p  --aid ...................... Show AID list (installed applications)")
 		self._helptext()
 
 
@@ -205,5 +209,8 @@ class Common():
 
 		if self.show_iccid:
 			self.sim.show_iccid()
+
+		if self.show_aid:
+			self.sim.show_aid()
 
 		print "Done!"

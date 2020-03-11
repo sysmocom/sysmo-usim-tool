@@ -192,3 +192,20 @@ class Sysmo_usim:
 		print(" * Programming...")
 		self.sim.update_binary(new_ad)
 		print("")
+
+
+	# Show installed applications (AIDs)
+	def show_aid(self):
+		print("Reading application directory...");
+		self._init()
+		self.sim.card.get_AID()
+		AID = self.sim.card.AID
+	        for a in AID:
+			if a[0:7] == [0xA0, 0x00, 0x00, 0x00, 0x87, 0x10, 0x02]:
+				appstr = "USIM"
+			elif a[0:7] == [0xA0, 0x00, 0x00, 0x00, 0x87, 0x10, 0x04]:
+				appstr = "ISIM"
+			else:
+				appstr = "(unknown)"
+			print "   AID: " + hexdump(a[0:5]) + " " +  hexdump(a[5:7]) + " " +  hexdump(a[7:]) + " ==> " + appstr
+		print ""
