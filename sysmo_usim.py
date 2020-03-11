@@ -40,6 +40,10 @@ class Sysmo_usim:
 		self.sim = Simcard(GSM_USIM, toBytes(atr))
 		self.sim.card.SELECT_ADF_USIM()
 		print(" * Detected Card IMSI:  %s" % self.sim.card.get_imsi())
+		if self.sim.has_isim:
+			print("   ISIM Application installed")
+		if self.sim.has_usim:
+			print("   USIM Application installed")
 		print("")
 
 	def _warn_failed_auth(self, attempts = 3, keytype = "ADM1"):

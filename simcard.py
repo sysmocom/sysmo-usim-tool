@@ -79,12 +79,23 @@ class Simcard():
 
 	card = None
 	filelen = 0 #length of the currently selected file
+	has_isim = False
+	has_usim = False
 
 	# Constructor: Create a new simcard object
 	def __init__(self, cardtype = GSM_USIM, atr = None):
 		if cardtype == GSM_USIM:
 			self.card = USIM(atr)
 			self.usim = True
+
+			# Detect ISIM / USIM applications
+			self.card.get_AID()
+			AID = self.card.AID
+			for a in AID:
+				if a[0:7] == [0xA0, 0x00, 0x00, 0x00, 0x87, 0x10, 0x04]:
+					self.has_isim = True
+				elif a[0:7] == [0xA0, 0x00, 0x00, 0x00, 0x87, 0x10, 0x02]:
+					self.has_usim = True
 		else:
 			self.card = SIM(atr)
 			self.usim = False

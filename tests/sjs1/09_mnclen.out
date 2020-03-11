@@ -3,6 +3,7 @@ Copyright (c)2017-2019 Sysmocom s.f.m.c. GmbH
 
 Initializing smartcard terminal...
  * Detected Card IMSI:  262423203000002
+   USIM Application installed
 
 Authenticating...
  * Remaining attempts: 3
@@ -22,6 +23,7 @@ Copyright (c)2017-2019 Sysmocom s.f.m.c. GmbH
 
 Initializing smartcard terminal...
  * Detected Card IMSI:  262423203000002
+   USIM Application installed
 
 Authenticating...
  * Remaining attempts: 3
@@ -41,6 +43,7 @@ Copyright (c)2017-2019 Sysmocom s.f.m.c. GmbH
 
 Initializing smartcard terminal...
  * Detected Card IMSI:  262423203000002
+   USIM Application installed
 
 Authenticating...
  * Remaining attempts: 3
@@ -60,6 +63,7 @@ Copyright (c)2017-2019 Sysmocom s.f.m.c. GmbH
 
 Initializing smartcard terminal...
  * Detected Card IMSI:  262423203000002
+   USIM Application installed
 
 Authenticating...
  * Remaining attempts: 3
@@ -79,6 +83,7 @@ Copyright (c)2017-2019 Sysmocom s.f.m.c. GmbH
 
 Initializing smartcard terminal...
  * Detected Card IMSI:  262423203000002
+   USIM Application installed
 
 Authenticating...
  * Remaining attempts: 3
@@ -98,6 +103,7 @@ Copyright (c)2017-2019 Sysmocom s.f.m.c. GmbH
 
 Initializing smartcard terminal...
  * Detected Card IMSI:  262423203000002
+   USIM Application installed
 
 Authenticating...
  * Remaining attempts: 3
