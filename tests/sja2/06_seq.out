@@ -21,14 +21,14 @@ Reading Milenage Sequence parameters...
  * Current SQN Configuration for ADF_USIM:
    IND (bits): 5
    SQN Check enabled
-   SQN Age Limit enabled
+   SQN Age Limit disabled
    SQN Max Delta enabled
    SQN Skip first enabled
    SQN Conceal AUTN enabled
    SQN Conceal AUTS enabled
-   SQN No AMF clear enabled
-   Max Delta: 281474976710655
-   Age Limit: 281474976710655
+   SQN No AMF clear disabled
+   Max Delta: 8589934592
+   Age Limit: 8589934592
    Freshness Data:
    000000000000000000000000000000000000000000000000000000000000
    000000000000000000000000000000000000000000000000000000000000
@@ -39,14 +39,14 @@ Reading Milenage Sequence parameters...
  * Current SQN Configuration for ADF_ISIM:
    IND (bits): 5
    SQN Check enabled
-   SQN Age Limit enabled
+   SQN Age Limit disabled
    SQN Max Delta enabled
    SQN Skip first enabled
    SQN Conceal AUTN enabled
    SQN Conceal AUTS enabled
-   SQN No AMF clear enabled
-   Max Delta: 281474976710655
-   Age Limit: 281474976710655
+   SQN No AMF clear disabled
+   Max Delta: 8589934592
+   Age Limit: 8589934592
    Freshness Data:
    000000000000000000000000000000000000000000000000000000000000
    000000000000000000000000000000000000000000000000000000000000

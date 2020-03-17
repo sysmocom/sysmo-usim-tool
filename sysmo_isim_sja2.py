@@ -314,18 +314,18 @@ class SYSMO_ISIMSJA2_FILE_EF_USIM_SQN:
 	# Flag1:
 	ind_size_bits = 5 # speficy file length by 2^ind_len
 	sqn_check_enabled = True # perform SQN checks below
-	sqn_age_limit_enabled = True # perform age limit check: (SQNms-SQN) <= AGE_LIMIT)
+	sqn_age_limit_enabled = False # perform age limit check: (SQNms-SQN) <= AGE_LIMIT)
 	sqn_max_delta_enabled = True # perform delta max check: (SWN-SQNms) <= DELTA MAX)
 	sqn_check_skip_first = True # accept any SQN on the first authentication
 
 	# Flag2:
 	conceal_autn = True # Conceal the value of AUTN
 	conceal_auts = True # Conceal the value of AUTS
-	no_amf_clear = True # Do not clear AMF when computing MAC-S
+	no_amf_clear = False # Do not clear AMF when computing MAC-S
 
 	# Data:
-	max_delta = 281474976710655
-	age_limit = 281474976710655
+	max_delta = 2**28 << ind_size_bits
+	age_limit = 2**28 << ind_size_bits
 	freshness_data = [0x00] * (6*2**ind_size_bits) # initalize to zero
 
 	def __init__(self, content = None):
