@@ -67,7 +67,7 @@ class Common():
 			opts, args = getopt.getopt(argv, COMMON_GETOPTS + getopts,
 				COMMON_GETOPTS_LONG + getopts_long)
 		except getopt.GetoptError:
-			print " * Error: Invalid commandline options"
+			print(" * Error: Invalid commandline options")
 			sys.exit(2)
 
 		# Set flags for common options
@@ -114,8 +114,8 @@ class Common():
 
 		# Check for ADM1 key
 		if not self.adm1:
-			print " * Error: adm1 parameter missing -- exiting..."
-			print ""
+			print(" * Error: adm1 parameter missing -- exiting...")
+			print("")
 			sys.exit(1)
 
 		# Set flags for specific options
@@ -213,4 +213,4 @@ class Common():
 		if self.show_aid:
 			self.sim.show_aid()
 
-		print "Done!"
+		print("Done!")

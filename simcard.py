@@ -63,7 +63,7 @@ class Card_res_apdu():
 	# convert Benoit Michau style result to sysmocom style result
 	def from_mich(self, mich):
 		self.apdu = mich[3]
-                self.sw = [ mich[2][0], mich[2][1] ]
+		self.sw = [ mich[2][0], mich[2][1] ]
 
 	def __str__(self):
 		dump = ""
@@ -204,4 +204,4 @@ class Simcard():
 	def update_record(self, data, rec_no = 0):
 		res = Card_res_apdu()
 		res.from_mich(self.card.UPDATE_RECORD(rec_no, GSM_SIM_INS_UPDATE_RECORD_ABS, data))
-                return res
+		return res

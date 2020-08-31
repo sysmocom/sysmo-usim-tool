@@ -340,7 +340,7 @@ class Sysmo_usim_sjs1(Sysmo_usim):
 		ef_mlngc = SYSMO_USIMSJS1_FILE_EF_MLNGC(res.apdu)
 
 		print(" * Current Milenage Parameters in (EF.MLNGC):")
-		print str(ef_mlngc)
+		print(str(ef_mlngc))
 		print("")
 
 
@@ -351,7 +351,7 @@ class Sysmo_usim_sjs1(Sysmo_usim):
 
 		print(" * New Milenage Parameters for (EF.MLNGC):")
 		ef_mlngc = SYSMO_USIMSJS1_FILE_EF_MLNGC(params)
-		print str(ef_mlngc)
+		print(str(ef_mlngc))
 
 		self.sim.select(SYSMO_USIMSJS1_DF_AUTH)
 		self.sim.select(SYSMO_USIMSJS1_EF_MLNGC)
@@ -400,7 +400,7 @@ class Sysmo_usim_sjs1(Sysmo_usim):
 		res = self._read_binary(15, offset = 0)
 		ef_sqnc = SYSMO_USIMSJS1_FILE_EF_SQNC(res.apdu)
 		print(" * Current SQN Configuration:")
-		print str(ef_sqnc)
+		print(str(ef_sqnc))
 
 		# SQN Array
 		ind_pow = 2**ef_sqnc.ind_size_bits
@@ -408,7 +408,7 @@ class Sysmo_usim_sjs1(Sysmo_usim):
 		res = self._read_binary(ind_pow*6, offset=0)
 		ef_sqna = SYSMO_USIMSJS1_FILE_EF_SQNA(res.apdu)
 		print(" * Current SQN Array:")
-		print str(ef_sqna)
+		print(str(ef_sqna))
 
 		auth_ctr = self.__get_auth_counter()
 		print("* Authentication Counter: %s" % auth_ctr)

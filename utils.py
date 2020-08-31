@@ -56,7 +56,7 @@ def asciihex_to_list(string):
 	try:
 		return map(ord, string.decode("hex"))
 	except:
-		print "Warning: Invalid hex string -- ignored!"
+		print("Warning: Invalid hex string -- ignored!")
 		return []
 
 

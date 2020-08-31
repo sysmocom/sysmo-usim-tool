@@ -347,7 +347,7 @@ class SYSMO_ISIMSJA2_FILE_EF_USIM_SQN:
 		# we automatically set the value to the correct length
 		ind_size_bits_calculated = int(math.log((len(content) - 14) / 6, 2))
 		if ind_size_bits_calculated != self.ind_size_bits:
-			print "   Warning: SQN Parameter ind_size_bits is set to " + str(self.ind_size_bits) + ", resetting it to " + str(ind_size_bits_calculated) + "!"
+			print("   Warning: SQN Parameter ind_size_bits is set to " + str(self.ind_size_bits) + ", resetting it to " + str(ind_size_bits_calculated) + "!")
 			self.ind_size_bits = ind_size_bits_calculated
 
 		self.reset() #ensure freshness data is correctly reset
@@ -452,11 +452,11 @@ class Sysmo_isim_sja2(Sysmo_usim):
 		# Try card model #1
 		try:
 			atr = "3B 9F 96 80 1F 87 80 31 E0 73 FE 21 1B 67 4A 4C 75 30 34 05 4B A9"
-			print "Trying to find card with ATR: " + atr
+			print("Trying to find card with ATR: " + atr)
 			Sysmo_usim.__init__(self, atr)
 			card_detected = True
 		except:
-			print " * Card not detected!"
+			print(" * Card not detected!")
 
 		if card_detected == True:
 			return
@@ -465,11 +465,11 @@ class Sysmo_isim_sja2(Sysmo_usim):
 		# Try card model #2
 		try:
 			atr = "3B 9F 96 80 1F 87 80 31 E0 73 FE 21 1B 67 4A 4C 75 31 33 02 51 B2"
-			print "Trying to find card with ATR: " + atr
+			print("Trying to find card with ATR: " + atr)
 			Sysmo_usim.__init__(self, atr)
 			card_detected = True
 		except:
-			print " * Card not detected!"
+			print(" * Card not detected!")
 
 		if card_detected == True:
 			return
@@ -477,11 +477,11 @@ class Sysmo_isim_sja2(Sysmo_usim):
 		# Try card model #3 (sysmoTSIM)
 		try:
 			atr = "3B 9F 96 80 1F 87 80 31 E0 73 FE 21 1B 67 4A 4C 52 75 31 04 51 D5"
-			print "Trying to find card with ATR: " + atr
+			print("Trying to find card with ATR: " + atr)
 			Sysmo_usim.__init__(self, atr)
 			card_detected = True
 		except:
-			print " * Card not detected!"
+			print(" * Card not detected!")
 
 		if card_detected == True:
 			return
@@ -522,7 +522,7 @@ class Sysmo_isim_sja2(Sysmo_usim):
 
 		print(" * New Milenage Parameters for (EF.MILENAGE_CFG):")
 		ef_milenage_cfg = SYSMO_ISIMSJA2_FILE_EF_MILENAGE_CFG(params_swapped)
-		print str(ef_milenage_cfg)
+		print(str(ef_milenage_cfg))
 
 		print(" * Programming...")
 		# Note: The milenage configuration file in ADF_USIM and
@@ -573,42 +573,42 @@ class Sysmo_isim_sja2(Sysmo_usim):
 		# DF_SYSTEM/EF_SIM_AUTH_KEY:
 		self.__select_ef_sim_auth_key()
 		res = self._read_binary(self.sim.filelen)
-		print " * DF_SYSTEM/EF_SIM_AUTH_KEY:"
-		print SYSMO_ISIMSJA2_FILE_EF_SIM_AUTH_KEY(res.apdu)
+		print(" * DF_SYSTEM/EF_SIM_AUTH_KEY:")
+		print(SYSMO_ISIMSJA2_FILE_EF_SIM_AUTH_KEY(res.apdu))
 
 		# ADF_USIM/EF_USIM_AUTH_KEY_2G:
 		self.__select_xsim_auth_key(isim = False, _2G = True)
 		res = self._read_binary(self.sim.filelen)
-		print " * ADF_USIM/EF_USIM_AUTH_KEY_2G:"
-		print SYSMO_ISIMSJA2_FILE_EF_USIM_AUTH_KEY_2G(res.apdu)
+		print(" * ADF_USIM/EF_USIM_AUTH_KEY_2G:")
+		print(SYSMO_ISIMSJA2_FILE_EF_USIM_AUTH_KEY_2G(res.apdu))
 
 		if self.sim.has_isim:
 		    # ADF_ISIM/EF_ISIM_AUTH_KEY_2G:
 		    self.__select_xsim_auth_key(isim = True, _2G = True)
 		    res = self._read_binary(self.sim.filelen)
-		    print " * ADF_ISIM/EF_ISIM_AUTH_KEY_2G:"
-		    print SYSMO_ISIMSJA2_FILE_EF_USIM_AUTH_KEY_2G(res.apdu)
+		    print(" * ADF_ISIM/EF_ISIM_AUTH_KEY_2G:")
+		    print(SYSMO_ISIMSJA2_FILE_EF_USIM_AUTH_KEY_2G(res.apdu))
 
 		# ADF_USIM/EF_USIM_AUTH_KEY:
 		self.__select_xsim_auth_key(isim = False, _2G = False)
 		res = self._read_binary(self.sim.filelen)
-		print " * ADF_USIM/EF_USIM_AUTH_KEY:"
-		print SYSMO_ISIMSJA2_FILE_EF_USIM_AUTH_KEY(res.apdu)
+		print(" * ADF_USIM/EF_USIM_AUTH_KEY:")
+		print(SYSMO_ISIMSJA2_FILE_EF_USIM_AUTH_KEY(res.apdu))
 
 		if self.sim.has_isim:
 		    # ADF_ISIM/EF_ISIM_AUTH_KEY:
 		    self.__select_xsim_auth_key(isim = True, _2G = False)
 		    res = self._read_binary(self.sim.filelen)
-		    print " * ADF_ISIM/EF_ISIM_AUTH_KEY:"
-		    print SYSMO_ISIMSJA2_FILE_EF_USIM_AUTH_KEY(res.apdu)
+		    print(" * ADF_ISIM/EF_ISIM_AUTH_KEY:")
+		    print(SYSMO_ISIMSJA2_FILE_EF_USIM_AUTH_KEY(res.apdu))
 
 		# ADF_USIM/EF_MILENAGE_CFG:
 		self.sim.select(GSM_SIM_MF)
 		self.sim.card.SELECT_ADF_USIM()
 		self.sim.select(SYSMO_ISIMSJA2_EF_MILENAGE_CFG)
 		res = self._read_binary(self.sim.filelen)
-		print " * ADF_USIM/EF_MILENAGE_CFG:"
-		print SYSMO_ISIMSJA2_FILE_EF_MILENAGE_CFG(res.apdu)
+		print(" * ADF_USIM/EF_MILENAGE_CFG:")
+		print(SYSMO_ISIMSJA2_FILE_EF_MILENAGE_CFG(res.apdu))
 
 		if self.sim.has_isim:
 		    # ADF_ISIM/EF_MILENAGE_CFG:
@@ -616,16 +616,16 @@ class Sysmo_isim_sja2(Sysmo_usim):
 		    self.sim.card.SELECT_ADF_ISIM()
 		    self.sim.select(SYSMO_ISIMSJA2_EF_MILENAGE_CFG)
 		    res = self._read_binary(self.sim.filelen)
-		    print " * ADF_ISIM/EF_MILENAGE_CFG:"
-		    print SYSMO_ISIMSJA2_FILE_EF_MILENAGE_CFG(res.apdu)
+		    print(" * ADF_ISIM/EF_MILENAGE_CFG:")
+		    print(SYSMO_ISIMSJA2_FILE_EF_MILENAGE_CFG(res.apdu))
 
 		# ADF_USIM/EF_USIM_SQN:
 		self.sim.select(GSM_SIM_MF)
 		self.sim.card.SELECT_ADF_USIM()
 		self.sim.select(SYSMO_ISIMSJA2_EF_USIM_SQN)
 		res = self._read_binary(self.sim.filelen)
-		print " * ADF_USIM/EF_USIM_SQN:"
-		print SYSMO_ISIMSJA2_FILE_EF_USIM_SQN(res.apdu)
+		print(" * ADF_USIM/EF_USIM_SQN:")
+		print(SYSMO_ISIMSJA2_FILE_EF_USIM_SQN(res.apdu))
 
 		if self.sim.has_isim:
 		    # ADF_USIM/EF_ISIM_SQN:
@@ -633,8 +633,8 @@ class Sysmo_isim_sja2(Sysmo_usim):
 		    self.sim.card.SELECT_ADF_ISIM()
 		    self.sim.select(SYSMO_ISIMSJA2_EF_USIM_SQN)
 		    res = self._read_binary(self.sim.filelen)
-		    print " * ADF_ISIM/EF_ISIM_SQN:"
-		    print SYSMO_ISIMSJA2_FILE_EF_USIM_SQN(res.apdu)
+		    print(" * ADF_ISIM/EF_ISIM_SQN:")
+		    print(SYSMO_ISIMSJA2_FILE_EF_USIM_SQN(res.apdu))
 
 
 	# Show current KI value
@@ -822,7 +822,7 @@ class Sysmo_isim_sja2(Sysmo_usim):
 		self.sim.card.SELECT_ADF_USIM()
 		self.sim.select(SYSMO_ISIMSJA2_EF_USIM_SQN)
 		res = self._read_binary(self.sim.filelen)
-		print SYSMO_ISIMSJA2_FILE_EF_USIM_SQN(res.apdu)
+		print(SYSMO_ISIMSJA2_FILE_EF_USIM_SQN(res.apdu))
 
 		if self.sim.has_isim:
 		    print(" * Current SQN Configuration for ADF_ISIM:")
@@ -830,7 +830,7 @@ class Sysmo_isim_sja2(Sysmo_usim):
 		    self.sim.card.SELECT_ADF_ISIM()
 		    self.sim.select(SYSMO_ISIMSJA2_EF_USIM_SQN)
 		    res = self._read_binary(self.sim.filelen)
-		    print SYSMO_ISIMSJA2_FILE_EF_USIM_SQN(res.apdu)
+		    print(SYSMO_ISIMSJA2_FILE_EF_USIM_SQN(res.apdu))
 
 		print("")
 
