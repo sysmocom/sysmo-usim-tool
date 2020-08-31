@@ -85,7 +85,7 @@ class Simcard():
 	# Constructor: Create a new simcard object
 	def __init__(self, cardtype = GSM_USIM, atr = None):
 		if cardtype == GSM_USIM:
-			self.card = USIM(atr)
+			self.card = USIM()
 			self.usim = True
 
 			# Detect ISIM / USIM applications

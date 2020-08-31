@@ -90,21 +90,22 @@ SIM_service_table = {
     56 : "Service Provider Display Information",
     }
 
+
 class SIM(ISO7816):
-    '''
+    """
     define attributes, methods and facilities for ETSI / 3GPP SIM card
     check SIM specifications in ETSI TS 102.221 and 3GPP TS 51.011
     
     inherit methods and objects from ISO7816 class
     use self.dbg = 1 or more to print live debugging information
-    '''
+    """
     
-    def __init__(self, atr = None):
-        '''
+    def __init__(self):
+        """
         initialize like an ISO7816-4 card with CLA=0xA0
         can also be used for USIM working in SIM mode,
-        '''
-        ISO7816.__init__(self, atr, CLA=0xA0)
+        """
+        ISO7816.__init__(self, CLA=0xA0)
         
         if self.dbg >= 2:
             log(3, '(SIM.__init__) type definition: %s' % type(self))
@@ -112,13 +113,13 @@ class SIM(ISO7816):
         
     @staticmethod
     def sw_status(sw1, sw2):
-        '''
+        """
         sw_status(sw1=int, sw2=int) -> string
         
         extends SW status bytes interpretation from ISO7816 
         with ETSI / 3GPP SW codes
         helps to speak with the smartcard!
-        '''
+        """
         status = ISO7816.sw_status(sw1, sw2)
         if sw1 == 0x91: status = 'normal processing, with extra info ' \
             'containing a command for the terminal: length of the ' \
@@ -158,10 +159,10 @@ class SIM(ISO7816):
         return status
     
     def verify_pin(self, pin='', pin_type=1):
-        '''
+        """
         verify CHV1 (PIN code) or CHV2 with VERIFY APDU command
         call ISO7816 VERIFY method
-        '''
+        """
         if pin_type in [1, 2] and type(pin) is str and \
         len(pin) == 4 and 0 <= int(pin) < 10000:
             PIN = [ord(i) for i in pin] + [0xFF, 0xFF, 0xFF, 0xFF]
@@ -171,12 +172,12 @@ class SIM(ISO7816):
                 log(2, '(verify_pin) bad input parameters')
     
     def disable_pin(self, pin='', pin_type=1):
-        '''
+        """
         disable CHV1 (PIN code) or CHV2 with DISABLE_CHV APDU command
         TIP: do it as soon as you can when you are working 
         with a SIM / USIM card for which you know the PIN!
         call ISO7816 DISABLE method
-        '''
+        """
         if pin_type in [1, 2] and type(pin) is str and \
         len(pin) == 4 and 0 <= int(pin) < 10000:
             PIN = [ord(i) for i in pin] + [0xFF, 0xFF, 0xFF, 0xFF]
@@ -186,10 +187,10 @@ class SIM(ISO7816):
                 log(2, '(disable_pin) bad input parameters')
     
     def enable_pin(self, pin='', pin_type=1):
-        '''
+        """
         enable CHV1 (PIN code) or CHV2 with ENABLE_CHV APDU command
         call ISO7816 ENABLE method
-        '''
+        """
         if pin_type in [1, 2] and type(pin) is str and \
         len(pin) == 4 and 0 <= int(pin) < 10000:
             PIN = [ord(i) for i in pin] + [0xFF, 0xFF, 0xFF, 0xFF]
@@ -199,7 +200,7 @@ class SIM(ISO7816):
                 log(2, '(enable_pin) bad input parameters')
     
     def unblock_pin(self, pin_type=1, unblock_pin=''):
-        '''
+        """
         WARNING: not correctly implemented!!!
             and PUK are in general 8 nums...
         TODO: make it correctly!
@@ -208,7 +209,7 @@ class SIM(ISO7816):
         unblock CHV1 (PIN code) or CHV2 with UNBLOCK_CHV APDU command 
         and set 0000 value for new PIN
         call ISO7816 UNBLOCK_CHV method
-        '''
+        """
         log(1, '(unblock_pin) not implemented: aborting')
         return
         #if pin_type == 1: 
@@ -225,14 +226,14 @@ class SIM(ISO7816):
             #return self.UNBLOCK_CHV(P2=pin_type)
     
     def parse_file(self, Data=[]):
-        '''
+        """
         parse_file(Data=[0x12, 0x34, 0x56, 0x89]) -> dict(file)
         
         parses a list of bytes returned when selecting a file
         interprets the content of some informative bytes for right accesses, 
         type / format of file... see TS 51.011
         works over the SIM file structure
-        '''
+        """
         fil = {}
         fil['Size'] = Data[2]*0x100 + Data[3]
         fil['File Identifier'] = Data[4:6]
@@ -243,16 +244,16 @@ class SIM(ISO7816):
             fil['EF_num'] = Data[15]
             fil['codes_num'] = Data[16]
             fil['CHV1'] = ('not initialized','initialized')\
-                          [(Data[18] & 0x80) / 0x80]\
+                          [Data[18] >> 7]\
                         + ': %d attempts remain' % (Data[18] & 0x0F)
             fil['unblock_CHV1'] = ('not initialized','initialized')\
-                                  [(Data[19] & 0x80) / 0x80]\
+                                  [Data[19] >> 7]\
                                 + ': %d attempts remain' % (Data[19] & 0x0F)
             fil['CHV2'] = ('not initialized','initialized')\
-                          [(Data[20] & 0x80) / 0x80]\
+                          [Data[20] >> 7]\
                         + ': %d attempts remain' % (Data[20] & 0x0F)
             fil['unblock_CHV2'] = ('not initialized','initialized')\
-                                  [(Data[21] & 0x80) / 0x80]\
+                                  [Data[21] >> 7]\
                                 + ': %d attempts remain' % (Data[21] & 0x0F)
             if len(Data) > 23: 
                 fil['Adm'] = Data[23:]
@@ -279,7 +280,7 @@ class SIM(ISO7816):
         return fil
     
     def run_gsm_alg(self, RAND=16*[0x00]):
-        '''
+        """
         self.run_gsm_alg( RAND ) -> ( SRES, Kc )
             RAND : list of bytes, length 16
             SRES : list of bytes, length 4
@@ -289,7 +290,7 @@ class SIM(ISO7816):
             accepts any kind of RAND (old GSM fashion)
         feed with RAND 16 bytes value
         returns a list with SRES and Kc, or None on error
-        '''
+        """
         if len(RAND) != 16:
             if self.dbg: 
                 log(1, '(run_gsm_alg) bad RAND value: aborting')
@@ -316,12 +317,12 @@ class SIM(ISO7816):
         return [ SRES, Kc ]
     
     def get_imsi(self):
-        '''
+        """
         self.get_imsi() -> string(IMSI)
         
         reads IMSI value at address [0x6F, 0x07]
         returns IMSI string on success or None on error
-        '''
+        """
         # select DF_GSM for SIM card
         self.select([0x7F, 0x20])
         if self.coms()[2] != (0x90, 0x00): 
@@ -346,12 +347,12 @@ class SIM(ISO7816):
         return None
     
     def get_services(self):
-        '''
+        """
         self.get_services() -> None
         
         reads SIM Service Table at address [0x6F, 0x38]
         returns list of services allowed / activated
-        '''
+        """
         # select DF_GSM for SIM card
         self.select([0x7F, 0x20])
         if self.coms()[2] != (0x90, 0x00): 
@@ -371,13 +372,13 @@ class SIM(ISO7816):
             return self.get_services_from_sst(sst['Data'])
     
     def read_services(self):
-        '''
+        """
         self.read_services() -> None
         
         reads SIM Service Table at address [0x6F, 0x38]
         prints services allowed / activated
         returns None
-        '''
+        """
         serv = self.get_services()
         for s in serv:
             print(s)
@@ -401,7 +402,7 @@ class SIM(ISO7816):
         return services
     
     def explore_fs(self, filename='sim_fs', depth=True, emul=False):
-        '''
+        """
         self.explore_fs(self, filename='sim_fs') -> void
             filename: file to write in information found
             depth: depth in recursivity, True=infinite
@@ -409,7 +410,7 @@ class SIM(ISO7816):
         brute force all file addresses from MF recursively 
         (until no more DF are found)
         write information on existing DF and file in the output file
-        '''
+        """
         simfs_entries = MF_FS.keys()
         if not emul:
             self.explore_DF([], None, depth)
