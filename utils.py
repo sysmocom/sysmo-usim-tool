@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
 """
@@ -52,9 +52,9 @@ def ascii_to_list(string):
 # Convert an ascii hex string to numeric list
 def asciihex_to_list(string):
 
-	string = string.translate(None, ':')
+	string = string.translate(str.maketrans('','',':'))
 	try:
-		return map(ord, string.decode("hex"))
+		return list(map(ord,''.join(['%c' % b for b in bytearray.fromhex(string)])))
 	except:
 		print("Warning: Invalid hex string -- ignored!")
 		return []
