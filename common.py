@@ -27,8 +27,8 @@ from utils import *
 import sys, getopt
 
 COMMON_GETOPTS = "hfa:J:nN:lL:kK:tT:oO:C:sSip"
-COMMON_GETOPTS_LONG = ["help", "force", "adm1=", "set-imsi", "mnclen",
-		       "set-mnclen", "milenage", "set-milenage", "ki",
+COMMON_GETOPTS_LONG = ["help", "force", "adm1=", "set-imsi=", "mnclen",
+		       "set-mnclen=", "milenage", "set-milenage=", "ki",
 		       "set-ki=", "auth", "set-auth=", "opc", "set-op=",
 		       "set-opc=", "seq-parameters", "reset-seq-parameters"
 		       "iccid", "aid"]
