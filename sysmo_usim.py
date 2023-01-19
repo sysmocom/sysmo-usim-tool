@@ -187,14 +187,27 @@ class Sysmo_usim:
 			print(" * Error: mnclen value must consist of a single byte!")
 			return
 
+		print(" * Programming ...")
+
+		# EF.AD in DF.GSM
 		self.sim.select(GSM_SIM_DF_GSM)
 		self.sim.select(GSM_SIM_EF_AD)
 
 		res = self.sim.read_binary(4)
 		new_ad = res.apdu[0:3] + mnclen
 
-		print(" * Programming...")
 		self.sim.update_binary(new_ad)
+		print("")
+
+		# EF.AD in ADF.USIM
+		self.sim.card.SELECT_ADF_USIM()
+		self.sim.select(GSM_SIM_EF_AD)
+
+		res = self.sim.read_binary(4)
+		new_ad = res.apdu[0:3] + mnclen
+
+		self.sim.update_binary(new_ad)
+
 		print("")
 
 
