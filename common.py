@@ -84,6 +84,8 @@ class Common():
 			elif opt in ("-n", "--mnclen"):
 				self.show_mnclen = True
 			elif opt in ("-N", "--set-mnclen"):
+				if len(arg) == 1:
+					arg = "0" + arg
 				self.write_mnclen = asciihex_to_list(arg)
 			elif opt in ("-l", "--milenage"):
 				self.show_milenage = True
