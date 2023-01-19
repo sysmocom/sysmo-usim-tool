@@ -197,7 +197,6 @@ class Sysmo_usim:
 		new_ad = res.apdu[0:3] + mnclen
 
 		self.sim.update_binary(new_ad)
-		print("")
 
 		# EF.AD in ADF.USIM
 		self.sim.card.SELECT_ADF_USIM()
