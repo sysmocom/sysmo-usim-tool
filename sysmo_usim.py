@@ -187,7 +187,7 @@ class Sysmo_usim:
 			print(" * Error: mnclen value must consist of a single byte!")
 			return
 
-		print(" * Programming ...")
+		print(" * Programming...")
 
 		# EF.AD in DF.GSM
 		self.sim.select(GSM_SIM_DF_GSM)
