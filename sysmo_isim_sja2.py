@@ -70,16 +70,23 @@ SYSMO_ISIMSJA2_ALGO_COMP12V2 = 0x02
 SYSMO_ISIMSJA2_ALGO_COMP12V3 = 0x03
 SYSMO_ISIMSJA2_ALGO_MILENAGE = 0x04
 SYSMO_ISIMSJA2_ALGO_SHA1AKA = 0x05
+SYSMO_ISIMSJA5_ALGO_TUAK = 0x06
+SYSMO_ISIMSJA5_ALGO_XOR_2G = 0x0E
 SYSMO_ISIMSJA2_ALGO_XOR = 0x0F
 
-sysmo_isimsja2_algorithms = (
+sysmo_isimsja2_algorithms = [
 	(SYSMO_ISIMSJA2_ALGO_COMP12V1, 'COMP128v1'),
 	(SYSMO_ISIMSJA2_ALGO_COMP12V2, 'COMP128v2'),
 	(SYSMO_ISIMSJA2_ALGO_COMP12V3, 'COMP128v3'),
 	(SYSMO_ISIMSJA2_ALGO_MILENAGE, 'MILENAGE'),
 	(SYSMO_ISIMSJA2_ALGO_SHA1AKA , 'SHA1-AKA'),
 	(SYSMO_ISIMSJA2_ALGO_XOR, 'XOR'),
-)
+]
+
+sysmo_isimsja5_algorithms = sysmo_isimsja2_algorithms + [
+	(SYSMO_ISIMSJA5_ALGO_XOR_2G, 'XOR-2G'),
+	(SYSMO_ISIMSJA5_ALGO_TUAK, 'TUAK'),
+	]
 
 class SYSMO_ISIMSJA2_FILE_EF_XSIM_AUTH_KEY:
 	"""
@@ -111,7 +118,7 @@ class SYSMO_ISIMSJA2_FILE_EF_XSIM_AUTH_KEY:
 		pfx = "   "
 
 		dump += pfx + "Algorithm: "
-		dump += id_to_str(sysmo_isimsja2_algorithms, self.algo)
+		dump += id_to_str(sysmo_isimsja5_algorithms, self.algo)
 		dump += "\n"
 
 		if self.use_opc == True:
@@ -445,6 +452,7 @@ class SYSMO_ISIMSJA2_FILE_EF_USIM_SQN:
 
 
 class Sysmo_isim_sja2(Sysmo_usim):
+	algorithms = sysmo_isimsja2_algorithms
 
 	def __init__(self):
 		card_detected = False
@@ -703,8 +711,8 @@ class Sysmo_isim_sja2(Sysmo_usim):
 		algo_3g = ef.algo
 
 		print(" * Current algorithm setting:")
-		print("   2G: %d=%s" % (algo_2g, id_to_str(sysmo_isimsja2_algorithms, algo_2g)))
-		print("   3G: %d=%s" % (algo_3g, id_to_str(sysmo_isimsja2_algorithms, algo_3g)))
+		print("   2G: %d=%s" % (algo_2g, id_to_str(self.algorithms, algo_2g)))
+		print("   3G: %d=%s" % (algo_3g, id_to_str(self.algorithms, algo_3g)))
 		print("")
 
 
@@ -716,16 +724,16 @@ class Sysmo_isim_sja2(Sysmo_usim):
 		if algo_2g_str.isdigit():
 			algo_2g = int(algo_2g_str)
 		else:
-			algo_2g = str_to_id(sysmo_isimsja2_algorithms, algo_2g_str)
+			algo_2g = str_to_id(self.algorithms, algo_2g_str)
 
 		if algo_3g_str.isdigit():
 			algo_3g = int(algo_3g_str)
 		else:
-			algo_3g = str_to_id(sysmo_isimsja2_algorithms, algo_3g_str)
+			algo_3g = str_to_id(self.algorithms, algo_3g_str)
 
 		print(" * New algorithm setting:")
-		print("   2G: %d=%s" % (algo_2g, id_to_str(sysmo_isimsja2_algorithms, algo_2g)))
-		print("   3G: %d=%s" % (algo_3g, id_to_str(sysmo_isimsja2_algorithms, algo_3g)))
+		print("   2G: %d=%s" % (algo_2g, id_to_str(self.algorithms, algo_2g)))
+		print("   3G: %d=%s" % (algo_3g, id_to_str(self.algorithms, algo_3g)))
 
 		print(" * Programming...")
 
@@ -855,3 +863,47 @@ class Sysmo_isim_sja2(Sysmo_usim):
 			self.sim.update_binary(ef.encode())
 
 		print("")
+
+
+class Sysmo_isim_sja5(Sysmo_isim_sja2):
+	algorithms = sysmo_isimsja5_algorithms
+
+	def __init__(self):
+		card_detected = False
+
+		# Try card model #1: sysmoISIM-SJA5 (9FV)
+		try:
+			atr = "3B 9F 96 80 1F 87 80 31 E0 73 FE 21 1B 67 4A 35 75 30 35 02 59 C4"
+			print("Trying to find card with ATR: " + atr)
+			Sysmo_usim.__init__(self, atr)
+			card_detected = True
+		except:
+			print(" * Card not detected!")
+
+		if card_detected == True:
+			return
+
+		# Try card model #2: sysmoISIM-SJA5 (SLM17)
+		try:
+			atr = "3B 9F 96 80 1F 87 80 31 E0 73 FE 21 1B 67 4A 35 75 30 35 02 65 F8"
+			print("Trying to find card with ATR: " + atr)
+			Sysmo_usim.__init__(self, atr)
+			card_detected = True
+		except:
+			print(" * Card not detected!")
+
+		if card_detected == True:
+			return
+
+		# Try card model #3: sysmoISIM-SJA5 (3FJ)
+		try:
+			atr = "3B 9F 96 80 1F 87 80 31 E0 73 FE 21 1B 67 4A 35 75 30 35 02 51 CC"
+			print("Trying to find card with ATR: " + atr)
+			Sysmo_usim.__init__(self, atr)
+			card_detected = True
+		except:
+			print(" * Card not detected!")
+
+		# Exit when we are not able to detect the card
+		if card_detected != True:
+			sys.exit(1)
