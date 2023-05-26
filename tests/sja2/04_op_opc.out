@@ -1,5 +1,5 @@
 sysmoISIM-SJA2 parameterization tool
-Copyright (c)2019 Sysmocom s.f.m.c. GmbH
+Copyright (c) 2019-2022 sysmocom - s.f.m.c. GmbH
 
 Trying to find card with ATR: 3B 9F 96 80 1F 87 80 31 E0 73 FE 21 1B 67 4A 4C 75 30 34 05 4B A9
 Initializing smartcard terminal...
@@ -21,7 +21,7 @@ Writing OPc value...
 
 Done!
 sysmoISIM-SJA2 parameterization tool
-Copyright (c)2019 Sysmocom s.f.m.c. GmbH
+Copyright (c) 2019-2022 sysmocom - s.f.m.c. GmbH
 
 Trying to find card with ATR: 3B 9F 96 80 1F 87 80 31 E0 73 FE 21 1B 67 4A 4C 75 30 34 05 4B A9
 Initializing smartcard terminal...
@@ -43,7 +43,7 @@ Reading OP/c value...
 
 Done!
 sysmoISIM-SJA2 parameterization tool
-Copyright (c)2019 Sysmocom s.f.m.c. GmbH
+Copyright (c) 2019-2022 sysmocom - s.f.m.c. GmbH
 
 Trying to find card with ATR: 3B 9F 96 80 1F 87 80 31 E0 73 FE 21 1B 67 4A 4C 75 30 34 05 4B A9
 Initializing smartcard terminal...
@@ -65,7 +65,7 @@ Writing OP value...
 
 Done!
 sysmoISIM-SJA2 parameterization tool
-Copyright (c)2019 Sysmocom s.f.m.c. GmbH
+Copyright (c) 2019-2022 sysmocom - s.f.m.c. GmbH
 
 Trying to find card with ATR: 3B 9F 96 80 1F 87 80 31 E0 73 FE 21 1B 67 4A 4C 75 30 34 05 4B A9
 Initializing smartcard terminal...
