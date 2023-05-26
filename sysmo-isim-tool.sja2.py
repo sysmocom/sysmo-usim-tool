@@ -2,9 +2,9 @@
 # -*- coding: utf-8 -*-
 
 """
-Commandline interface for sysmoUSIM-SJS1
+Commandline interface for sysmoISIM-SJA2
 
-(C) 2017 by Sysmocom s.f.m.c. GmbH
+(C) 2019-2022 by sysmocom - s.f.m.c. GmbH
 All Rights Reserved
 
 Author: Philipp Maier
@@ -37,7 +37,7 @@ class Application(Common):
 	# Automatically executed by superclass
 	def _banner(self):
 		print("sysmoISIM-SJA2 parameterization tool")
-		print("Copyright (c)2019 Sysmocom s.f.m.c. GmbH")
+		print("Copyright (c) 2019-2022 sysmocom - s.f.m.c. GmbH")
 		print("")
 
 
