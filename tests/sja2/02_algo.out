@@ -385,7 +385,7 @@ Programming Authentication parameters...
  * Initalizing...
  * New algorithm setting:
    2G: 1=COMP128v1
-   3G: 3=XOR-2G
+   3G: 3=COMP128v3
  * Programming...
 
 Done!
@@ -409,7 +409,7 @@ Reading Authentication parameters...
  * Reading...
  * Current algorithm setting:
    2G: 1=COMP128v1
-   3G: 3=XOR-2G
+   3G: 3=COMP128v3
 
 Done!
 sysmoISIM-SJA2 parameterization tool
