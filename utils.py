@@ -99,11 +99,15 @@ def id_to_str(table, nr):
 	return dict_by_nr.get(nr) or '(invalid)'
 
 
-# Convert a string back to its ID by looking it up in a given table
-def str_to_id(table, string):
+# Convert a string back to its ID by looking it up in a given table. In
+# case the string is not found in the table, use a safe default (optional).
+def str_to_id(table, string, safe_default = None):
 	dict_by_name = dict([(name.upper(), nr) for nr, name in table])
 	id = dict_by_name.get(string.upper())
 
 	if id is None:
-		raise ValueError('identifier (\"%s\") not in table %s' % (string, str(table)))
+		if safe_default != None:
+			return safe_default
+		else:
+			raise ValueError('identifier (\"%s\") not in table %s' % (string, str(table)))
 	return id
