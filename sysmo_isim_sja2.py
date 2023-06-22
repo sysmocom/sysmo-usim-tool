@@ -91,7 +91,7 @@ sysmo_isimsja5_algorithms = sysmo_isimsja2_algorithms + [
 	(SYSMO_ISIMSJA5_ALGO_TUAK, 'TUAK'),
 	]
 
-class SYSMO_ISIMSJA2_FILE_EF_XSIM_AUTH_KEY:
+class SYSMO_ISIMSJAX_FILE_EF_XSIM_AUTH_KEY:
 	"""
 	Superclass model that generates that handles the header byte of
 	SYSMO_ISIMSJA2_EF_USIM_AUTH_KEY, SYSMO_ISIMSJA2_EF_USIM_AUTH_KEY_2G
@@ -139,7 +139,7 @@ class SYSMO_ISIMSJA2_FILE_EF_XSIM_AUTH_KEY:
 		return out
 
 
-class SYSMO_ISIMSJA2_FILE_EF_SIM_AUTH_KEY(SYSMO_ISIMSJA2_FILE_EF_XSIM_AUTH_KEY):
+class SYSMO_ISIMSJAX_FILE_EF_SIM_AUTH_KEY(SYSMO_ISIMSJAX_FILE_EF_XSIM_AUTH_KEY):
 
 	key = [0xAA] * 16
 	opc = [0xBB] * 16
@@ -180,7 +180,7 @@ class SYSMO_ISIMSJA2_FILE_EF_SIM_AUTH_KEY(SYSMO_ISIMSJA2_FILE_EF_XSIM_AUTH_KEY):
 		return out
 
 
-class SYSMO_ISIMSJA2_FILE_EF_USIM_AUTH_KEY(SYSMO_ISIMSJA2_FILE_EF_XSIM_AUTH_KEY):
+class SYSMO_ISIMSJAX_FILE_EF_USIM_AUTH_KEY(SYSMO_ISIMSJAX_FILE_EF_XSIM_AUTH_KEY):
 
 	full_res = True # Return full 8-byte RES or first 4 bytes only
 	ext_res = False # Return 16 byte RES (ignores full_res, only valid with 3G XOR)
@@ -192,7 +192,7 @@ class SYSMO_ISIMSJA2_FILE_EF_USIM_AUTH_KEY(SYSMO_ISIMSJA2_FILE_EF_XSIM_AUTH_KEY)
 		if content == None:
 			return
 
-		SYSMO_ISIMSJA2_FILE_EF_XSIM_AUTH_KEY.__init__(self, content)
+		SYSMO_ISIMSJAX_FILE_EF_XSIM_AUTH_KEY.__init__(self, content)
 		header = content[0]
 
 		self.full_res = bool((header >> 6) & 1)
@@ -206,7 +206,7 @@ class SYSMO_ISIMSJA2_FILE_EF_USIM_AUTH_KEY(SYSMO_ISIMSJA2_FILE_EF_XSIM_AUTH_KEY)
 		dump = ""
 		pfx = "   "
 
-		dump += SYSMO_ISIMSJA2_FILE_EF_XSIM_AUTH_KEY.__str__(self)
+		dump += SYSMO_ISIMSJAX_FILE_EF_XSIM_AUTH_KEY.__str__(self)
 		if self.full_res == True and self.ext_res == False:
 			dump += pfx + "3G: Return full 8-byte RES\n"
 		elif self.full_res == False and self.ext_res == False:
@@ -235,7 +235,7 @@ class SYSMO_ISIMSJA2_FILE_EF_USIM_AUTH_KEY(SYSMO_ISIMSJA2_FILE_EF_XSIM_AUTH_KEY)
 
 
 	def encode(self) -> list:
-		out = SYSMO_ISIMSJA2_FILE_EF_XSIM_AUTH_KEY.encode(self)
+		out = SYSMO_ISIMSJAX_FILE_EF_XSIM_AUTH_KEY.encode(self)
 		if self.full_res == True:
 			out[0] |= 1 << 6
 		if self.ext_res == True:
@@ -250,11 +250,11 @@ class SYSMO_ISIMSJA2_FILE_EF_USIM_AUTH_KEY(SYSMO_ISIMSJA2_FILE_EF_XSIM_AUTH_KEY)
 
 # EF_USIM_AUTH_KEY_2G and EF_USIM_AUTH_KEY_GBA have the same layout as
 # EF_USIM_AUTH_KEY, so there is nothing to specialize other than the class name
-class SYSMO_ISIMSJA2_FILE_EF_USIM_AUTH_KEY_2G(SYSMO_ISIMSJA2_FILE_EF_USIM_AUTH_KEY):
+class SYSMO_ISIMSJAX_FILE_EF_USIM_AUTH_KEY_2G(SYSMO_ISIMSJAX_FILE_EF_USIM_AUTH_KEY):
 	pass
 
 
-class SYSMO_ISIMSJA2_FILE_EF_USIM_AUTH_KEY_GBA(SYSMO_ISIMSJA2_FILE_EF_USIM_AUTH_KEY):
+class SYSMO_ISIMSJAX_FILE_EF_USIM_AUTH_KEY_GBA(SYSMO_ISIMSJAX_FILE_EF_USIM_AUTH_KEY):
 	pass
 
 
@@ -310,7 +310,7 @@ class SYSMO_ISIMSJA2_FILE_EF_MILENAGE_CFG:
 		return out
 
 
-class SYSMO_ISIMSJA2_FILE_EF_USIM_SQN:
+class SYSMO_ISIMSJAX_FILE_EF_USIM_SQN:
 
 	# Flag1:
 	ind_size_bits = 5 # speficy file length by 2^ind_len
@@ -568,27 +568,27 @@ class Sysmo_isim_sja2(Sysmo_usim):
 		self.__select_xsim_auth_key(isim = False, _2G = True)
 		res = self._read_binary(self.sim.filelen)
 		print(" * ADF_USIM/EF_USIM_AUTH_KEY_2G:")
-		print(SYSMO_ISIMSJA2_FILE_EF_USIM_AUTH_KEY_2G(res.apdu))
+		print(SYSMO_ISIMSJAX_FILE_EF_USIM_AUTH_KEY_2G(res.apdu))
 
 		if self.sim.has_isim:
 			# ADF_ISIM/EF_ISIM_AUTH_KEY_2G:
 			self.__select_xsim_auth_key(isim = True, _2G = True)
 			res = self._read_binary(self.sim.filelen)
 			print(" * ADF_ISIM/EF_ISIM_AUTH_KEY_2G:")
-			print(SYSMO_ISIMSJA2_FILE_EF_USIM_AUTH_KEY_2G(res.apdu))
+			print(SYSMO_ISIMSJAX_FILE_EF_USIM_AUTH_KEY_2G(res.apdu))
 
 		# ADF_USIM/EF_USIM_AUTH_KEY:
 		self.__select_xsim_auth_key(isim = False, _2G = False)
 		res = self._read_binary(self.sim.filelen)
 		print(" * ADF_USIM/EF_USIM_AUTH_KEY:")
-		print(SYSMO_ISIMSJA2_FILE_EF_USIM_AUTH_KEY(res.apdu))
+		print(SYSMO_ISIMSJAX_FILE_EF_USIM_AUTH_KEY(res.apdu))
 
 		if self.sim.has_isim:
 			# ADF_ISIM/EF_ISIM_AUTH_KEY:
 			self.__select_xsim_auth_key(isim = True, _2G = False)
 			res = self._read_binary(self.sim.filelen)
 			print(" * ADF_ISIM/EF_ISIM_AUTH_KEY:")
-			print(SYSMO_ISIMSJA2_FILE_EF_USIM_AUTH_KEY(res.apdu))
+			print(SYSMO_ISIMSJAX_FILE_EF_USIM_AUTH_KEY(res.apdu))
 
 		# ADF_USIM/EF_MILENAGE_CFG:
 		self.sim.select(GSM_SIM_MF)
@@ -613,7 +613,7 @@ class Sysmo_isim_sja2(Sysmo_usim):
 		self.sim.select(SYSMO_ISIMSJA2_EF_USIM_SQN)
 		res = self._read_binary(self.sim.filelen)
 		print(" * ADF_USIM/EF_USIM_SQN:")
-		print(SYSMO_ISIMSJA2_FILE_EF_USIM_SQN(res.apdu))
+		print(SYSMO_ISIMSJAX_FILE_EF_USIM_SQN(res.apdu))
 
 		if self.sim.has_isim:
 			# ADF_USIM/EF_ISIM_SQN:
@@ -622,7 +622,7 @@ class Sysmo_isim_sja2(Sysmo_usim):
 			self.sim.select(SYSMO_ISIMSJA2_EF_USIM_SQN)
 			res = self._read_binary(self.sim.filelen)
 			print(" * ADF_ISIM/EF_ISIM_SQN:")
-			print(SYSMO_ISIMSJA2_FILE_EF_USIM_SQN(res.apdu))
+			print(SYSMO_ISIMSJAX_FILE_EF_USIM_SQN(res.apdu))
 
 	def show_key_params(self):
 		"""
@@ -635,7 +635,7 @@ class Sysmo_isim_sja2(Sysmo_usim):
 		print(" * Reading...")
 		self.__select_xsim_auth_key(isim = False, _2G = True)
 		res = self._read_binary(self.sim.filelen)
-		ef = SYSMO_ISIMSJA2_FILE_EF_USIM_AUTH_KEY_2G(res.apdu)
+		ef = SYSMO_ISIMSJAX_FILE_EF_USIM_AUTH_KEY_2G(res.apdu)
 
 		print(" * Current Key setting:")
 		print("   Key: " + hexdump(ef.key))
@@ -652,20 +652,20 @@ class Sysmo_isim_sja2(Sysmo_usim):
 		print(" * Programming...")
 		self.__select_xsim_auth_key(isim = False, _2G = True)
 		res = self._read_binary(self.sim.filelen)
-		ef = SYSMO_ISIMSJA2_FILE_EF_USIM_AUTH_KEY_2G(res.apdu)
+		ef = SYSMO_ISIMSJAX_FILE_EF_USIM_AUTH_KEY_2G(res.apdu)
 		ef.key = key
 		self.sim.update_binary(ef.encode())
 
 		self.__select_xsim_auth_key(isim = False, _2G = False)
 		res = self._read_binary(self.sim.filelen)
-		ef = SYSMO_ISIMSJA2_FILE_EF_USIM_AUTH_KEY(res.apdu)
+		ef = SYSMO_ISIMSJAX_FILE_EF_USIM_AUTH_KEY(res.apdu)
 		ef.key = key
 		self.sim.update_binary(ef.encode())
 
 		if self.sim.has_isim:
 			self.__select_xsim_auth_key(isim = True, _2G = False)
 			res = self._read_binary(self.sim.filelen)
-			ef = SYSMO_ISIMSJA2_FILE_EF_USIM_AUTH_KEY(res.apdu)
+			ef = SYSMO_ISIMSJAX_FILE_EF_USIM_AUTH_KEY(res.apdu)
 			ef.key = key
 			self.sim.update_binary(ef.encode())
 
@@ -680,12 +680,12 @@ class Sysmo_isim_sja2(Sysmo_usim):
 		print(" * Reading...")
 		self.__select_xsim_auth_key(isim = False, _2G = True)
 		res = self._read_binary(self.sim.filelen)
-		ef = SYSMO_ISIMSJA2_FILE_EF_USIM_AUTH_KEY_2G(res.apdu)
+		ef = SYSMO_ISIMSJAX_FILE_EF_USIM_AUTH_KEY_2G(res.apdu)
 		algo_2g = ef.algo
 
 		self.__select_xsim_auth_key(isim = False, _2G = False)
 		res = self._read_binary(self.sim.filelen)
-		ef = SYSMO_ISIMSJA2_FILE_EF_USIM_AUTH_KEY(res.apdu)
+		ef = SYSMO_ISIMSJAX_FILE_EF_USIM_AUTH_KEY(res.apdu)
 		algo_3g = ef.algo
 
 		print(" * Current algorithm setting:")
@@ -716,20 +716,20 @@ class Sysmo_isim_sja2(Sysmo_usim):
 
 		self.__select_xsim_auth_key(isim = False, _2G = True)
 		res = self._read_binary(self.sim.filelen)
-		ef = SYSMO_ISIMSJA2_FILE_EF_USIM_AUTH_KEY_2G(res.apdu)
+		ef = SYSMO_ISIMSJAX_FILE_EF_USIM_AUTH_KEY(res.apdu)
 		ef.algo = algo_2g
 		self.sim.update_binary(ef.encode())
 
 		self.__select_xsim_auth_key(isim = False, _2G = False)
 		res = self._read_binary(self.sim.filelen)
-		ef = SYSMO_ISIMSJA2_FILE_EF_USIM_AUTH_KEY(res.apdu)
+		ef = SYSMO_ISIMSJAX_FILE_EF_USIM_AUTH_KEY(res.apdu)
 		ef.algo = algo_3g
 		self.sim.update_binary(ef.encode())
 
 		if self.sim.has_isim:
 			self.__select_xsim_auth_key(isim = True, _2G = False)
 			res = self._read_binary(self.sim.filelen)
-			ef = SYSMO_ISIMSJA2_FILE_EF_USIM_AUTH_KEY(res.apdu)
+			ef = SYSMO_ISIMSJAX_FILE_EF_USIM_AUTH_KEY(res.apdu)
 			ef.algo = algo_3g
 			self.sim.update_binary(ef.encode())
 
@@ -744,7 +744,7 @@ class Sysmo_isim_sja2(Sysmo_usim):
 		print(" * Reading...")
 		self.__select_xsim_auth_key(isim = False, _2G = False)
 		res = self._read_binary(self.sim.filelen)
-		ef = SYSMO_ISIMSJA2_FILE_EF_USIM_AUTH_KEY(res.apdu)
+		ef = SYSMO_ISIMSJAX_FILE_EF_USIM_AUTH_KEY(res.apdu)
 
 		if ef.use_opc:
 			mode_str = "OPc"
@@ -771,7 +771,7 @@ class Sysmo_isim_sja2(Sysmo_usim):
 		print(" * Programming...")
 		self.__select_xsim_auth_key(isim = False, _2G = True)
 		res = self._read_binary(self.sim.filelen)
-		ef = SYSMO_ISIMSJA2_FILE_EF_USIM_AUTH_KEY_2G(res.apdu)
+		ef = SYSMO_ISIMSJAX_FILE_EF_USIM_AUTH_KEY_2G(res.apdu)
 		ef.opc = op
 		ef.use_opc = bool(select)
 		self.sim.update_binary(ef.encode())
@@ -779,14 +779,14 @@ class Sysmo_isim_sja2(Sysmo_usim):
 		if self.sim.has_isim:
 			self.__select_xsim_auth_key(isim = True, _2G = False)
 			res = self._read_binary(self.sim.filelen)
-			ef = SYSMO_ISIMSJA2_FILE_EF_USIM_AUTH_KEY(res.apdu)
+			ef = SYSMO_ISIMSJAX_FILE_EF_USIM_AUTH_KEY(res.apdu)
 			ef.opc = op
 			ef.use_opc = bool(select)
 			self.sim.update_binary(ef.encode())
 
 		self.__select_xsim_auth_key(isim = False, _2G = False)
 		res = self._read_binary(self.sim.filelen)
-		ef = SYSMO_ISIMSJA2_FILE_EF_USIM_AUTH_KEY(res.apdu)
+		ef = SYSMO_ISIMSJAX_FILE_EF_USIM_AUTH_KEY(res.apdu)
 		ef.opc = op
 		ef.use_opc = bool(select)
 		self.sim.update_binary(ef.encode())
@@ -803,7 +803,7 @@ class Sysmo_isim_sja2(Sysmo_usim):
 		self.sim.card.SELECT_ADF_USIM()
 		self.sim.select(SYSMO_ISIMSJA2_EF_USIM_SQN)
 		res = self._read_binary(self.sim.filelen)
-		print(SYSMO_ISIMSJA2_FILE_EF_USIM_SQN(res.apdu))
+		print(SYSMO_ISIMSJAX_FILE_EF_USIM_SQN(res.apdu))
 
 		if self.sim.has_isim:
 			print(" * Current SQN Configuration for ADF_ISIM:")
@@ -811,7 +811,7 @@ class Sysmo_isim_sja2(Sysmo_usim):
 			self.sim.card.SELECT_ADF_ISIM()
 			self.sim.select(SYSMO_ISIMSJA2_EF_USIM_SQN)
 			res = self._read_binary(self.sim.filelen)
-			print(SYSMO_ISIMSJA2_FILE_EF_USIM_SQN(res.apdu))
+			print(SYSMO_ISIMSJAX_FILE_EF_USIM_SQN(res.apdu))
 
 		print("")
 
@@ -825,13 +825,13 @@ class Sysmo_isim_sja2(Sysmo_usim):
 
 		self.sim.card.SELECT_ADF_USIM()
 		self.sim.select(SYSMO_ISIMSJA2_EF_USIM_SQN)
-		ef = SYSMO_ISIMSJA2_FILE_EF_USIM_SQN()
+		ef = SYSMO_ISIMSJAX_FILE_EF_USIM_SQN()
 		self.sim.update_binary(ef.encode())
 
 		if self.sim.has_isim:
 			self.sim.card.SELECT_ADF_ISIM()
 			self.sim.select(SYSMO_ISIMSJA2_EF_USIM_SQN)
-			ef = SYSMO_ISIMSJA2_FILE_EF_USIM_SQN()
+			ef = SYSMO_ISIMSJAX_FILE_EF_USIM_SQN()
 			self.sim.update_binary(ef.encode())
 
 		print("")
