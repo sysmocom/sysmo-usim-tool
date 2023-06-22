@@ -645,49 +645,51 @@ class Sysmo_isim_sja2(Sysmo_usim):
 			print(SYSMO_ISIMSJA2_FILE_EF_USIM_SQN(res.apdu))
 
 
-	# Show current KI value
-	def show_ki_params(self):
-		print("Reading KI value...")
+	def show_key_params(self):
+		"""
+		Show current Key value
+		"""
+		print("Reading Key value...")
 		self._init()
 
-		# Note: The KI is expected to be the same in all eligible files
+		# Note: The key is expected to be the same in all eligible files
 		print(" * Reading...")
 		self.__select_xsim_auth_key(isim = False, _2G = True)
 		res = self._read_binary(self.sim.filelen)
 		ef = SYSMO_ISIMSJA2_FILE_EF_USIM_AUTH_KEY_2G(res.apdu)
 
-		print(" * Current KI setting:")
-		print("   KI: " + hexdump(ef.key))
+		print(" * Current Key setting:")
+		print("   Key: " + hexdump(ef.key))
 		print("")
 
 
-	# Program new KI value
-	def write_ki_params(self, ki):
-		print("Writing KI value...")
+	def write_key_params(self, key):
+		"""
+		Program new Key value
+		"""
+		print("Writing Key value...")
 		self._init()
-
-		print(" * New KI setting:")
-		print("   KI: " + hexdump(ki))
-
+		print(" * New Key setting:")
+		print("   Key: " + hexdump(key))
 		print(" * Programming...")
 
 		self.__select_xsim_auth_key(isim = False, _2G = True)
 		res = self._read_binary(self.sim.filelen)
 		ef = SYSMO_ISIMSJA2_FILE_EF_USIM_AUTH_KEY_2G(res.apdu)
-		ef.key = ki
+		ef.key = key
 		self.sim.update_binary(ef.encode())
 
 		self.__select_xsim_auth_key(isim = False, _2G = False)
 		res = self._read_binary(self.sim.filelen)
 		ef = SYSMO_ISIMSJA2_FILE_EF_USIM_AUTH_KEY(res.apdu)
-		ef.key = ki
+		ef.key = key
 		self.sim.update_binary(ef.encode())
 
 		if self.sim.has_isim:
 			self.__select_xsim_auth_key(isim = True, _2G = False)
 			res = self._read_binary(self.sim.filelen)
 			ef = SYSMO_ISIMSJA2_FILE_EF_USIM_AUTH_KEY(res.apdu)
-			ef.key = ki
+			ef.key = key
 			self.sim.update_binary(ef.encode())
 
 		print("")

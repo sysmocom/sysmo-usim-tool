@@ -471,7 +471,7 @@ class Sysmo_usim_sjs1(Sysmo_usim):
 
 
 	# Show current KI value
-	def show_ki_params(self):
+	def show_key_params(self):
 		print("Reading KI value...")
 		print(" * Reading...")
 		self.sim.select(GSM_SIM_DF_GSM)
@@ -484,7 +484,7 @@ class Sysmo_usim_sjs1(Sysmo_usim):
 
 
 	# Program new KI value
-	def write_ki_params(self, ki):
+	def write_key_params(self, ki):
 		print("Writing KI value...")
 		self._init()
 

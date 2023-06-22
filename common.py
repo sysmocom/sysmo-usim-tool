@@ -28,8 +28,8 @@ import sys, getopt
 
 COMMON_GETOPTS = "hfa:J:nN:lL:kK:tT:oO:C:sSip"
 COMMON_GETOPTS_LONG = ["help", "force", "adm1=", "set-imsi=", "mnclen",
-		       "set-mnclen=", "milenage", "set-milenage=", "ki",
-		       "set-ki=", "auth", "set-auth=", "opc", "set-op=",
+		       "set-mnclen=", "milenage", "set-milenage=", "key",
+		       "set-key=", "auth", "set-auth=", "opc", "set-op=",
 		       "set-opc=", "seq-parameters", "reset-seq-parameters"
 		       "iccid", "aid"]
 
@@ -46,8 +46,8 @@ class Common():
 	show_mnclen = None
 	show_milenage = False
 	write_milenage = None
-	show_ki = None
-	write_ki = None
+	show_key = None
+	write_key = None
 	show_auth = False
 	write_auth = None
 	show_opc = False
@@ -91,10 +91,10 @@ class Common():
 				self.show_milenage = True
 			elif opt in ("-L", "--set-milenage"):
 				self.write_milenage = asciihex_to_list(arg)
-			elif opt in ("-k", "--ki"):
-				self.show_ki = True
-			elif opt in ("-K", "--set-ki"):
-				self.write_ki = asciihex_to_list(arg)
+			elif opt in ("-k", "--key"):
+				self.show_key = True
+			elif opt in ("-K", "--set-key"):
+				self.write_key = asciihex_to_list(arg)
 			elif opt in ("-t", "--auth"):
 				self.show_auth = True
 			elif opt in ("-T", "--set-auth"):
@@ -141,8 +141,8 @@ class Common():
 		print("   -N, --set-mnclen ............... Set MNC length value")
 		print("   -l, --milenage ................. Show milenage parameters")
 		print("   -L, --set-milenage HEXSTRING ... Set milenage parameters")
-		print("   -k, --ki ....................... Show KI value")
-		print("   -K, --set-ki ................... Set KI value")
+		print("   -k, --key ...................... Show auth key value")
+		print("   -K, --set-key .................. Set auth key value")
 		print("   -t, --auth ..................... Show Authentication algorithms")
 		print("   -T, --set-auth 2G:3G ........... Set 2G/3G Auth algo (e.g. COMP128v1:COMP128v1)")
 		print("   -o, --opc ...................... Show OP/c configuration")
@@ -182,11 +182,11 @@ class Common():
 		if self.show_milenage:
 			self.sim.show_milenage_params()
 
-		if self.write_ki:
-			self.sim.write_ki_params(self.write_ki)
+		if self.write_key:
+			self.sim.write_key_params(self.write_key)
 
-		if self.show_ki:
-			self.sim.show_ki_params()
+		if self.show_key:
+			self.sim.show_key_params()
 
 		if self.show_auth:
 			self.sim.show_auth_params()

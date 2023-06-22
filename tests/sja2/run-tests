@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # default: execute all tests
-TESTS="01_auth.sh  02_algo.sh  03_milenage_par.sh  04_op_opc.sh  05_ki.sh  06_seq.sh  07_mnclen.sh"
+TESTS="01_auth.sh  02_algo.sh  03_milenage_par.sh  04_op_opc.sh  05_key.sh  06_seq.sh  07_mnclen.sh"
 
 # if command line specifies some specific tests, execute only those
 if [ $# -ge 1 ]; then
