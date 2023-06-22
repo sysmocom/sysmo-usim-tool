@@ -40,15 +40,15 @@ import math
 #  |
 #  +--[ADF_USIM]
 #  |   |
-#  |   +--[USIM_AUTH_KEY 0xAF20] (regular file)
+#  |   +--[EF_USIM_AUTH_KEY 0xAF20] (regular file)
 #  |   |
 #  |   +--[EF_USIM_AUTH_KEY_2G 0xAF22] (link to DF_SYSTEM/EF_SIM_AUTH_KEY)
 #  |
 #  +--[ADF_ISIM]
 #      |
-#      +--[USIM_AUTH_KEY 0xAF20] (regular file)
+#      +--[EF_ISIM_AUTH_KEY 0xAF20] (regular file)
 #      |
-#      +--[EF_USIM_AUTH_KEY_2G 0xAF22] (link to DF_SYSTEM/EF_SIM_AUTH_KEY)
+#      +--[EF_ISIM_AUTH_KEY_2G 0xAF22] (link to DF_SYSTEM/EF_SIM_AUTH_KEY)
 #
 # Note: EF_MILENAGE_CFG and EF_USIM_SQN not yet listed here.
 
