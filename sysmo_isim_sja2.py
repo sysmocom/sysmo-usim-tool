@@ -74,6 +74,7 @@ SYSMO_ISIMSJA5_ALGO_TUAK = 0x06
 SYSMO_ISIMSJA5_ALGO_XOR_2G = 0x0E
 SYSMO_ISIMSJA2_ALGO_XOR = 0x0F
 
+# Algorithms that are supported by sysmo-isim-sja2 (and also sysmo-isim-sja5)
 sysmo_isimsja2_algorithms = [
 	(SYSMO_ISIMSJA2_ALGO_COMP12V1, 'COMP128v1'),
 	(SYSMO_ISIMSJA2_ALGO_COMP12V2, 'COMP128v2'),
@@ -83,6 +84,8 @@ sysmo_isimsja2_algorithms = [
 	(SYSMO_ISIMSJA2_ALGO_XOR, 'XOR'),
 ]
 
+# Algorithms that are supported by sysmo-isim-sja5. This also includes all
+# algorithms supported by sysmo-isim-sja2y
 sysmo_isimsja5_algorithms = sysmo_isimsja2_algorithms + [
 	(SYSMO_ISIMSJA5_ALGO_XOR_2G, 'XOR-2G'),
 	(SYSMO_ISIMSJA5_ALGO_TUAK, 'TUAK'),
