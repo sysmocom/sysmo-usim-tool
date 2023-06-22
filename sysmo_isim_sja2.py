@@ -485,8 +485,10 @@ class Sysmo_isim_sja2(Sysmo_usim):
 		if card_detected != True:
 			sys.exit(1)
 
-	# Show current milenage parameters
 	def show_milenage_params(self):
+		"""
+		Show current milenage parameters
+		"""
 		print("Reading Milenage parameters...")
 		self._init()
 
@@ -500,8 +502,10 @@ class Sysmo_isim_sja2(Sysmo_usim):
 		print(str(ef))
 		print("")
 
-	# Write new milenage parameters
 	def write_milenage_params(self, params):
+		"""
+		Write new milenage parameters
+		"""
 		print("Programming Milenage parameters...")
 
 		if (len(params) < 85):
@@ -671,9 +675,10 @@ class Sysmo_isim_sja2(Sysmo_usim):
 
 		print("")
 
-	# Show current athentication parameters
-	# (Which algorithim is used for which rat?)
 	def show_auth_params(self):
+		"""
+		Show current authentication parameters
+		"""
 		print("Reading Authentication parameters...")
 		self._init()
 
@@ -693,8 +698,10 @@ class Sysmo_isim_sja2(Sysmo_usim):
 		print("   3G: %d=%s" % (algo_3g, id_to_str(self.algorithms, algo_3g)))
 		print("")
 
-	# Program new authentication parameters
 	def write_auth_params(self, algo_2g_str, algo_3g_str):
+		"""
+		Write new authentication parameters
+		"""
 		print("Programming Authentication parameters...")
 		self._init()
 
@@ -735,8 +742,10 @@ class Sysmo_isim_sja2(Sysmo_usim):
 
 		print("")
 
-	# Show current OPc value
 	def show_opc_params(self):
+		"""
+		Show OP/OPc current configuration. (see also method: write_opc_params).
+		"""
 		print("Reading OP/c value...")
 		self._init()
 
@@ -755,8 +764,10 @@ class Sysmo_isim_sja2(Sysmo_usim):
 		print("   %s: %s" % (mode_str, hexdump(ef.opc)))
 		print("")
 
-	# Program new OPc value
 	def write_opc_params(self, select, op):
+		"""
+		Program new OPc value
+		"""
 		if select:
 			print("Writing OPc value...")
 			mode_str = "OPc"
@@ -793,8 +804,10 @@ class Sysmo_isim_sja2(Sysmo_usim):
 
 		print("")
 
-	# Show current milenage SQN parameters
 	def show_milenage_sqn_params(self):
+		"""
+		Show current milenage SQN parameters
+		"""
 		print("Reading Milenage Sequence parameters...")
 		self._init()
 
@@ -815,8 +828,10 @@ class Sysmo_isim_sja2(Sysmo_usim):
 
 		print("")
 
-	# Reset milenage SQN configuration
 	def reset_milenage_sqn_params(self):
+		"""
+		Reset milenage SQN configuration
+		"""
 		print(" * Resetting SQN Configuration to defaults...")
 		self._init()
 
