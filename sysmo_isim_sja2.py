@@ -110,7 +110,7 @@ class SYSMO_ISIMSJA2_FILE_EF_XSIM_AUTH_KEY:
 		else:
 			self.sres_dev_func = 1
 
-	def __str__(self):
+	def __str__(self) -> str:
 		dump = ""
 		pfx = "   "
 
@@ -127,7 +127,7 @@ class SYSMO_ISIMSJA2_FILE_EF_XSIM_AUTH_KEY:
 
 		return dump
 
-	def encode(self):
+	def encode(self) -> list:
 		out = [0x00]
 		out[0] = self.algo & 0x0F
 		if self.use_opc == True:
@@ -149,7 +149,7 @@ class SYSMO_ISIMSJA2_FILE_EF_SIM_AUTH_KEY(SYSMO_ISIMSJA2_FILE_EF_XSIM_AUTH_KEY):
 		self.key = content[1:17]
 		self.opc = content[17:33]
 
-	def __str__(self):
+	def __str__(self) -> str:
 		dump = ""
 		pfx = "   "
 
@@ -171,7 +171,7 @@ class SYSMO_ISIMSJA2_FILE_EF_SIM_AUTH_KEY(SYSMO_ISIMSJA2_FILE_EF_XSIM_AUTH_KEY):
 		return dump
 
 
-	def encode(self):
+	def encode(self) -> list:
 		out = SYSMO_ISIMSJA2_FILE_EF_XSIM_AUTH_KEY.encode(self)
 		out += self.key + self.opc
 		return out
@@ -199,7 +199,7 @@ class SYSMO_ISIMSJA2_FILE_EF_USIM_AUTH_KEY(SYSMO_ISIMSJA2_FILE_EF_XSIM_AUTH_KEY)
 		if len(content) > 17:
 			self.opc = content[17:33]
 
-	def __str__(self):
+	def __str__(self) -> str:
 		dump = ""
 		pfx = "   "
 
@@ -231,7 +231,7 @@ class SYSMO_ISIMSJA2_FILE_EF_USIM_AUTH_KEY(SYSMO_ISIMSJA2_FILE_EF_XSIM_AUTH_KEY)
 		return dump
 
 
-	def encode(self):
+	def encode(self) -> list:
 		out = SYSMO_ISIMSJA2_FILE_EF_XSIM_AUTH_KEY.encode(self)
 		if self.full_res == True:
 			out[0] |= 1 << 6
@@ -288,7 +288,7 @@ class SYSMO_ISIMSJA2_FILE_EF_MILENAGE_CFG:
 		self.C4 = content[53:69]
 		self.C5 = content[69:85]
 
-	def __str__(self):
+	def __str__(self) -> str:
 		dump = "   R1: " + str(hex(self.R1)) + "\n"
 		dump += "   R2: " + str(hex(self.R2)) + "\n"
 		dump += "   R3: " + str(hex(self.R3)) + "\n"
@@ -301,7 +301,7 @@ class SYSMO_ISIMSJA2_FILE_EF_MILENAGE_CFG:
 		dump += "   C5: " + hexdump(self.C5)
 		return dump
 
-	def encode(self):
+	def encode(self) -> list:
 		out = [self.R1, self.R2, self.R3, self.R4, self.R5]
 		out += self.C1 + self.C2 + self.C3 + self.C4 + self.C5
 		return out
@@ -367,7 +367,7 @@ class SYSMO_ISIMSJA2_FILE_EF_USIM_SQN:
 		self.age_limit = list_to_int(content[8:14])
 		self.freshness_data = content[15:(6*2**self.ind_size_bits)]
 
-	def __str__(self):
+	def __str__(self) -> str:
 		pfx = "   "
 		dump = ""
 		dump += "%sIND (bits): %u\n" % (pfx, self.ind_size_bits)
@@ -404,7 +404,7 @@ class SYSMO_ISIMSJA2_FILE_EF_USIM_SQN:
 		dump += pfx + "Freshness Data:\n" + hexdump(self.freshness_data, True)
 		return dump
 
-	def encode(self):
+	def encode(self) -> list:
 		out = [0x00, 0x00]
 
 		# Flag1:
