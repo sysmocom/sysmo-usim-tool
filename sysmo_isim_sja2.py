@@ -102,16 +102,13 @@ class SYSMO_ISIMSJA2_FILE_EF_XSIM_AUTH_KEY:
 	def __init__(self, content = None):
 		if content == None:
 			return
-
 		header = content[0]
 		self.algo = header & 0x0F
 		self.use_opc = bool((header >> 4) & 1)
-
 		if (header >> 5) & 1:
 			self.sres_dev_func = 2
 		else:
 			self.sres_dev_func = 1
-
 
 	def __str__(self):
 		dump = ""
@@ -129,7 +126,6 @@ class SYSMO_ISIMSJA2_FILE_EF_XSIM_AUTH_KEY:
 		dump += pfx + "Milenage: use SRES deviation function " + str(self.sres_dev_func) + "\n"
 
 		return dump
-
 
 	def encode(self):
 		out = [0x00]
@@ -152,7 +148,6 @@ class SYSMO_ISIMSJA2_FILE_EF_SIM_AUTH_KEY(SYSMO_ISIMSJA2_FILE_EF_XSIM_AUTH_KEY):
 		SYSMO_ISIMSJA2_FILE_EF_XSIM_AUTH_KEY.__init__(self, content)
 		self.key = content[1:17]
 		self.opc = content[17:33]
-
 
 	def __str__(self):
 		dump = ""
@@ -203,7 +198,6 @@ class SYSMO_ISIMSJA2_FILE_EF_USIM_AUTH_KEY(SYSMO_ISIMSJA2_FILE_EF_XSIM_AUTH_KEY)
 		self.key = content[1:17]
 		if len(content) > 17:
 			self.opc = content[17:33]
-
 
 	def __str__(self):
 		dump = ""
@@ -278,7 +272,6 @@ class SYSMO_ISIMSJA2_FILE_EF_MILENAGE_CFG:
 	C5 = [0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
 		0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x08]
 
-
 	def __init__(self, content = None):
 		if content == None:
 			return
@@ -295,7 +288,6 @@ class SYSMO_ISIMSJA2_FILE_EF_MILENAGE_CFG:
 		self.C4 = content[53:69]
 		self.C5 = content[69:85]
 
-
 	def __str__(self):
 		dump = "   R1: " + str(hex(self.R1)) + "\n"
 		dump += "   R2: " + str(hex(self.R2)) + "\n"
@@ -308,7 +300,6 @@ class SYSMO_ISIMSJA2_FILE_EF_MILENAGE_CFG:
 		dump += "   C4: " + hexdump(self.C4) + "\n"
 		dump += "   C5: " + hexdump(self.C5)
 		return dump
-
 
 	def encode(self):
 		out = [self.R1, self.R2, self.R3, self.R4, self.R5]
@@ -376,11 +367,9 @@ class SYSMO_ISIMSJA2_FILE_EF_USIM_SQN:
 		self.age_limit = list_to_int(content[8:14])
 		self.freshness_data = content[15:(6*2**self.ind_size_bits)]
 
-
 	def __str__(self):
 		pfx = "   "
 		dump = ""
-
 		dump += "%sIND (bits): %u\n" % (pfx, self.ind_size_bits)
 		if self.sqn_check_enabled:
 			dump += "%sSQN Check enabled\n" % pfx
@@ -413,9 +402,7 @@ class SYSMO_ISIMSJA2_FILE_EF_USIM_SQN:
 		dump += "%sMax Delta: %u\n" % (pfx, self.max_delta)
 		dump += "%sAge Limit: %u\n" % (pfx, self.age_limit)
 		dump += pfx + "Freshness Data:\n" + hexdump(self.freshness_data, True)
-
 		return dump
-
 
 	def encode(self):
 		out = [0x00, 0x00]
@@ -445,10 +432,8 @@ class SYSMO_ISIMSJA2_FILE_EF_USIM_SQN:
 		out += self.freshness_data
 		return out
 
-
 	def reset(self):
 		self.freshness_data = [0x00] * (6*2**self.ind_size_bits)
-
 
 
 class Sysmo_isim_sja2(Sysmo_usim):
@@ -468,7 +453,6 @@ class Sysmo_isim_sja2(Sysmo_usim):
 
 		if card_detected == True:
 			return
-
 
 		# Try card model #2
 		try:
@@ -494,11 +478,9 @@ class Sysmo_isim_sja2(Sysmo_usim):
 		if card_detected == True:
 			return
 
-
 		# Exit when we are not able to detect the card
 		if card_detected != True:
 			sys.exit(1)
-
 
 	# Show current milenage parameters
 	def show_milenage_params(self):
@@ -515,10 +497,8 @@ class Sysmo_isim_sja2(Sysmo_usim):
 		print(str(ef))
 		print("")
 
-
 	# Write new milenage parameters
 	def write_milenage_params(self, params):
-
 		print("Programming Milenage parameters...")
 
 		if (len(params) < 85):
@@ -545,13 +525,11 @@ class Sysmo_isim_sja2(Sysmo_usim):
 			self.sim.update_binary(ef_milenage_cfg.encode())
 		print("")
 
-
 	# Select DF_SYSTEM/EF_SIM_AUTH_KEY
 	def __select_ef_sim_auth_key(self):
 		self.sim.select(GSM_SIM_MF)
 		self.sim.select(SYSMO_ISIMSJA2_DF_SYSTEM)
 		self.sim.select(SYSMO_ISIMSJA2_EF_SIM_AUTH_KEY)
-
 
 	# Authentication keys exist in various different files, which are
 	# similar, thie method simplifies the selection of those files
@@ -566,7 +544,6 @@ class Sysmo_isim_sja2(Sysmo_usim):
 			self.sim.select(SYSMO_ISIMSJA2_EF_USIM_AUTH_KEY_2G)
 		else:
 			self.sim.select(SYSMO_ISIMSJA2_EF_USIM_AUTH_KEY)
-
 
 	# In the SJA2 model the key material and the algorithm configuration
 	# is distributed over multiple files, which may also have redundant
@@ -644,7 +621,6 @@ class Sysmo_isim_sja2(Sysmo_usim):
 			print(" * ADF_ISIM/EF_ISIM_SQN:")
 			print(SYSMO_ISIMSJA2_FILE_EF_USIM_SQN(res.apdu))
 
-
 	def show_key_params(self):
 		"""
 		Show current Key value
@@ -662,7 +638,6 @@ class Sysmo_isim_sja2(Sysmo_usim):
 		print("   Key: " + hexdump(ef.key))
 		print("")
 
-
 	def write_key_params(self, key):
 		"""
 		Program new Key value
@@ -672,7 +647,6 @@ class Sysmo_isim_sja2(Sysmo_usim):
 		print(" * New Key setting:")
 		print("   Key: " + hexdump(key))
 		print(" * Programming...")
-
 		self.__select_xsim_auth_key(isim = False, _2G = True)
 		res = self._read_binary(self.sim.filelen)
 		ef = SYSMO_ISIMSJA2_FILE_EF_USIM_AUTH_KEY_2G(res.apdu)
@@ -693,7 +667,6 @@ class Sysmo_isim_sja2(Sysmo_usim):
 			self.sim.update_binary(ef.encode())
 
 		print("")
-
 
 	# Show current athentication parameters
 	# (Which algorithim is used for which rat?)
@@ -716,7 +689,6 @@ class Sysmo_isim_sja2(Sysmo_usim):
 		print("   2G: %d=%s" % (algo_2g, id_to_str(self.algorithms, algo_2g)))
 		print("   3G: %d=%s" % (algo_3g, id_to_str(self.algorithms, algo_3g)))
 		print("")
-
 
 	# Program new authentication parameters
 	def write_auth_params(self, algo_2g_str, algo_3g_str):
@@ -760,7 +732,6 @@ class Sysmo_isim_sja2(Sysmo_usim):
 
 		print("")
 
-
 	# Show current OPc value
 	def show_opc_params(self):
 		print("Reading OP/c value...")
@@ -781,7 +752,6 @@ class Sysmo_isim_sja2(Sysmo_usim):
 		print("   %s: %s" % (mode_str, hexdump(ef.opc)))
 		print("")
 
-
 	# Program new OPc value
 	def write_opc_params(self, select, op):
 		if select:
@@ -796,7 +766,6 @@ class Sysmo_isim_sja2(Sysmo_usim):
 		print("   %s: %s" % (mode_str, hexdump(op)))
 
 		print(" * Programming...")
-
 		self.__select_xsim_auth_key(isim = False, _2G = True)
 		res = self._read_binary(self.sim.filelen)
 		ef = SYSMO_ISIMSJA2_FILE_EF_USIM_AUTH_KEY_2G(res.apdu)
@@ -821,7 +790,6 @@ class Sysmo_isim_sja2(Sysmo_usim):
 
 		print("")
 
-
 	# Show current milenage SQN parameters
 	def show_milenage_sqn_params(self):
 		print("Reading Milenage Sequence parameters...")
@@ -844,7 +812,6 @@ class Sysmo_isim_sja2(Sysmo_usim):
 
 		print("")
 
-
 	# Reset milenage SQN configuration
 	def reset_milenage_sqn_params(self):
 		print(" * Resetting SQN Configuration to defaults...")
@@ -865,7 +832,6 @@ class Sysmo_isim_sja2(Sysmo_usim):
 			self.sim.update_binary(ef.encode())
 
 		print("")
-
 
 class Sysmo_isim_sja5(Sysmo_isim_sja2):
 	algorithms = sysmo_isimsja5_algorithms
