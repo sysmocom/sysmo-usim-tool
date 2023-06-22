@@ -2,9 +2,9 @@
 # -*- coding: utf-8 -*-
 
 """
-Gadgets to modify sysmoISIM-SJA2 parameters
+Gadgets to modify sysmoISIM-SJA2/sysmoISIM-SJA5 parameters
 
-(C) 2017-2022 by sysmocom - s.f.m.c. GmbH
+(C) 2017-2023 by sysmocom - s.f.m.c. GmbH
 All Rights Reserved
 
 Author: Philipp Maier
