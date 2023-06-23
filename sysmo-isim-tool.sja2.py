@@ -71,7 +71,7 @@ class Application(Common):
 
 def main(argv):
 
-	Application(argv, "d", ["dump"])
+	Application(argv, "d", ["dump"], True)
 
 
 if __name__ == "__main__":

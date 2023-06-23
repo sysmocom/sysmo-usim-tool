@@ -58,9 +58,15 @@ class Common():
 	show_iccid = False
 	show_aid = False
 
-	def __init__(self, argv, getopts, getopts_long):
+	# This flag specifies whether the commandline options should offer writing auth parameters (algorithm to use
+	# for authentication). The commandline options are not implemented separately for each card since the method
+	# calls are nearly the same for all card generations.
+	write_auth_4g5g = False
+
+	def __init__(self, argv, getopts, getopts_long, write_auth_4g5g = False):
 
 		self._banner()
+		self.write_auth_4g5g = write_auth_4g5g
 
 		# Analyze commandline options
 		try:
@@ -98,7 +104,7 @@ class Common():
 			elif opt in ("-t", "--auth"):
 				self.show_auth = True
 			elif opt in ("-T", "--set-auth"):
-				self.write_auth = arg.split(':',1)
+				self.write_auth = arg.split(':', 2)
 			elif opt in ("-o", "--opc"):
 				self.show_opc = True
 			elif opt in ("-O", "--set-op"):
@@ -143,8 +149,11 @@ class Common():
 		print("   -L, --set-milenage HEXSTRING ... Set milenage parameters")
 		print("   -k, --key ...................... Show auth key value")
 		print("   -K, --set-key .................. Set auth key value")
-		print("   -t, --auth ..................... Show Authentication algorithms")
-		print("   -T, --set-auth 2G:3G ........... Set 2G/3G Auth algo (e.g. COMP128v1:COMP128v1)")
+		print("   -t, --auth ..................... Show authentication algorithms")
+		if self.write_auth_4g5g:
+			print("   -T, --set-auth 2g:3g[:4g5g] .... Set 2G/3G auth algo (e.g. COMP128v1:COMP128v1)")
+		else:
+			print("   -T, --set-auth 2g:3g ........... Set 2G/3G auth algo (e.g. COMP128v1:COMP128v1)")
 		print("   -o, --opc ...................... Show OP/c configuration")
 		print("   -O, --set-op HEXSTRING ......... Set OP value")
 		print("   -C, --set-opc HEXSTRING ........ Set OPc value")
@@ -192,7 +201,10 @@ class Common():
 			self.sim.show_auth_params()
 
 		if self.write_auth:
-			self.sim.write_auth_params(self.write_auth[0], self.write_auth[1])
+			if self.write_auth_4g5g and len(self.write_auth) > 2:
+				self.sim.write_auth_params(self.write_auth[0], self.write_auth[1], self.write_auth[2])
+			else:
+				self.sim.write_auth_params(self.write_auth[0], self.write_auth[1])
 
 		if self.show_opc:
 			self.sim.show_opc_params()

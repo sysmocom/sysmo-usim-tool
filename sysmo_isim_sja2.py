@@ -693,12 +693,21 @@ class Sysmo_isim_sja2(Sysmo_usim):
 		ef = SYSMO_ISIMSJAX_FILE_EF_USIM_AUTH_KEY(res.apdu)
 		algo_3g = ef.algo
 
+		if self.sim.has_isim:
+			self.__select_xsim_auth_key(isim = True, _2G = False)
+			res = self._read_binary(self.sim.filelen)
+			ef = SYSMO_ISIMSJAX_FILE_EF_USIM_AUTH_KEY(res.apdu)
+			algo_4g5g = ef.algo
+		else:
+			algo_4g5g = algo_3g
+
 		print(" * Current algorithm setting:")
-		print("   2G: %d=%s" % (algo_2g, id_to_str(self.algorithms, algo_2g)))
-		print("   3G: %d=%s" % (algo_3g, id_to_str(self.algorithms, algo_3g)))
+		print("   2g: %d=%s" % (algo_2g, id_to_str(self.algorithms, algo_2g)))
+		print("   3g: %d=%s" % (algo_3g, id_to_str(self.algorithms, algo_3g)))
+		print("   4g5g: %d=%s" % (algo_3g, id_to_str(self.algorithms, algo_4g5g)))
 		print("")
 
-	def write_auth_params(self, algo_2g_str, algo_3g_str):
+	def write_auth_params(self, algo_2g_str, algo_3g_str, algo_4g5g_str = None):
 		"""
 		Write new authentication parameters
 		"""
@@ -715,9 +724,18 @@ class Sysmo_isim_sja2(Sysmo_usim):
 		else:
 			algo_3g = str_to_id(self.algorithms, algo_3g_str)
 
+		if algo_4g5g_str:
+			if algo_4g5g_str.isdigit():
+				algo_4g5g = int(algo_4g5g_str)
+			else:
+				algo_4g5g = str_to_id(self.algorithms, algo_4g5g_str)
+		else:
+			algo_4g5g = algo_3g
+
 		print(" * New algorithm setting:")
-		print("   2G: %d=%s" % (algo_2g, id_to_str(self.algorithms, algo_2g)))
-		print("   3G: %d=%s" % (algo_3g, id_to_str(self.algorithms, algo_3g)))
+		print("   2g: %d=%s" % (algo_2g, id_to_str(self.algorithms, algo_2g)))
+		print("   3g: %d=%s" % (algo_3g, id_to_str(self.algorithms, algo_3g)))
+		print("   4g5g: %d=%s" % (algo_4g5g, id_to_str(self.algorithms, algo_4g5g)))
 
 		print(" * Programming...")
 
@@ -737,7 +755,7 @@ class Sysmo_isim_sja2(Sysmo_usim):
 			self.__select_xsim_auth_key(isim = True, _2G = False)
 			res = self._read_binary(self.sim.filelen)
 			ef = SYSMO_ISIMSJAX_FILE_EF_USIM_AUTH_KEY(res.apdu)
-			ef.algo = algo_3g
+			ef.algo = algo_4g5g
 			self.sim.update_binary(ef.encode())
 
 		print("")
