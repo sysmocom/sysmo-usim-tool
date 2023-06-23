@@ -91,165 +91,288 @@ sysmo_isimsja5_algorithms = sysmo_isimsja2_algorithms + [
 	(SYSMO_ISIMSJA5_ALGO_TUAK, 'TUAK'),
 	]
 
+# Algorithms that use a 16 byte Key in the familiar format of sysmo-isim-sja2
+sysmo_isimsjax_16_byte_key_algorithms = [
+	SYSMO_ISIMSJA2_ALGO_COMP12V1,
+	SYSMO_ISIMSJA2_ALGO_COMP12V2,
+	SYSMO_ISIMSJA2_ALGO_COMP12V3,
+	SYSMO_ISIMSJA2_ALGO_MILENAGE,
+	SYSMO_ISIMSJA2_ALGO_SHA1AKA,
+	SYSMO_ISIMSJA2_ALGO_XOR,
+	SYSMO_ISIMSJA5_ALGO_XOR_2G,
+	]
+
+sysmo_isimsjax_op_opc = [
+	(True, 'OPc'),
+	(False, 'OP'),
+	]
+
+class SYSMO_ISIMSJAX_ALGO_PARS_MILENAGE:
+	use_opc = False
+	sres_dev_func = 1
+	four_byte_res = 0 #sysmo-usim-sja5 only
+
+	def __init__(self, content = None):
+		if content == None:
+			return
+		header = content[0]
+		self.use_opc = bool((header >> 4) & 1)
+		if (header >> 5) & 1:
+			self.sres_dev_func = 2
+		self.four_byte_res = bool((header >> 6) & 1)
+
+	def __str__(self) -> str:
+		dump = ""
+		pfx = "   "
+		if self.use_opc == True:
+			dump += pfx + "use OPc\n"
+		else:
+			dump += pfx + "use OP\n"
+		dump += pfx + "use SRES deviation function " + str(self.sres_dev_func) + "\n"
+		if self.four_byte_res:
+			dump += pfx + "Return 4 byte RES\n"
+		else:
+			dump += pfx + "Return full 8 byte RES\n"
+		return dump
+
+	def encode(self) -> int:
+		out = 0x00
+		if self.use_opc == True:
+			out |= 1 << 4
+		out |= ((self.sres_dev_func-1) & 1) << 5
+		out |= ((self.four_byte_res) & 1) << 6
+		return out
+
+
+class SYSMO_ISIMSJAX_ALGO_PARS_SHA1AKA:
+	four_byte_res = 0 #sysmo-usim-sja5 only
+
+	def __init__(self, content = None):
+		if content == None:
+			return
+		header = content[0]
+		self.four_byte_res = bool((header >> 6) & 1)
+
+	def __str__(self) -> str:
+		dump = ""
+		pfx = "   "
+		if self.four_byte_res:
+			dump += pfx + "Return 4 byte RES\n"
+		else:
+			dump += pfx + "Return full 8 byte RES (default)\n"
+		return dump
+
+	def encode(self) -> int:
+		out = 0x00
+		out |= ((self.four_byte_res) & 1) << 6
+		return out
+
+
+class SYSMO_ISIMSJAX_ALGO_PARS_XOR:
+	sres_dev_func = 1
+	four_byte_res = 0
+	sixteen_byte_res = 0 #Return 16 byte RES (ignores full_res)
+
+	def __init__(self, content = None):
+		if content == None:
+			return
+		header = content[0]
+		if (header >> 5) & 1:
+			self.sres_dev_func = 2
+		self.four_byte_res = bool((header >> 6) & 1)
+		self.sixteen_byte_res = bool((header >> 7) & 1)
+
+	def __str__(self) -> str:
+		dump = ""
+		pfx = "   "
+		dump += pfx + "use SRES deviation function" + str(self.sres_dev_func) + "\n"
+		if self.sixteen_byte_res:
+			dump += pfx + "Return extended 16 byte RES\n"
+		elif self.four_byte_res:
+			dump += pfx + "Return 4 byte RES\n"
+		else:
+			dump += pfx + "Return full 8 byte RES (default)\n"
+		return dump
+
+	def encode(self) -> int:
+		out = 0x00
+		out |= ((self.sres_dev_func-1) & 1) << 5
+		out |= ((self.four_byte_res) & 1) << 6
+		out |= ((self.sixteen_byte_res) & 1) << 7
+		return out
+
+
+class SYSMO_ISIMSJA5_ALGO_PARS_TUAK:
+	use_topc = False
+	sres_dev_func = 1
+	use_256_bit_key = False
+
+	def __init__(self, content = None):
+		if content == None:
+			return
+		header = content[0]
+		self.use_topc = bool((header >> 4) & 1)
+		if (header >> 5) & 1:
+			self.sres_dev_func = 2
+		self.use_256_bit_key = bool((header >> 6) & 1)
+
+	def __str__(self) -> str:
+		dump = ""
+		pfx = "   "
+		if self.use_topc == True:
+			dump += pfx + "use TOPc\n"
+		else:
+			dump += pfx + "use TOP\n"
+		dump += pfx + "use SRES deviation function " + str(self.sres_dev_func) + "\n"
+		if self.use_256_bit_key:
+			dump += pfx + "256 bit key length\n"
+		else:
+			dump += pfx + "128 bit key length\n"
+		return dump
+
+
+	def encode(self) -> int:
+		out = 0x00
+		if self.use_topc == True:
+			out |= 1 << 4
+		out |= ((self.sres_dev_func-1) & 1) << 5
+		out |= ((self.use_256_bit_key) & 1) << 6
+		return out
+
+
 class SYSMO_ISIMSJAX_FILE_EF_XSIM_AUTH_KEY:
 	"""
-	Superclass model that generates that handles the header byte of
+	Superclass model that generates and parses the header byte of
 	SYSMO_ISIMSJA2_EF_USIM_AUTH_KEY, SYSMO_ISIMSJA2_EF_USIM_AUTH_KEY_2G
 	and SYSMO_ISIMSJA2_EF_USIM_AUTH_KEY_GBA.
 	"""
 
 	algo = SYSMO_ISIMSJA2_ALGO_COMP12V1
-	use_opc = False
-	sres_dev_func = 1
+	algo_pars = None
 
 	def __init__(self, content = None):
 		if content == None:
 			return
 		header = content[0]
 		self.algo = header & 0x0F
-		self.use_opc = bool((header >> 4) & 1)
-		if (header >> 5) & 1:
-			self.sres_dev_func = 2
-		else:
-			self.sres_dev_func = 1
+		if self.algo == SYSMO_ISIMSJA2_ALGO_MILENAGE:
+			self.algo_pars = SYSMO_ISIMSJAX_ALGO_PARS_MILENAGE(content)
+		elif self.algo == SYSMO_ISIMSJA2_ALGO_SHA1AKA:
+			self.algo_pars = SYSMO_ISIMSJAX_ALGO_PARS_SHA1AKA(content)
+		elif self.algo == SYSMO_ISIMSJA2_ALGO_XOR:
+			self.algo_pars = SYSMO_ISIMSJAX_ALGO_PARS_XOR(content)
 
 	def __str__(self) -> str:
 		dump = ""
 		pfx = "   "
-
 		dump += pfx + "Algorithm: "
 		dump += id_to_str(sysmo_isimsja5_algorithms, self.algo)
 		dump += "\n"
-
-		if self.use_opc == True:
-			dump += pfx + "Milenage: use OPc\n"
-		else:
-			dump += pfx + "Milenage: use OP\n"
-
-		dump += pfx + "Milenage: use SRES deviation function " + str(self.sres_dev_func) + "\n"
-
+		if self.algo_pars:
+			dump += str(self.algo_pars)
 		return dump
 
-	def encode(self) -> list:
+	def encode(self):
 		out = [0x00]
 		out[0] = self.algo & 0x0F
-		if self.use_opc == True:
-			out[0] |= 1 << 4
-		out[0] |= ((self.sres_dev_func-1) & 1) << 5
+		if self.algo_pars:
+			out[0] |= self.algo_pars.encode()
 		return out
 
+class SYSMO_ISIMSJAX_ALGO_KEY_COMP128:
 
-class SYSMO_ISIMSJAX_FILE_EF_SIM_AUTH_KEY(SYSMO_ISIMSJAX_FILE_EF_XSIM_AUTH_KEY):
-
-	key = [0xAA] * 16
-	opc = [0xBB] * 16
+	ki = [0x00] * 16
 
 	def __init__(self, content = None):
 		if content == None:
 			return
+		self.ki = content[1:17]
 
-		SYSMO_ISIMSJA2_FILE_EF_XSIM_AUTH_KEY.__init__(self, content)
-		self.key = content[1:17]
+	def __str__(self) -> str:
+		dump = ""
+		pfx = "   "
+		dump += pfx + "Ki: " + hexdump(self.ki)
+		return dump
+
+	def encode(self) -> list:
+		return self.ki
+
+
+#XOR has the same key length COMP128 (16 byte, no extra data)
+class SYSMO_ISIMSJAX_ALGO_KEY_XOR(SYSMO_ISIMSJAX_ALGO_KEY_COMP128):
+	pass
+
+
+#SHA1AKA has the same key length COMP128 (16 byte, no extra data)
+class SYSMO_ISIMSJAX_ALGO_KEY_SHA1AKA(SYSMO_ISIMSJAX_ALGO_KEY_COMP128):
+	pass
+
+
+#Milenage adds a 16 byte OP/c
+class SYSMO_ISIMSJAX_ALGO_KEY_MILENAGE(SYSMO_ISIMSJAX_ALGO_KEY_COMP128):
+
+	opc = [0x00] * 16
+
+	def __init__(self, content = None):
+		if content == None:
+			return
+		super().__init__(content)
 		self.opc = content[17:33]
 
 	def __str__(self) -> str:
 		dump = ""
 		pfx = "   "
-
-		dump += SYSMO_ISIMSJA2_FILE_EF_XSIM_AUTH_KEY.__str__(self)
-
-		if self.algo == SYSMO_ISIMSJA2_ALGO_MILENAGE:
-			dump += pfx + "Key: " + hexdump(self.key) + "\n"
-			dump += pfx + "OPc: " + hexdump(self.opc)
-		elif self.algo == SYSMO_ISIMSJA2_ALGO_XOR:
-			dump += pfx + "Key: " + hexdump(self.key) + "\n"
-			dump += pfx + "OPc: " + hexdump(self.opc)
-		elif self.algo == SYSMO_ISIMSJA2_ALGO_SHA1AKA:
-			dump += pfx + "Root key: " + hexdump(self.key) + "\n"
-			dump += pfx + "OPc: " + hexdump(self.opc) + " (unused)"
-		else:
-			dump += pfx + "Key: " + hexdump(self.key) + "\n"
-			dump += pfx + "OPc: " + hexdump(self.opc) + " (unused)"
-
+		dump += super().__str__()
+		dump += "\n"
+		dump += pfx + "OPc: " + hexdump(self.opc)
 		return dump
 
-
 	def encode(self) -> list:
-		out = SYSMO_ISIMSJA2_FILE_EF_XSIM_AUTH_KEY.encode(self)
-		out += self.key + self.opc
-		return out
+		return super().encode() + self.opc
 
 
 class SYSMO_ISIMSJAX_FILE_EF_USIM_AUTH_KEY(SYSMO_ISIMSJAX_FILE_EF_XSIM_AUTH_KEY):
 
-	full_res = True # Return full 8-byte RES or first 4 bytes only
-	ext_res = False # Return 16 byte RES (ignores full_res, only valid with 3G XOR)
-
-	key = [0x00] * 16
-	opc = [0x00] * 16 # Only for Milenage
+	algo_key = None
 
 	def __init__(self, content = None):
-		if content == None:
-			return
-
-		SYSMO_ISIMSJAX_FILE_EF_XSIM_AUTH_KEY.__init__(self, content)
-		header = content[0]
-
-		self.full_res = bool((header >> 6) & 1)
-		self.ext_res = bool((header >> 7) & 1)
-
-		self.key = content[1:17]
-		if len(content) > 17:
-			self.opc = content[17:33]
+		# The superclass constructor must ensure that a valid algo and
+		# algo parameters are set since we need this information to pick
+		# the key configuration below.
+		super().__init__(content)
+		if self.algo == SYSMO_ISIMSJA2_ALGO_COMP12V1 or \
+		   self.algo == SYSMO_ISIMSJA2_ALGO_COMP12V2 or \
+		   self.algo == SYSMO_ISIMSJA2_ALGO_COMP12V3:
+			self.algo_key = SYSMO_ISIMSJAX_ALGO_KEY_COMP128(content)
+		elif self.algo == SYSMO_ISIMSJA2_ALGO_MILENAGE:
+			self.algo_key = SYSMO_ISIMSJAX_ALGO_KEY_MILENAGE(content)
+		elif self.algo == SYSMO_ISIMSJA2_ALGO_SHA1AKA:
+			self.algo_key = SYSMO_ISIMSJAX_ALGO_KEY_SHA1AKA(content)
+		elif self.algo == SYSMO_ISIMSJA2_ALGO_XOR or \
+		     self.algo == SYSMO_ISIMSJA5_ALGO_XOR_2G:
+			self.algo_key = SYSMO_ISIMSJAX_ALGO_KEY_XOR(content)
 
 	def __str__(self) -> str:
 		dump = ""
-		pfx = "   "
-
-		dump += SYSMO_ISIMSJAX_FILE_EF_XSIM_AUTH_KEY.__str__(self)
-		if self.full_res == True and self.ext_res == False:
-			dump += pfx + "3G: Return full 8-byte RES\n"
-		elif self.full_res == False and self.ext_res == False:
-			dump += pfx + "3G: Return first four bytes of RES\n"
-		elif self.ext_res == True:
-			dump += pfx + "3G: Return 16-byte RES (XOR 3G only)\n"
-		else:
-			dump += pfx + "(invalid RES length setting)"
-
-		if self.algo != SYSMO_ISIMSJA2_ALGO_XOR and self.ext_res:
-			dump += pfx + "Warning: 16-byte RES is only valid with XOR 3G!\n"
-
-		if self.algo == SYSMO_ISIMSJA2_ALGO_MILENAGE:
-			dump += pfx + "Key: " + hexdump(self.key) + "\n"
-			dump += pfx + "OPc: " + hexdump(self.opc)
-		elif self.algo == SYSMO_ISIMSJA2_ALGO_XOR:
-			dump += pfx + "Key: " + hexdump(self.key) + "\n"
-			dump += pfx + "OPc: " + hexdump(self.opc)
-		elif self.algo == SYSMO_ISIMSJA2_ALGO_SHA1AKA:
-			dump += pfx + "Root key: " + hexdump(self.key) + "\n"
-			dump += pfx + "OPc: " + hexdump(self.opc) + " (unused)"
-		else:
-			dump += pfx + "Key: " + hexdump(self.key) + "\n"
-			dump += pfx + "OPc: " + hexdump(self.opc) + " (unused)"
+		dump += super().__str__()
+		dump += str(self.algo_key)
 		return dump
 
-
 	def encode(self) -> list:
-		out = SYSMO_ISIMSJAX_FILE_EF_XSIM_AUTH_KEY.encode(self)
-		if self.full_res == True:
-			out[0] |= 1 << 6
-		if self.ext_res == True:
-			out[0] |= 1 << 7
-		out += self.key
-
-		# Note: Normally an OPc is only used with milenage, but lets
-		# write the value anyway, even if it is not used.
-		out += self.opc
+		out = super().encode()
+		if self.algo_key:
+			out += self.algo_key.encode()
+		else:
+			raise ValueError("key data encoding not supported for selected algorithm!")
 		return out
 
 
-# EF_USIM_AUTH_KEY_2G and EF_USIM_AUTH_KEY_GBA have the same layout as
+# EF_USIM_AUTH_KEY_2G, EF_SIM_AUTH_KEY and EF_USIM_AUTH_KEY_GBA have the same layout as
 # EF_USIM_AUTH_KEY, so there is nothing to specialize other than the class name
+class SYSMO_ISIMSJA2_FILE_EF_SIM_AUTH_KEY(SYSMO_ISIMSJAX_FILE_EF_USIM_AUTH_KEY):
+	pass
+
+
 class SYSMO_ISIMSJAX_FILE_EF_USIM_AUTH_KEY_2G(SYSMO_ISIMSJAX_FILE_EF_USIM_AUTH_KEY):
 	pass
 
@@ -628,6 +751,15 @@ class Sysmo_isim_sja2(Sysmo_usim):
 			print(" * ADF_ISIM/EF_ISIM_SQN:")
 			print(SYSMO_ISIMSJAX_FILE_EF_USIM_SQN(res.apdu))
 
+	def __display_key(self, ef, gen:str):
+		"""
+		Helper method to display key
+		"""
+		if ef.algo in sysmo_isimsjax_16_byte_key_algorithms:
+			print("   %s: Key: %s" % (gen, hexdump(ef.algo_key.ki)))
+		else:
+			print(" * %s: Key not applicable for selected algorithm." % gen)
+
 	def show_key_params(self):
 		"""
 		Show current Key value
@@ -635,15 +767,42 @@ class Sysmo_isim_sja2(Sysmo_usim):
 		print("Reading Key value...")
 		self._init()
 
-		# Note: The key is expected to be the same in all eligible files
 		print(" * Reading...")
 		self.__select_xsim_auth_key(isim = False, _2G = True)
 		res = self._read_binary(self.sim.filelen)
-		ef = SYSMO_ISIMSJAX_FILE_EF_USIM_AUTH_KEY_2G(res.apdu)
+		ef_2g = SYSMO_ISIMSJAX_FILE_EF_USIM_AUTH_KEY(res.apdu)
+
+		self.__select_xsim_auth_key(isim = False, _2G = False)
+		res = self._read_binary(self.sim.filelen)
+		ef_3g = SYSMO_ISIMSJAX_FILE_EF_USIM_AUTH_KEY(res.apdu)
+
+		if self.sim.has_isim:
+			self.__select_xsim_auth_key(isim = True, _2G = False)
+			res = self._read_binary(self.sim.filelen)
+			ef_4g5g = SYSMO_ISIMSJAX_FILE_EF_USIM_AUTH_KEY(res.apdu)
+		else:
+			ef_4g5g = None
 
 		print(" * Current Key setting:")
-		print("   Key: " + hexdump(ef.key))
+		self.__display_key(ef_2g, "2g")
+		self.__display_key(ef_3g, "3g")
+		if ef_4g5g:
+			self.__display_key(ef_4g5g, "4g5g")
+
 		print("")
+
+	def __program_key(self, key, gen:str):
+		"""
+		Helper method to program key, EF must be selected first
+		"""
+		res = self._read_binary(self.sim.filelen)
+		ef = SYSMO_ISIMSJAX_FILE_EF_USIM_AUTH_KEY(res.apdu)
+		if ef.algo in sysmo_isimsjax_16_byte_key_algorithms:
+			ef.algo_key.ki = key
+			self.sim.update_binary(ef.encode())
+			print(" * %s: Key programmed." % gen)
+		else:
+			print(" * %s: Key not applicable for selected algorithm." % gen)
 
 	def write_key_params(self, key):
 		"""
@@ -655,23 +814,12 @@ class Sysmo_isim_sja2(Sysmo_usim):
 		print("   Key: " + hexdump(key))
 		print(" * Programming...")
 		self.__select_xsim_auth_key(isim = False, _2G = True)
-		res = self._read_binary(self.sim.filelen)
-		ef = SYSMO_ISIMSJAX_FILE_EF_USIM_AUTH_KEY_2G(res.apdu)
-		ef.key = key
-		self.sim.update_binary(ef.encode())
-
+		self.__program_key(key, "2g")
 		self.__select_xsim_auth_key(isim = False, _2G = False)
-		res = self._read_binary(self.sim.filelen)
-		ef = SYSMO_ISIMSJAX_FILE_EF_USIM_AUTH_KEY(res.apdu)
-		ef.key = key
-		self.sim.update_binary(ef.encode())
-
+		self.__program_key(key, "3g")
 		if self.sim.has_isim:
 			self.__select_xsim_auth_key(isim = True, _2G = False)
-			res = self._read_binary(self.sim.filelen)
-			ef = SYSMO_ISIMSJAX_FILE_EF_USIM_AUTH_KEY(res.apdu)
-			ef.key = key
-			self.sim.update_binary(ef.encode())
+			self.__program_key(key, "4g5g")
 
 		print("")
 
@@ -760,6 +908,16 @@ class Sysmo_isim_sja2(Sysmo_usim):
 
 		print("")
 
+	def __display_opc(self, ef, gen:str):
+		"""
+		Helper method to display OP/OPc
+		"""
+		if ef.algo is SYSMO_ISIMSJA2_ALGO_MILENAGE:
+			print("   %s: %s: %s" % (gen, id_to_str(sysmo_isimsjax_op_opc, ef.algo_pars.use_opc), \
+						 hexdump(ef.algo_key.opc)))
+		else:
+			print(" * %s: OP/OPc not applicable for selected algorithm." % gen)
+
 	def show_opc_params(self):
 		"""
 		Show OP/OPc current configuration. (see also method: write_opc_params).
@@ -767,58 +925,66 @@ class Sysmo_isim_sja2(Sysmo_usim):
 		print("Reading OP/c value...")
 		self._init()
 
-		# Note: The OPc is expected to be the same in all eligible files
 		print(" * Reading...")
-		self.__select_xsim_auth_key(isim = False, _2G = False)
-		res = self._read_binary(self.sim.filelen)
-		ef = SYSMO_ISIMSJAX_FILE_EF_USIM_AUTH_KEY(res.apdu)
-
-		if ef.use_opc:
-			mode_str = "OPc"
-		else:
-			mode_str = "OP"
-
-		print(" * Current OP/OPc setting:")
-		print("   %s: %s" % (mode_str, hexdump(ef.opc)))
-		print("")
-
-	def write_opc_params(self, select, op):
-		"""
-		Program new OPc value
-		"""
-		if select:
-			print("Writing OPc value...")
-			mode_str = "OPc"
-		else:
-			print("Writing OP value...")
-			mode_str = "OP"
-		self._init()
-
-		print(" * New OPc setting:")
-		print("   %s: %s" % (mode_str, hexdump(op)))
-
-		print(" * Programming...")
 		self.__select_xsim_auth_key(isim = False, _2G = True)
 		res = self._read_binary(self.sim.filelen)
-		ef = SYSMO_ISIMSJAX_FILE_EF_USIM_AUTH_KEY_2G(res.apdu)
-		ef.opc = op
-		ef.use_opc = bool(select)
-		self.sim.update_binary(ef.encode())
+		ef_2g = SYSMO_ISIMSJAX_FILE_EF_USIM_AUTH_KEY(res.apdu)
+
+		self.__select_xsim_auth_key(isim = False, _2G = False)
+		res = self._read_binary(self.sim.filelen)
+		ef_3g = SYSMO_ISIMSJAX_FILE_EF_USIM_AUTH_KEY(res.apdu)
 
 		if self.sim.has_isim:
 			self.__select_xsim_auth_key(isim = True, _2G = False)
 			res = self._read_binary(self.sim.filelen)
-			ef = SYSMO_ISIMSJAX_FILE_EF_USIM_AUTH_KEY(res.apdu)
-			ef.opc = op
-			ef.use_opc = bool(select)
-			self.sim.update_binary(ef.encode())
+			ef_4g5g = SYSMO_ISIMSJAX_FILE_EF_USIM_AUTH_KEY(res.apdu)
+		else:
+			ef_4g5g = None
 
-		self.__select_xsim_auth_key(isim = False, _2G = False)
+		print(" * Current OP/OPc setting:")
+		self.__display_opc(ef_2g, "2g")
+		self.__display_opc(ef_3g, "3g")
+		if ef_4g5g:
+			self.__display_opc(ef_3g, "4g5g")
+
+		print("")
+
+	def __program_opc(self, select:bool, op, gen:str):
+		"""
+		Helper method to program OP/OPc, EF must be selected first
+		"""
 		res = self._read_binary(self.sim.filelen)
 		ef = SYSMO_ISIMSJAX_FILE_EF_USIM_AUTH_KEY(res.apdu)
-		ef.opc = op
-		ef.use_opc = bool(select)
-		self.sim.update_binary(ef.encode())
+		if ef.algo is SYSMO_ISIMSJA2_ALGO_MILENAGE:
+			ef.algo_key.opc = op
+			ef.algo_pars.use_opc = bool(select)
+			self.sim.update_binary(ef.encode())
+			print("   %s %s programmed." % (gen, id_to_str(sysmo_isimsjax_op_opc, bool(select))));
+		else:
+			print("   %s OP/OPc not applicable for selected algorithm, skipping..." % gen)
+
+	def write_opc_params(self, select:bool, op):
+		"""
+		Program new OP/OPc value. The new OP/OPc value is programmed into all files where the algorithm is
+		configured to Milenage. When Milenage is not configured, then the respective file is not touched.
+		As a simplification we program the same OP/OPc configuration to all files (2G, 3G, 4G/5G). Even though
+		the cards would permit a different setting in each file, it is extremly unlikely that any HLR/HSS would
+		use such a configuration.
+		"""
+		print("Writing %s value..." % id_to_str(sysmo_isimsjax_op_opc, bool(select)))
+		self._init()
+
+		print(" * New OPc setting:")
+		print("   %s: %s" % (id_to_str(sysmo_isimsjax_op_opc, bool(select)), hexdump(op)))
+
+		print(" * Programming...")
+		self.__select_xsim_auth_key(isim = False, _2G = True)
+		self.__program_opc(select, op, "2g")
+		self.__select_xsim_auth_key(isim = False, _2G = False)
+		self.__program_opc(select, op, "3g")
+		if self.sim.has_isim:
+			self.__select_xsim_auth_key(isim = True, _2G = False)
+			self.__program_opc(select, op, "4g5g")
 
 		print("")
 

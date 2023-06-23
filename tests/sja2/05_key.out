@@ -18,6 +18,9 @@ Writing Key value...
  * New Key setting:
    Key: a0b1c2d3e4f5061728394a5b6c7d8e9f
  * Programming...
+ * 2g: Key programmed.
+ * 3g: Key programmed.
+ * 4g5g: Key programmed.
 
 Done!
 sysmoISIM-SJA2 parameterization tool
@@ -39,7 +42,9 @@ Reading Key value...
  * Initalizing...
  * Reading...
  * Current Key setting:
-   Key: a0b1c2d3e4f5061728394a5b6c7d8e9f
+   2g: Key: a0b1c2d3e4f5061728394a5b6c7d8e9f
+   3g: Key: a0b1c2d3e4f5061728394a5b6c7d8e9f
+   4g5g: Key: a0b1c2d3e4f5061728394a5b6c7d8e9f
 
 Done!
 sysmoISIM-SJA2 parameterization tool
@@ -62,6 +67,9 @@ Writing Key value...
  * New Key setting:
    Key: d7882eae7cd14f06108c55f8e5cffe93
  * Programming...
+ * 2g: Key programmed.
+ * 3g: Key programmed.
+ * 4g5g: Key programmed.
 
 Done!
 sysmoISIM-SJA2 parameterization tool
@@ -83,6 +91,8 @@ Reading Key value...
  * Initalizing...
  * Reading...
  * Current Key setting:
-   Key: d7882eae7cd14f06108c55f8e5cffe93
+   2g: Key: d7882eae7cd14f06108c55f8e5cffe93
+   3g: Key: d7882eae7cd14f06108c55f8e5cffe93
+   4g5g: Key: d7882eae7cd14f06108c55f8e5cffe93
 
 Done!

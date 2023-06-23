@@ -13,11 +13,38 @@ Authenticating...
  * Authentication successful
  * Remaining attempts: 3
 
+Programming Authentication parameters...
+ * Initalizing...
+ * New algorithm setting:
+   2g: 4=MILENAGE
+   3g: 4=MILENAGE
+   4g5g: 4=MILENAGE
+ * Programming...
+
+Done!
+sysmoISIM-SJA2 parameterization tool
+Copyright (c) 2019-2022 sysmocom - s.f.m.c. GmbH
+
+Trying to find card with ATR: 3B 9F 96 80 1F 87 80 31 E0 73 FE 21 1B 67 4A 4C 75 30 34 05 4B A9
+Initializing smartcard terminal...
+ * Detected Card IMSI:  901700000046734
+   ISIM Application installed
+   USIM Application installed
+
+Authenticating...
+ * Remaining attempts: 3
+ * Authenticating...
+ * Authentication successful
+ * Remaining attempts: 3
+
 Writing OPc value...
  * Initalizing...
  * New OPc setting:
    OPc: 000102030405060708090a0b0c0d0e0f
  * Programming...
+   2g OPc programmed.
+   3g OPc programmed.
+   4g5g OPc programmed.
 
 Done!
 sysmoISIM-SJA2 parameterization tool
@@ -39,7 +66,9 @@ Reading OP/c value...
  * Initalizing...
  * Reading...
  * Current OP/OPc setting:
-   OPc: 000102030405060708090a0b0c0d0e0f
+   2g: OPc: 000102030405060708090a0b0c0d0e0f
+   3g: OPc: 000102030405060708090a0b0c0d0e0f
+   4g5g: OPc: 000102030405060708090a0b0c0d0e0f
 
 Done!
 sysmoISIM-SJA2 parameterization tool
@@ -62,6 +91,9 @@ Writing OP value...
  * New OPc setting:
    OP: 840337c3d45397ce8ea8609ffdc47224
  * Programming...
+   2g OP programmed.
+   3g OP programmed.
+   4g5g OP programmed.
 
 Done!
 sysmoISIM-SJA2 parameterization tool
@@ -83,6 +115,8 @@ Reading OP/c value...
  * Initalizing...
  * Reading...
  * Current OP/OPc setting:
-   OP: 840337c3d45397ce8ea8609ffdc47224
+   2g: OP: 840337c3d45397ce8ea8609ffdc47224
+   3g: OP: 840337c3d45397ce8ea8609ffdc47224
+   4g5g: OP: 840337c3d45397ce8ea8609ffdc47224
 
 Done!
