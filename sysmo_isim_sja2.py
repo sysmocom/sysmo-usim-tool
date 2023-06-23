@@ -945,7 +945,7 @@ class Sysmo_isim_sja2(Sysmo_usim):
 		self.__display_opc(ef_2g, "2g")
 		self.__display_opc(ef_3g, "3g")
 		if ef_4g5g:
-			self.__display_opc(ef_3g, "4g5g")
+			self.__display_opc(ef_4g5g, "4g5g")
 
 		print("")
 
