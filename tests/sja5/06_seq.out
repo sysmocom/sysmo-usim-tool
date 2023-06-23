@@ -1,0 +1,75 @@
+sysmoISIM-SJA5 parameterization tool
+Copyright (c) 2023 sysmocom - s.f.m.c. GmbH
+
+Trying to find card with ATR: 3B 9F 96 80 1F 87 80 31 E0 73 FE 21 1B 67 4A 35 75 30 35 02 59 C4
+Initializing smartcard terminal...
+ * Detected Card IMSI:  901700000046734
+   ISIM Application installed
+   USIM Application installed
+
+Authenticating...
+ * Remaining attempts: 3
+ * Authenticating...
+ * Authentication successful
+ * Remaining attempts: 3
+
+Reading Milenage Sequence parameters...
+ * Initalizing...
+ * Current SQN Configuration for ADF_USIM:
+   IND (bits): 5
+   SQN Check enabled
+   SQN Age Limit disabled
+   SQN Max Delta enabled
+   SQN Skip first enabled
+   SQN Conceal AUTN enabled
+   SQN Conceal AUTS enabled
+   SQN No AMF clear disabled
+   Max Delta: 8589934592
+   Age Limit: 8589934592
+   Freshness Data:
+   000000000000000000000000000000000000000000000000000000000000
+   000000000000000000000000000000000000000000000000000000000000
+   000000000000000000000000000000000000000000000000000000000000
+   000000000000000000000000000000000000000000000000000000000000
+   000000000000000000000000000000000000000000000000000000000000
+   000000000000000000000000000000000000000000000000000000
+ * Current SQN Configuration for ADF_ISIM:
+   IND (bits): 5
+   SQN Check enabled
+   SQN Age Limit disabled
+   SQN Max Delta enabled
+   SQN Skip first enabled
+   SQN Conceal AUTN enabled
+   SQN Conceal AUTS enabled
+   SQN No AMF clear disabled
+   Max Delta: 8589934592
+   Age Limit: 8589934592
+   Freshness Data:
+   000000000000000000000000000000000000000000000000000000000000
+   000000000000000000000000000000000000000000000000000000000000
+   000000000000000000000000000000000000000000000000000000000000
+   000000000000000000000000000000000000000000000000000000000000
+   000000000000000000000000000000000000000000000000000000000000
+   000000000000000000000000000000000000000000000000000000
+
+Done!
+sysmoISIM-SJA5 parameterization tool
+Copyright (c) 2023 sysmocom - s.f.m.c. GmbH
+
+Trying to find card with ATR: 3B 9F 96 80 1F 87 80 31 E0 73 FE 21 1B 67 4A 35 75 30 35 02 59 C4
+Initializing smartcard terminal...
+ * Detected Card IMSI:  901700000046734
+   ISIM Application installed
+   USIM Application installed
+
+Authenticating...
+ * Remaining attempts: 3
+ * Authenticating...
+ * Authentication successful
+ * Remaining attempts: 3
+
+ * Resetting SQN Configuration to defaults...
+ * Initalizing...
+ * Resetting...
+
+Done!

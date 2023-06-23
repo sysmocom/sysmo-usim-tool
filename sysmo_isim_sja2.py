@@ -102,9 +102,40 @@ sysmo_isimsjax_16_byte_key_algorithms = [
 	SYSMO_ISIMSJA5_ALGO_XOR_2G,
 	]
 
+# TUAK configuration byte
+SYSMO_ISIMSJA5_TUAK_RES_SIZE_32_BIT = 0
+SYSMO_ISIMSJA5_TUAK_RES_SIZE_64_BIT = 1
+SYSMO_ISIMSJA5_TUAK_RES_SIZE_128_BIT = 2
+SYSMO_ISIMSJA5_TUAK_RES_SIZE_256_BIT = 3
+SYSMO_ISIMSJA5_TUAK_MAC_SIZE_64_BIT = 0
+SYSMO_ISIMSJA5_TUAK_MAC_SIZE_128_BIT = 1
+SYSMO_ISIMSJA5_TUAK_MAC_SIZE_256_BIT = 2
+SYSMO_ISIMSJA5_TUAK_CKIK_SIZE_128_BIT = 0
+SYSMO_ISIMSJA5_TUAK_CKIK_SIZE_256_BIT = 1
+sysmo_isimsja5_res_sizes = [
+	(SYSMO_ISIMSJA5_TUAK_RES_SIZE_32_BIT, "32"),
+	(SYSMO_ISIMSJA5_TUAK_RES_SIZE_64_BIT, "64"),
+	(SYSMO_ISIMSJA5_TUAK_RES_SIZE_128_BIT, "128"),
+	(SYSMO_ISIMSJA5_TUAK_RES_SIZE_256_BIT, "256")
+	]
+sysmo_isimsja5_mac_sizes = [
+	(SYSMO_ISIMSJA5_TUAK_MAC_SIZE_64_BIT, "64"),
+	(SYSMO_ISIMSJA5_TUAK_MAC_SIZE_128_BIT, "128"),
+	(SYSMO_ISIMSJA5_TUAK_MAC_SIZE_256_BIT, "256")
+	]
+sysmo_isimsja5_ckik_sizes = [
+	(SYSMO_ISIMSJA5_TUAK_CKIK_SIZE_128_BIT, "128"),
+	(SYSMO_ISIMSJA5_TUAK_CKIK_SIZE_256_BIT, "256")
+	]
+
+
 sysmo_isimsjax_op_opc = [
 	(True, 'OPc'),
 	(False, 'OP'),
+	]
+sysmo_isimsja5_top_topc = [
+	(True, 'TOPc'),
+	(False, 'TOP'),
 	]
 
 class SYSMO_ISIMSJAX_ALGO_PARS_MILENAGE:
@@ -261,6 +292,8 @@ class SYSMO_ISIMSJAX_FILE_EF_XSIM_AUTH_KEY:
 			self.algo_pars = SYSMO_ISIMSJAX_ALGO_PARS_SHA1AKA(content)
 		elif self.algo == SYSMO_ISIMSJA2_ALGO_XOR:
 			self.algo_pars = SYSMO_ISIMSJAX_ALGO_PARS_XOR(content)
+		elif self.algo == SYSMO_ISIMSJA5_ALGO_TUAK:
+			self.algo_pars = SYSMO_ISIMSJA5_ALGO_PARS_TUAK(content)
 
 	def __str__(self) -> str:
 		dump = ""
@@ -331,6 +364,50 @@ class SYSMO_ISIMSJAX_ALGO_KEY_MILENAGE(SYSMO_ISIMSJAX_ALGO_KEY_COMP128):
 		return super().encode() + self.opc
 
 
+class SYSMO_ISIMSJAX_ALGO_KEY_TUAK:
+
+	res_size = 0 #3 bit value
+	mac_size = 0 #3 bit value
+	ckik_size = 0 #1 bit value
+	num_keccak = 0 #1 byte value
+	topc = [0x00] * 32
+	key = [0x00] * 32
+
+	def __init__(self, content = None):
+		if content == None:
+			return
+		self.res_size = int(content[1] & 7)
+		self.mac_size = int((content[1] >> 3) & 7)
+		self.ckik_size = bool((content[1] >> 6) & 1)
+		self.num_keccak =  content[2]
+		self.topc = content[3:35]
+		self.key = content[35:67]
+
+	def __str__(self) -> str:
+		dump = ""
+		pfx = "   "
+		dump += pfx + "RES size: %s bit" % id_to_str(sysmo_isimsja5_res_sizes, self.res_size) + "\n"
+		dump += pfx + "MAC-A/MAC-S size: %s bit" % id_to_str(sysmo_isimsja5_mac_sizes, self.mac_size) + "\n"
+		dump += pfx + "Keccak iterations: %d" % self.num_keccak + "\n"
+		dump += pfx + "TOPc: " + hexdump(self.topc) + "\n"
+		#TODO: Keys may be 128 or 256 bits long. The key length is defined
+		#in the header of the file, which means we cannot access this bit
+		#from here but it would be nice to display the key in its correct
+		#length though.
+		dump += pfx + "Key: " + hexdump(self.key)
+		return dump
+
+	def encode(self) -> list:
+		param_byte = self.res_size & 7
+		param_byte |= (self.res_size & 7) << 3
+		param_byte |= (self.ckik_size & 1) << 6
+		out = [param_byte]
+		out += [self.num_keccak]
+		out += self.topc
+		out += self.key
+		return out
+
+
 class SYSMO_ISIMSJAX_FILE_EF_USIM_AUTH_KEY(SYSMO_ISIMSJAX_FILE_EF_XSIM_AUTH_KEY):
 
 	algo_key = None
@@ -351,6 +428,8 @@ class SYSMO_ISIMSJAX_FILE_EF_USIM_AUTH_KEY(SYSMO_ISIMSJAX_FILE_EF_XSIM_AUTH_KEY)
 		elif self.algo == SYSMO_ISIMSJA2_ALGO_XOR or \
 		     self.algo == SYSMO_ISIMSJA5_ALGO_XOR_2G:
 			self.algo_key = SYSMO_ISIMSJAX_ALGO_KEY_XOR(content)
+		elif self.algo == SYSMO_ISIMSJA5_ALGO_TUAK:
+			self.algo_key = SYSMO_ISIMSJAX_ALGO_KEY_TUAK(content)
 
 	def __str__(self) -> str:
 		dump = ""
@@ -757,6 +836,11 @@ class Sysmo_isim_sja2(Sysmo_usim):
 		"""
 		if ef.algo in sysmo_isimsjax_16_byte_key_algorithms:
 			print("   %s: Key: %s" % (gen, hexdump(ef.algo_key.ki)))
+		elif ef.algo is SYSMO_ISIMSJA5_ALGO_TUAK:
+			if not ef.algo_pars.use_256_bit_key:
+				print("   %s: Key: %s" % (gen, hexdump(ef.algo_key.key[0:16])))
+			else:
+				print("   %s: Key: %s" % (gen,  hexdump(ef.algo_key.key)))
 		else:
 			print(" * %s: Key not applicable for selected algorithm." % gen)
 
@@ -799,6 +883,13 @@ class Sysmo_isim_sja2(Sysmo_usim):
 		ef = SYSMO_ISIMSJAX_FILE_EF_USIM_AUTH_KEY(res.apdu)
 		if ef.algo in sysmo_isimsjax_16_byte_key_algorithms:
 			ef.algo_key.ki = key
+			self.sim.update_binary(ef.encode())
+			print(" * %s: Key programmed." % gen)
+		elif ef.algo is SYSMO_ISIMSJA5_ALGO_TUAK:
+			ef.algo_key.key = key
+			ef.algo_pars.use_256_bit_key = False
+			if len(key) > 16:
+				ef.algo_pars.use_256_bit_key = True
 			self.sim.update_binary(ef.encode())
 			print(" * %s: Key programmed." % gen)
 		else:
@@ -915,6 +1006,9 @@ class Sysmo_isim_sja2(Sysmo_usim):
 		if ef.algo is SYSMO_ISIMSJA2_ALGO_MILENAGE:
 			print("   %s: %s: %s" % (gen, id_to_str(sysmo_isimsjax_op_opc, ef.algo_pars.use_opc), \
 						 hexdump(ef.algo_key.opc)))
+		elif ef.algo is SYSMO_ISIMSJA5_ALGO_TUAK:
+			print("   %s: %s: %s" % (gen, id_to_str(sysmo_isimsja5_top_topc, ef.algo_pars.use_topc), \
+						 hexdump(ef.algo_key.topc)))
 		else:
 			print(" * %s: OP/OPc not applicable for selected algorithm." % gen)
 
@@ -960,6 +1054,11 @@ class Sysmo_isim_sja2(Sysmo_usim):
 			ef.algo_pars.use_opc = bool(select)
 			self.sim.update_binary(ef.encode())
 			print("   %s %s programmed." % (gen, id_to_str(sysmo_isimsjax_op_opc, bool(select))));
+		elif ef.algo is SYSMO_ISIMSJA5_ALGO_TUAK and len(op) is 32:
+			ef.algo_key.topc = op
+			ef.algo_pars.use_topc = bool(select)
+			self.sim.update_binary(ef.encode())
+			print("   %s %s programmed." % (gen, id_to_str(sysmo_isimsja5_top_topc, bool(select))));
 		else:
 			print("   %s OP/OPc not applicable for selected algorithm, skipping..." % gen)
 
@@ -1032,6 +1131,109 @@ class Sysmo_isim_sja2(Sysmo_usim):
 			self.sim.select(SYSMO_ISIMSJA2_EF_USIM_SQN)
 			ef = SYSMO_ISIMSJAX_FILE_EF_USIM_SQN()
 			self.sim.update_binary(ef.encode())
+
+		print("")
+
+	def __display_tuak_cfg(self, ef, gen:str):
+		"""
+		Helper method to display key
+		"""
+		if ef.algo is SYSMO_ISIMSJA5_ALGO_TUAK:
+			print("   %s: TUAK configuration:" % gen)
+			print("      RES size: %s bit" % id_to_str(sysmo_isimsja5_res_sizes, ef.algo_key.res_size))
+			print("      MAC-A/MAC-S size: %s bit" % id_to_str(sysmo_isimsja5_mac_sizes,  ef.algo_key.mac_size))
+			print("      CK/IK size: %s bit" % id_to_str(sysmo_isimsja5_ckik_sizes,  ef.algo_key.ckik_size))
+			print("      Keccak iterations: %d" %  ef.algo_key.num_keccak)
+		else:
+			print(" * %s: TUAK configuration not applicable for selected algorithm." % gen)
+
+	def show_tuak_cfg(self):
+		print("Reading TUAK configuration...")
+		self._init()
+
+		print(" * Reading...")
+		self.__select_xsim_auth_key(isim = False, _2G = True)
+		res = self._read_binary(self.sim.filelen)
+		ef_2g = SYSMO_ISIMSJAX_FILE_EF_USIM_AUTH_KEY(res.apdu)
+
+		self.__select_xsim_auth_key(isim = False, _2G = False)
+		res = self._read_binary(self.sim.filelen)
+		ef_3g = SYSMO_ISIMSJAX_FILE_EF_USIM_AUTH_KEY(res.apdu)
+
+		if self.sim.has_isim:
+			self.__select_xsim_auth_key(isim = True, _2G = False)
+			res = self._read_binary(self.sim.filelen)
+			ef_4g5g = SYSMO_ISIMSJAX_FILE_EF_USIM_AUTH_KEY(res.apdu)
+		else:
+			ef_4g5g = None
+
+		print(" * Current TUAK configuration:")
+		self.__display_tuak_cfg(ef_2g, "2g")
+		self.__display_tuak_cfg(ef_3g, "3g")
+		if ef_4g5g:
+			self.__display_tuak_cfg(ef_4g5g, "4g5g")
+		print("")
+
+	def __program_tuak_cfg(self, res_size:int, mac_size:int, ckik_size:int, num_keccak:int, gen:str):
+		"""
+		Helper method to program key, EF must be selected first
+		"""
+		res = self._read_binary(self.sim.filelen)
+		ef = SYSMO_ISIMSJAX_FILE_EF_USIM_AUTH_KEY_2G(res.apdu)
+		if ef.algo is SYSMO_ISIMSJA5_ALGO_TUAK:
+			ef.algo_key.res_size = res_size
+			ef.algo_key.mac_size = mac_size
+			ef.algo_key.ckik_size = bool(ckik_size)
+			ef.algo_key.num_keccak = num_keccak
+			self.sim.update_binary(ef.encode())
+			print("   %s TUAK configuration programmed." % gen);
+		else:
+			print("   %s TUAK configuration not applicable for selected algorithm, skipping..." % gen)
+
+	def write_tuak_cfg(self, res_size_str:str, mac_size_str:str, ckik_size_str:str, num_keccak_str:str):
+
+		print("Writing TUAK configuration...")
+		self._init()
+
+		print(" * New TUAK configuration:")
+
+		res_size = str_to_id(sysmo_isimsja5_res_sizes, res_size_str, -1)
+		if res_size < 0:
+			print(" * Invalid TUAK configuration, RES-Size must be 32, 64, 128 or 256 bit!")
+			print("")
+			return
+
+		mac_size = str_to_id(sysmo_isimsja5_mac_sizes, mac_size_str, -1)
+		if mac_size < 0:
+			print(" * Invalid TUAK configuration, MAC-Size must be 64, 128 or 256 bit!")
+			print("")
+			return
+
+		ckik_size = str_to_id(sysmo_isimsja5_ckik_sizes, ckik_size_str, -1)
+		if ckik_size < 0:
+			print(" * Invalid TUAK configuration, MAC-Size must be 128 or 256 bit!")
+			print("")
+			return
+
+		num_keccak = int(num_keccak_str)
+		if num_keccak > 255:
+			print(" * Invalid TUAK configuration, number of Keccak iterations must not exceed 256!")
+			print("")
+			return
+
+		print("   RES size: %s bit" % id_to_str(sysmo_isimsja5_res_sizes, res_size))
+		print("   MAC-A/MAC-S size: %s bit" % id_to_str(sysmo_isimsja5_mac_sizes, mac_size))
+		print("   CK/IK size: %s bit" % id_to_str(sysmo_isimsja5_ckik_sizes, ckik_size))
+		print("   Keccak iterations: %d" % num_keccak)
+
+		print(" * Programming...")
+		self.__select_xsim_auth_key(isim = False, _2G = True)
+		self.__program_tuak_cfg(res_size, mac_size, ckik_size, num_keccak, "2g")
+		self.__select_xsim_auth_key(isim = False, _2G = False)
+		self.__program_tuak_cfg(res_size, mac_size, ckik_size, num_keccak, "3g")
+		if self.sim.has_isim:
+			self.__select_xsim_auth_key(isim = True, _2G = False)
+			self.__program_tuak_cfg(res_size, mac_size, ckik_size, num_keccak, "4g5g")
 
 		print("")
 

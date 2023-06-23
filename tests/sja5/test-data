@@ -1,0 +1,5 @@
+TOOL=../../sysmo-isim-tool.sja5.py
+# data for the test scripts.  The values have to match the SIM card inserted while executing the test
+IMSI=901700000046734
+ADMPIN=11111111 # <==== CHANGE THIS TO THE ADM1 KEY OF YOUR TEST CARD!
+KI=D7882EAE7CD14F06108C55F8E5CFFE93

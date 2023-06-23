@@ -1,0 +1,9 @@
+#!/bin/sh
+
+. ./test-data
+
+echo "================ PREPARING TEST CARD ================"
+$TOOL -a $ADMPIN -J $IMSI
+$TOOL -a $ADMPIN -S
+echo "================ TEST CARD PREPARED ================="
+echo ""

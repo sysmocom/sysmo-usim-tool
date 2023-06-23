@@ -1,0 +1,14 @@
+#!/bin/sh
+
+echo "Regenerating test output..."
+./prepare
+./01_auth.sh > ./01_auth.out
+./02_algo.sh > ./02_algo.out
+./03_milenage_par.sh > ./03_milenage_par.out
+./04_op_opc.sh > ./04_op_opc.out
+./05_ki.sh > ./05_ki.out
+./06_seq.sh > ./06_seq.out
+./07_mnclen.sh > ./07_mnclen.out
+
+echo "Reference output regenerated!"
+echo ""

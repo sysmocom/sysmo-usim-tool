@@ -1,0 +1,124 @@
+sysmoISIM-SJA5 parameterization tool
+Copyright (c) 2023 sysmocom - s.f.m.c. GmbH
+
+Trying to find card with ATR: 3B 9F 96 80 1F 87 80 31 E0 73 FE 21 1B 67 4A 35 75 30 35 02 59 C4
+Initializing smartcard terminal...
+ * Detected Card IMSI:  901700000046734
+   ISIM Application installed
+   USIM Application installed
+
+Authenticating...
+ * Remaining attempts: 3
+ * Authenticating...
+ * Authentication successful
+ * Remaining attempts: 3
+
+Programming Milenage parameters...
+ * Initalizing...
+ * New Milenage Parameters for (EF.MILENAGE_CFG):
+   R1: 0xaa
+   R2: 0xbb
+   R3: 0xcc
+   R4: 0xdd
+   R5: 0xee
+   C1: 1234567890abcdef1234567890abcdef
+   C2: f1234567890abcdef1234567890abcde
+   C3: ef1234567890abcdef1234567890abcd
+   C4: def1234567890abcdef1234567890abc
+   C5: cdef1234567890abcdef1234567890ab
+ * Programming...
+
+Done!
+sysmoISIM-SJA5 parameterization tool
+Copyright (c) 2023 sysmocom - s.f.m.c. GmbH
+
+Trying to find card with ATR: 3B 9F 96 80 1F 87 80 31 E0 73 FE 21 1B 67 4A 35 75 30 35 02 59 C4
+Initializing smartcard terminal...
+ * Detected Card IMSI:  901700000046734
+   ISIM Application installed
+   USIM Application installed
+
+Authenticating...
+ * Remaining attempts: 3
+ * Authenticating...
+ * Authentication successful
+ * Remaining attempts: 3
+
+Reading Milenage parameters...
+ * Initalizing...
+ * Reading...
+ * Current Milenage Parameters:
+   R1: 0xaa
+   R2: 0xbb
+   R3: 0xcc
+   R4: 0xdd
+   R5: 0xee
+   C1: 1234567890abcdef1234567890abcdef
+   C2: f1234567890abcdef1234567890abcde
+   C3: ef1234567890abcdef1234567890abcd
+   C4: def1234567890abcdef1234567890abc
+   C5: cdef1234567890abcdef1234567890ab
+
+Done!
+sysmoISIM-SJA5 parameterization tool
+Copyright (c) 2023 sysmocom - s.f.m.c. GmbH
+
+Trying to find card with ATR: 3B 9F 96 80 1F 87 80 31 E0 73 FE 21 1B 67 4A 35 75 30 35 02 59 C4
+Initializing smartcard terminal...
+ * Detected Card IMSI:  901700000046734
+   ISIM Application installed
+   USIM Application installed
+
+Authenticating...
+ * Remaining attempts: 3
+ * Authenticating...
+ * Authentication successful
+ * Remaining attempts: 3
+
+Programming Milenage parameters...
+ * Initalizing...
+ * New Milenage Parameters for (EF.MILENAGE_CFG):
+   R1: 0x40
+   R2: 0x0
+   R3: 0x20
+   R4: 0x40
+   R5: 0x60
+   C1: 00000000000000000000000000000000
+   C2: 00000000000000000000000000000001
+   C3: 00000000000000000000000000000002
+   C4: 00000000000000000000000000000004
+   C5: 00000000000000000000000000000008
+ * Programming...
+
+Done!
+sysmoISIM-SJA5 parameterization tool
+Copyright (c) 2023 sysmocom - s.f.m.c. GmbH
+
+Trying to find card with ATR: 3B 9F 96 80 1F 87 80 31 E0 73 FE 21 1B 67 4A 35 75 30 35 02 59 C4
+Initializing smartcard terminal...
+ * Detected Card IMSI:  901700000046734
+   ISIM Application installed
+   USIM Application installed
+
+Authenticating...
+ * Remaining attempts: 3
+ * Authenticating...
+ * Authentication successful
+ * Remaining attempts: 3
+
+Reading Milenage parameters...
+ * Initalizing...
+ * Reading...
+ * Current Milenage Parameters:
+   R1: 0x40
+   R2: 0x0
+   R3: 0x20
+   R4: 0x40
+   R5: 0x60
+   C1: 00000000000000000000000000000000
+   C2: 00000000000000000000000000000001
+   C3: 00000000000000000000000000000002
+   C4: 00000000000000000000000000000004
+   C5: 00000000000000000000000000000008
+
+Done!

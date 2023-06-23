@@ -1,0 +1,349 @@
+sysmoISIM-SJA5 parameterization tool
+Copyright (c) 2023 sysmocom - s.f.m.c. GmbH
+
+Trying to find card with ATR: 3B 9F 96 80 1F 87 80 31 E0 73 FE 21 1B 67 4A 35 75 30 35 02 59 C4
+Initializing smartcard terminal...
+ * Detected Card IMSI:  901700000046734
+   ISIM Application installed
+   USIM Application installed
+
+Authenticating...
+ * Remaining attempts: 3
+ * Authenticating...
+ * Authentication successful
+ * Remaining attempts: 3
+
+Programming Authentication parameters...
+ * Initalizing...
+ * New algorithm setting:
+   2g: 1=COMP128v1
+   3g: 4=MILENAGE
+   4g5g: 6=TUAK
+ * Programming...
+
+Done!
+sysmoISIM-SJA5 parameterization tool
+Copyright (c) 2023 sysmocom - s.f.m.c. GmbH
+
+Trying to find card with ATR: 3B 9F 96 80 1F 87 80 31 E0 73 FE 21 1B 67 4A 35 75 30 35 02 59 C4
+Initializing smartcard terminal...
+ * Detected Card IMSI:  901700000046734
+   ISIM Application installed
+   USIM Application installed
+
+Authenticating...
+ * Remaining attempts: 3
+ * Authenticating...
+ * Authentication successful
+ * Remaining attempts: 3
+
+Writing TUAK configuration...
+ * Initalizing...
+ * New TUAK configuration:
+   RES size: 32 bit
+   MAC-A/MAC-S size: 64 bit
+   CK/IK size: 128 bit
+   Keccak iterations: 123
+ * Programming...
+   2g TUAK configuration not applicable for selected algorithm, skipping...
+   3g TUAK configuration not applicable for selected algorithm, skipping...
+   4g5g TUAK configuration programmed.
+
+Done!
+sysmoISIM-SJA5 parameterization tool
+Copyright (c) 2023 sysmocom - s.f.m.c. GmbH
+
+Trying to find card with ATR: 3B 9F 96 80 1F 87 80 31 E0 73 FE 21 1B 67 4A 35 75 30 35 02 59 C4
+Initializing smartcard terminal...
+ * Detected Card IMSI:  901700000046734
+   ISIM Application installed
+   USIM Application installed
+
+Authenticating...
+ * Remaining attempts: 3
+ * Authenticating...
+ * Authentication successful
+ * Remaining attempts: 3
+
+Reading TUAK configuration...
+ * Initalizing...
+ * Reading...
+ * Current TUAK configuration:
+ * 2g: TUAK configuration not applicable for selected algorithm.
+ * 3g: TUAK configuration not applicable for selected algorithm.
+   4g5g: TUAK configuration:
+      RES size: 32 bit
+      MAC-A/MAC-S size: 64 bit
+      CK/IK size: 128 bit
+      Keccak iterations: 123
+
+Done!
+sysmoISIM-SJA5 parameterization tool
+Copyright (c) 2023 sysmocom - s.f.m.c. GmbH
+
+Trying to find card with ATR: 3B 9F 96 80 1F 87 80 31 E0 73 FE 21 1B 67 4A 35 75 30 35 02 59 C4
+Initializing smartcard terminal...
+ * Detected Card IMSI:  901700000046734
+   ISIM Application installed
+   USIM Application installed
+
+Authenticating...
+ * Remaining attempts: 3
+ * Authenticating...
+ * Authentication successful
+ * Remaining attempts: 3
+
+Writing Key value...
+ * Initalizing...
+ * New Key setting:
+   Key: a0b1c2d3e4f5061728394a5b6c7d8e9f
+ * Programming...
+ * 2g: Key programmed.
+ * 3g: Key programmed.
+ * 4g5g: Key programmed.
+
+Done!
+sysmoISIM-SJA5 parameterization tool
+Copyright (c) 2023 sysmocom - s.f.m.c. GmbH
+
+Trying to find card with ATR: 3B 9F 96 80 1F 87 80 31 E0 73 FE 21 1B 67 4A 35 75 30 35 02 59 C4
+Initializing smartcard terminal...
+ * Detected Card IMSI:  901700000046734
+   ISIM Application installed
+   USIM Application installed
+
+Authenticating...
+ * Remaining attempts: 3
+ * Authenticating...
+ * Authentication successful
+ * Remaining attempts: 3
+
+Reading Key value...
+ * Initalizing...
+ * Reading...
+ * Current Key setting:
+   2g: Key: a0b1c2d3e4f5061728394a5b6c7d8e9f
+   3g: Key: a0b1c2d3e4f5061728394a5b6c7d8e9f
+   4g5g: Key: a0b1c2d3e4f5061728394a5b6c7d8e9f
+
+Done!
+sysmoISIM-SJA5 parameterization tool
+Copyright (c) 2023 sysmocom - s.f.m.c. GmbH
+
+Trying to find card with ATR: 3B 9F 96 80 1F 87 80 31 E0 73 FE 21 1B 67 4A 35 75 30 35 02 59 C4
+Initializing smartcard terminal...
+ * Detected Card IMSI:  901700000046734
+   ISIM Application installed
+   USIM Application installed
+
+Authenticating...
+ * Remaining attempts: 3
+ * Authenticating...
+ * Authentication successful
+ * Remaining attempts: 3
+
+Writing Key value...
+ * Initalizing...
+ * New Key setting:
+   Key: a0b1ca0b1c2d3e4fe8394a55061722d3b6c7d8e9f8394a5506172e9fb6c7d84f
+ * Programming...
+ * 2g: Key programmed.
+ * 3g: Key programmed.
+ * 4g5g: Key programmed.
+
+Done!
+sysmoISIM-SJA5 parameterization tool
+Copyright (c) 2023 sysmocom - s.f.m.c. GmbH
+
+Trying to find card with ATR: 3B 9F 96 80 1F 87 80 31 E0 73 FE 21 1B 67 4A 35 75 30 35 02 59 C4
+Initializing smartcard terminal...
+ * Detected Card IMSI:  901700000046734
+   ISIM Application installed
+   USIM Application installed
+
+Authenticating...
+ * Remaining attempts: 3
+ * Authenticating...
+ * Authentication successful
+ * Remaining attempts: 3
+
+Reading Key value...
+ * Initalizing...
+ * Reading...
+ * Current Key setting:
+   2g: Key: a0b1ca0b1c2d3e4fe8394a55061722d3
+   3g: Key: a0b1ca0b1c2d3e4fe8394a55061722d3
+   4g5g: Key: a0b1ca0b1c2d3e4fe8394a55061722d3b6c7d8e9f8394a5506172e9fb6c7d84f
+
+Done!
+sysmoISIM-SJA5 parameterization tool
+Copyright (c) 2023 sysmocom - s.f.m.c. GmbH
+
+Trying to find card with ATR: 3B 9F 96 80 1F 87 80 31 E0 73 FE 21 1B 67 4A 35 75 30 35 02 59 C4
+Initializing smartcard terminal...
+ * Detected Card IMSI:  901700000046734
+   ISIM Application installed
+   USIM Application installed
+
+Authenticating...
+ * Remaining attempts: 3
+ * Authenticating...
+ * Authentication successful
+ * Remaining attempts: 3
+
+Writing OP value...
+ * Initalizing...
+ * New OPc setting:
+   OP: e8394a55061a0b1ca3e4f722d3b6c7d8e172e9fb680b1cc7d84f9f2d394a5506
+ * Programming...
+   2g OP/OPc not applicable for selected algorithm, skipping...
+   3g OP programmed.
+   4g5g TOP programmed.
+
+Done!
+sysmoISIM-SJA5 parameterization tool
+Copyright (c) 2023 sysmocom - s.f.m.c. GmbH
+
+Trying to find card with ATR: 3B 9F 96 80 1F 87 80 31 E0 73 FE 21 1B 67 4A 35 75 30 35 02 59 C4
+Initializing smartcard terminal...
+ * Detected Card IMSI:  901700000046734
+   ISIM Application installed
+   USIM Application installed
+
+Authenticating...
+ * Remaining attempts: 3
+ * Authenticating...
+ * Authentication successful
+ * Remaining attempts: 3
+
+Reading OP/c value...
+ * Initalizing...
+ * Reading...
+ * Current OP/OPc setting:
+ * 2g: OP/OPc not applicable for selected algorithm.
+   3g: OP: e8394a55061a0b1ca3e4f722d3b6c7d8
+   4g5g: TOP: e8394a55061a0b1ca3e4f722d3b6c7d8e172e9fb680b1cc7d84f9f2d394a5506
+
+Done!
+sysmoISIM-SJA5 parameterization tool
+Copyright (c) 2023 sysmocom - s.f.m.c. GmbH
+
+Trying to find card with ATR: 3B 9F 96 80 1F 87 80 31 E0 73 FE 21 1B 67 4A 35 75 30 35 02 59 C4
+Initializing smartcard terminal...
+ * Detected Card IMSI:  901700000046734
+   ISIM Application installed
+   USIM Application installed
+
+Authenticating...
+ * Remaining attempts: 3
+ * Authenticating...
+ * Authentication successful
+ * Remaining attempts: 3
+
+Writing OPc value...
+ * Initalizing...
+ * New OPc setting:
+   OPc: 03b694a5506c7d8e172e9fb680b1cc7d61a0b1ca3e4f722d84e8394a55f9f2d3
+ * Programming...
+   2g OP/OPc not applicable for selected algorithm, skipping...
+   3g OPc programmed.
+   4g5g TOPc programmed.
+
+Done!
+sysmoISIM-SJA5 parameterization tool
+Copyright (c) 2023 sysmocom - s.f.m.c. GmbH
+
+Trying to find card with ATR: 3B 9F 96 80 1F 87 80 31 E0 73 FE 21 1B 67 4A 35 75 30 35 02 59 C4
+Initializing smartcard terminal...
+ * Detected Card IMSI:  901700000046734
+   ISIM Application installed
+   USIM Application installed
+
+Authenticating...
+ * Remaining attempts: 3
+ * Authenticating...
+ * Authentication successful
+ * Remaining attempts: 3
+
+Reading OP/c value...
+ * Initalizing...
+ * Reading...
+ * Current OP/OPc setting:
+ * 2g: OP/OPc not applicable for selected algorithm.
+   3g: OPc: 03b694a5506c7d8e172e9fb680b1cc7d
+   4g5g: TOPc: 03b694a5506c7d8e172e9fb680b1cc7d61a0b1ca3e4f722d84e8394a55f9f2d3
+
+Done!
+sysmoISIM-SJA5 parameterization tool
+Copyright (c) 2023 sysmocom - s.f.m.c. GmbH
+
+Trying to find card with ATR: 3B 9F 96 80 1F 87 80 31 E0 73 FE 21 1B 67 4A 35 75 30 35 02 59 C4
+Initializing smartcard terminal...
+ * Detected Card IMSI:  901700000046734
+   ISIM Application installed
+   USIM Application installed
+
+Authenticating...
+ * Remaining attempts: 3
+ * Authenticating...
+ * Authentication successful
+ * Remaining attempts: 3
+
+Programming Authentication parameters...
+ * Initalizing...
+ * New algorithm setting:
+   2g: 1=COMP128v1
+   3g: 1=COMP128v1
+   4g5g: 1=COMP128v1
+ * Programming...
+
+Done!
+sysmoISIM-SJA5 parameterization tool
+Copyright (c) 2023 sysmocom - s.f.m.c. GmbH
+
+Trying to find card with ATR: 3B 9F 96 80 1F 87 80 31 E0 73 FE 21 1B 67 4A 35 75 30 35 02 59 C4
+Initializing smartcard terminal...
+ * Detected Card IMSI:  901700000046734
+   ISIM Application installed
+   USIM Application installed
+
+Authenticating...
+ * Remaining attempts: 3
+ * Authenticating...
+ * Authentication successful
+ * Remaining attempts: 3
+
+Writing Key value...
+ * Initalizing...
+ * New Key setting:
+   Key: d7882eae7cd14f06108c55f8e5cffe93
+ * Programming...
+ * 2g: Key programmed.
+ * 3g: Key programmed.
+ * 4g5g: Key programmed.
+
+Done!
+sysmoISIM-SJA5 parameterization tool
+Copyright (c) 2023 sysmocom - s.f.m.c. GmbH
+
+Trying to find card with ATR: 3B 9F 96 80 1F 87 80 31 E0 73 FE 21 1B 67 4A 35 75 30 35 02 59 C4
+Initializing smartcard terminal...
+ * Detected Card IMSI:  901700000046734
+   ISIM Application installed
+   USIM Application installed
+
+Authenticating...
+ * Remaining attempts: 3
+ * Authenticating...
+ * Authentication successful
+ * Remaining attempts: 3
+
+Reading Key value...
+ * Initalizing...
+ * Reading...
+ * Current Key setting:
+   2g: Key: d7882eae7cd14f06108c55f8e5cffe93
+   3g: Key: d7882eae7cd14f06108c55f8e5cffe93
+   4g5g: Key: d7882eae7cd14f06108c55f8e5cffe93
+
+Done!

@@ -32,3 +32,23 @@ echo ""
 echo ""
 echo ""
 echo ""
+
+# The sysmo-isim-sja5 related tests will be activated as soon as a physical
+# card becomes available in the test fixture.
+#
+#echo "=========================================================="
+#echo "            EXECUTING TESTS FOR SYSMO-USIM-SJA5"
+#echo "=========================================================="
+#echo ""
+#cd ./sja5
+#echo "Location $PWD"
+#echo ""
+#sh ./run-tests
+#if [ ! $? -eq 0 ]; then
+#  exit 1
+#fi
+#cd ..
+#echo ""
+#echo ""
+#echo ""
+#echo ""

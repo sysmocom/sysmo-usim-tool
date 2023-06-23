@@ -1,0 +1,98 @@
+sysmoISIM-SJA5 parameterization tool
+Copyright (c) 2023 sysmocom - s.f.m.c. GmbH
+
+Trying to find card with ATR: 3B 9F 96 80 1F 87 80 31 E0 73 FE 21 1B 67 4A 35 75 30 35 02 59 C4
+Initializing smartcard terminal...
+ * Detected Card IMSI:  901700000046734
+   ISIM Application installed
+   USIM Application installed
+
+Authenticating...
+ * Remaining attempts: 3
+ * Authenticating...
+ * Authentication successful
+ * Remaining attempts: 3
+
+Writing Key value...
+ * Initalizing...
+ * New Key setting:
+   Key: a0b1c2d3e4f5061728394a5b6c7d8e9f
+ * Programming...
+ * 2g: Key programmed.
+ * 3g: Key programmed.
+ * 4g5g: Key programmed.
+
+Done!
+sysmoISIM-SJA5 parameterization tool
+Copyright (c) 2023 sysmocom - s.f.m.c. GmbH
+
+Trying to find card with ATR: 3B 9F 96 80 1F 87 80 31 E0 73 FE 21 1B 67 4A 35 75 30 35 02 59 C4
+Initializing smartcard terminal...
+ * Detected Card IMSI:  901700000046734
+   ISIM Application installed
+   USIM Application installed
+
+Authenticating...
+ * Remaining attempts: 3
+ * Authenticating...
+ * Authentication successful
+ * Remaining attempts: 3
+
+Reading Key value...
+ * Initalizing...
+ * Reading...
+ * Current Key setting:
+   2g: Key: a0b1c2d3e4f5061728394a5b6c7d8e9f
+   3g: Key: a0b1c2d3e4f5061728394a5b6c7d8e9f
+   4g5g: Key: a0b1c2d3e4f5061728394a5b6c7d8e9f
+
+Done!
+sysmoISIM-SJA5 parameterization tool
+Copyright (c) 2023 sysmocom - s.f.m.c. GmbH
+
+Trying to find card with ATR: 3B 9F 96 80 1F 87 80 31 E0 73 FE 21 1B 67 4A 35 75 30 35 02 59 C4
+Initializing smartcard terminal...
+ * Detected Card IMSI:  901700000046734
+   ISIM Application installed
+   USIM Application installed
+
+Authenticating...
+ * Remaining attempts: 3
+ * Authenticating...
+ * Authentication successful
+ * Remaining attempts: 3
+
+Writing Key value...
+ * Initalizing...
+ * New Key setting:
+   Key: d7882eae7cd14f06108c55f8e5cffe93
+ * Programming...
+ * 2g: Key programmed.
+ * 3g: Key programmed.
+ * 4g5g: Key programmed.
+
+Done!
+sysmoISIM-SJA5 parameterization tool
+Copyright (c) 2023 sysmocom - s.f.m.c. GmbH
+
+Trying to find card with ATR: 3B 9F 96 80 1F 87 80 31 E0 73 FE 21 1B 67 4A 35 75 30 35 02 59 C4
+Initializing smartcard terminal...
+ * Detected Card IMSI:  901700000046734
+   ISIM Application installed
+   USIM Application installed
+
+Authenticating...
+ * Remaining attempts: 3
+ * Authenticating...
+ * Authentication successful
+ * Remaining attempts: 3
+
+Reading Key value...
+ * Initalizing...
+ * Reading...
+ * Current Key setting:
+   2g: Key: d7882eae7cd14f06108c55f8e5cffe93
+   3g: Key: d7882eae7cd14f06108c55f8e5cffe93
+   4g5g: Key: d7882eae7cd14f06108c55f8e5cffe93
+
+Done!
