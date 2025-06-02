@@ -38,5 +38,5 @@ Dependencies
 
 On Debian:
 
-  apt-get install python-pyscard pcscd
+  apt-get install python3-pyscard pcscd
   systemctl start pcscd
