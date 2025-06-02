@@ -54,8 +54,8 @@ class ISO7816(object):
     define attributes, methods and facilities for ISO-7816-4 standard smartcard
     
     use self.dbg = 1 or more to print live debugging information
-    standard instructions codes available in "INS_dic" class dictionnary
-    standard file tags available in "file_tags" class dictionnary
+    standard instructions codes available in "INS_dic" class dictionary
+    standard file tags available in "file_tags" class dictionary
     """
     
     dbg = 0
@@ -78,7 +78,7 @@ class ISO7816(object):
         0x2C : 'UNBLOCK PIN',
         0x32 : 'INCREASE',
         0x44 : 'ACTIVATE FILE',
-        0x46 : 'GENERATE ASYMETRIC KEY PAIR',
+        0x46 : 'GENERATE ASYMMETRIC KEY PAIR',
         0x70 : 'MANAGE CHANNEL',
         0x73 : 'MANAGE SECURE CHANNEL',
         0x75 : 'TRANSACT DATA',
@@ -632,7 +632,7 @@ class ISO7816(object):
     
     def SEARCH_RECORD(self, P1=0x00, P2=0x00, Data=[]):
         """
-        APDU command to seach pattern in the current EF file 
+        APDU command to search pattern in the current EF file 
         with record structure
         
         P1: record number
@@ -769,7 +769,7 @@ class ISO7816(object):
         # loop on the Data bytes to parse TLV'style attributes
         toProcess = Data
         while len(toProcess) > 0:
-            # TODO: seemd full compliancy 
+            # TODO: seemd full compliance 
             # would require to work with the BERTLV parser...
             [T, L, V] = first_TLV_parser(toProcess)
             if self.dbg >= 3:
@@ -834,7 +834,7 @@ class ISO7816(object):
         """
         parses a list of bytes provided in Data
         interprets the content as the life cycle
-        and enriches the file dictionnary passed as argument
+        and enriches the file dictionary passed as argument
         """
         if   Data[0] == 1: fil['Life Cycle Status'] = 'creation state'
         elif Data[0] == 3: fil['Life Cycle Status'] = 'initialization state'
@@ -853,7 +853,7 @@ class ISO7816(object):
         """
         parses a list of bytes provided in Data
         interprets the content as the file descriptor
-        and enriches the file dictionnary passed as argument
+        and enriches the file dictionary passed as argument
         """
         # parse the File Descriptor Byte
         fd = Data[0]
@@ -898,7 +898,7 @@ class ISO7816(object):
         """
         parses a list of bytes provided in Data
         interprets the content as the proprietary parameters
-        and enriches the file dictionnary passed as argument
+        and enriches the file dictionary passed as argument
         """
         propr_tags = {
             0x80:"UICC characteristics",
@@ -922,7 +922,7 @@ class ISO7816(object):
         """
         parses a list of bytes provided in Data
         interprets the content as the compact form for security parameters
-        and enriches the file dictionnary passed as argument
+        and enriches the file dictionary passed as argument
         """
         # See ISO-IEC 7816-4 section 5.4.3, with compact and expanded format
         AM = Data[0]
@@ -1057,7 +1057,7 @@ class ISO7816(object):
         # loop on the Data bytes to parse TLV'style attributes
         toProcess = Data
         while len(toProcess) > 0:
-            # TODO: seemd full compliancy 
+            # TODO: seemd full compliance 
             # would require to work with the BERTLV parser...
             [T, L, V] = first_TLV_parser(toProcess)
             if self.dbg >= 3:
@@ -1127,7 +1127,7 @@ class ISO7816(object):
     def read_EF(self, fil):
         """
         interprets the content of file parameters (Structure, Size, Length...)
-        and enriches the file dictionnary passed as argument
+        and enriches the file dictionary passed as argument
         with "Data" key and corresponding 
         - list of bytes for EF transparent
         - list of list of bytes for cyclic or linear EF
@@ -1175,8 +1175,8 @@ class ISO7816(object):
         if error, returns None
         if processing correct: gets response with info on the file
         if EF file: tries to read the data within the file
-            security conditions, aka PIN/ADM codes, need to be satified
-        returns the complete file structure and content as a dictionnary
+            security conditions, aka PIN/ADM codes, need to be satisfied
+        returns the complete file structure and content as a dictionary
             `self`.parse_file() method currently implements only FCP structure
             for working with USIM
         
@@ -1190,7 +1190,7 @@ class ISO7816(object):
                (or relative path)
         "aid": select by ADF (Application) name
         
-        with_length: correspond to the Lc byte preprended to the address
+        with_length: correspond to the Lc byte prepended to the address
                      in the SELECT_FILE APDU
         
         APDUs exchanged available thanks to the attribute `self`.coms
@@ -1244,7 +1244,7 @@ class ISO7816(object):
         if 'Type' in file.keys() and file['Type'][0:2] == 'EF':
             file = self.read_EF(file)
         
-        # finally returns the whole file dictionnary, 
+        # finally returns the whole file dictionary, 
         # containing the ['Data'] key for EF file content
         return file
     
@@ -1275,7 +1275,7 @@ class ISO7816(object):
             [path[i:i+2] for i in range(0,len(path),2)]]
     
     
-    # the MF or AID directory structure is a dictionnary:
+    # the MF or AID directory structure is a dictionary:
     # e.g.
     #self._MF_struct = {
     #tuple(df_absolute_addr) : (child_df1, child_df2, ...),
@@ -1290,7 +1290,7 @@ class ISO7816(object):
         self.make_blacklist(DF_path=[0x.., 0x.., 0x.., 0x..], under_AID=None)
             -> list( DFs )
         
-        check dictionnaries describing MF or AID directory structure
+        check dictionaries describing MF or AID directory structure
         and return DF not to select when scanning for file ID under a DF
         """
         # IC card Master File, never reselect it...
@@ -1321,7 +1321,7 @@ class ISO7816(object):
                 return BL
             dir_struct = self._MF_struct
         #
-        # if parent_DF is root (MF or AID), add only childs of root
+        # if parent_DF is root (MF or AID), add only children of root
         # which contains the current DF
         if len(DF_path) == 2:
             BL.extend( dir_struct[()] )
@@ -1408,7 +1408,7 @@ class ISO7816(object):
         try to select all file addresses under a given DF path recursively with
         scan_DF() method, possibly recursively (can be an `int`, to stop after
         a certain level)
-        fill in self.FS dictionnary with found DF and files
+        fill in self.FS dictionary with found DF and files
         and self._MF_struct or self._AID`num`_struct with directory structure
         """
         # init by scanning the given DF_path (MF or AID)
@@ -1434,7 +1434,7 @@ class ISO7816(object):
         # and loop to scan recursively over child_DF
         if recursive:
             # manage maximum recursion level: do not scan children DF
-            # if absolut path is over recursion level
+            # if absolute path is over recursion level
             if type(recursive) == int and len(DF_path)/2 >= recursive:
                 return
             # scan children DF
@@ -1610,7 +1610,7 @@ class UICC(ISO7816):
         """
         parses a list of bytes provided in Data
         interprets the content as the UICC pin status
-        and enriches the file dictionnary passed as argument
+        and enriches the file dictionary passed as argument
         """
         PS_DO = Data[2:2+Data[1]]
         Data = Data[2+len(PS_DO):]

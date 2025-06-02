@@ -499,7 +499,7 @@ class USIM(UICC):
         
         see TS 33.220 for GBA specific formats
         """
-        # need to run 1st an authenicate command with 'GBA' context, 
+        # need to run 1st an authenticate command with 'GBA' context, 
         # so to have the required keys in the USIM
         P2 = 0x84
         inp = [0xDE] + [len(NAF_ID)] + NAF_ID + [len(IMPI)] + IMPI

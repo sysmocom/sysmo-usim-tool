@@ -24,7 +24,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 # see TS 31.102 for USIM        #
 #################################
 
-# (U)SIM file-system dictionnaries
+# (U)SIM file-system dictionaries
 # (absolut_file_address) : 'file_name'
 
 SIM_FS = {

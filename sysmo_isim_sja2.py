@@ -515,7 +515,7 @@ class SYSMO_ISIMSJA2_FILE_EF_MILENAGE_CFG:
 class SYSMO_ISIMSJAX_FILE_EF_USIM_SQN:
 
 	# Flag1:
-	ind_size_bits = 5 # speficy file length by 2^ind_len
+	ind_size_bits = 5 # specify file length by 2^ind_len
 	sqn_check_enabled = True # perform SQN checks below
 	sqn_age_limit_enabled = False # perform age limit check: (SQNms-SQN) <= AGE_LIMIT)
 	sqn_max_delta_enabled = True # perform delta max check: (SWN-SQNms) <= DELTA MAX)
@@ -529,7 +529,7 @@ class SYSMO_ISIMSJAX_FILE_EF_USIM_SQN:
 	# Data:
 	max_delta = 2**28 << ind_size_bits
 	age_limit = 2**28 << ind_size_bits
-	freshness_data = [0x00] * (6*2**ind_size_bits) # initalize to zero
+	freshness_data = [0x00] * (6*2**ind_size_bits) # initialize to zero
 
 	def __init__(self, content = None):
 		if content == None:
@@ -741,7 +741,7 @@ class Sysmo_isim_sja2(Sysmo_usim):
 		self.sim.select(SYSMO_ISIMSJA2_EF_SIM_AUTH_KEY)
 
 	# Authentication keys exist in various different files, which are
-	# similar, thie method simplifies the selection of those files
+	# similar, this method simplifies the selection of those files
 	def __select_xsim_auth_key(self, isim = False, _2G = False):
 		self.sim.select(GSM_SIM_MF)
 		if isim:
@@ -1067,7 +1067,7 @@ class Sysmo_isim_sja2(Sysmo_usim):
 		Program new OP/OPc value. The new OP/OPc value is programmed into all files where the algorithm is
 		configured to Milenage. When Milenage is not configured, then the respective file is not touched.
 		As a simplification we program the same OP/OPc configuration to all files (2G, 3G, 4G/5G). Even though
-		the cards would permit a different setting in each file, it is extremly unlikely that any HLR/HSS would
+		the cards would permit a different setting in each file, it is extremely unlikely that any HLR/HSS would
 		use such a configuration.
 		"""
 		print("Writing %s value..." % id_to_str(sysmo_isimsjax_op_opc, bool(select)))

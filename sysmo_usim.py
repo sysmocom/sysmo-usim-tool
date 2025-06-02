@@ -48,7 +48,7 @@ class Sysmo_usim:
 
 	def _warn_failed_auth(self, attempts = 3, keytype = "ADM1"):
 		print("   ===  Authentication problem! The Card will permanently   ===")
-		print("   === lock down after %d failed attemts! Double check %s! ===" % (attempts, keytype))
+		print("   === lock down after %d failed attempts! Double check %s! ===" % (attempts, keytype))
 		print("")
 
 	def _warn_remaining_auth(self, attempts = 3, keytype = "ADM1"):
@@ -58,9 +58,9 @@ class Sysmo_usim:
 		print("")
 
 
-	# Initalize card (select master file)
+	# Initialize card (select master file)
 	def _init(self):
-		print(" * Initalizing...")
+		print(" * Initializing...")
 		self.sim.select(GSM_SIM_MF)
 
 
@@ -104,7 +104,7 @@ class Sysmo_usim:
 			print(" * Error: Authentication failed!")
 			rc = False
 
-		# Read back and display remaining attemts
+		# Read back and display remaining attempts
 		rem_attemts = self.sim.chv_retrys(SYSMO_USIM_ADM1)
 		print(" * Remaining attempts: " + str(rem_attemts))
 		print("")
@@ -124,7 +124,7 @@ class Sysmo_usim:
 
 
 	# Program new ICCID value
-	# Note: Since the ICCID is a stanard file writing to it works the same
+	# Note: Since the ICCID is a standard file writing to it works the same
 	# way for all card models. However, the ICCID may be linked to the
 	# license management of the card O/S, so changing it might cause
 	# problems for some cards models. (USE WITH CAUTION!)

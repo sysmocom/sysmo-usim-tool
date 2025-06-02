@@ -25,7 +25,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 # Some gadgets to handle functions specific to Sysmo USIM SJS1. The gadgets are
 # organized as a loose collection of python functions. Each function serves
-# a specific task (e.g. modifiying the auth parameters). For each task two
+# a specific task (e.g. modifying the auth parameters). For each task two
 # functions are implemented sysmo_usim_show_...() to inspect the data that is
 # intended to be modified and sysmo_usim_write_...() to perform the actual
 # modification task.
@@ -283,7 +283,7 @@ class Sysmo_usim_sjs1(Sysmo_usim):
 
 
 	# Show current athentication parameters
-	# (Which algorithim is used for which rat?)
+	# (Which algorithm is used for which rat?)
 	def show_auth_params(self):
 		print("Reading Authentication parameters...")
 		self._init()
